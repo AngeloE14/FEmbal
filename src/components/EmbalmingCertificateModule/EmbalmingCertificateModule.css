@@ -84,6 +84,8 @@
   font-family: var(--font-sans);
   overflow: hidden;
   animation: certificate-module-enter 0.18s ease-out both;
+  contain: layout paint style;
+  isolation: isolate;
 }
 
 :root[data-theme="dark"] .certificate-module {
@@ -222,6 +224,7 @@
   overflow: auto;
   padding: clamp(0.85rem, 2vw, 1.35rem);
   scrollbar-gutter: stable;
+  contain: layout paint style;
 }
 
 .certificate-module__form-panel {
@@ -240,6 +243,7 @@
     radial-gradient(circle at 10% 10%, var(--results-highlight-a), transparent 28%),
     radial-gradient(circle at 92% 86%, var(--results-highlight-b), transparent 32%),
     color-mix(in srgb, var(--field-muted) 62%, transparent);
+  isolation: isolate;
 }
 
 .certificate-form {
@@ -370,6 +374,34 @@
     0 0 0 1px rgba(255, 198, 165, 0.24),
     0 0 0 3px color-mix(in srgb, var(--field-focus) 20%, transparent);
   transform: none;
+}
+
+.certificate-field input:user-invalid,
+.certificate-field input[aria-invalid="true"] {
+  border-color: var(--error-border);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--error-border) 30%, transparent);
+}
+
+.certificate-field input:user-valid {
+  border-color: var(--result-main-border);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--result-main-border) 20%, transparent);
+}
+
+.certificate-field--sending {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.certificate-field--valid input,
+.certificate-field--valid input:user-invalid {
+  border-color: var(--result-main-border);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--result-main-border) 20%, transparent);
+}
+
+.certificate-field--invalid input,
+.certificate-field--invalid input:user-valid {
+  border-color: var(--error-border);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--error-border) 30%, transparent);
 }
 
 .certificate-field--synced textarea {
@@ -691,6 +723,16 @@
   align-items: end;
 }
 
+.certificate-email-action .certificate-field input:user-invalid {
+  border-color: var(--error-border);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--error-border) 30%, transparent);
+}
+
+.certificate-email-action .certificate-field input:user-valid {
+  border-color: var(--result-main-border);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--result-main-border) 20%, transparent);
+}
+
 .certificate-action-status {
   margin: 0;
   border: 1px solid transparent;
@@ -712,6 +754,21 @@
   color: var(--error-text);
 }
 
+.certificate-action-status--entering {
+  animation: certificate-status-slide-in 0.28s ease-out both;
+}
+
+@keyframes certificate-status-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .certificate-confirm-modal {
   position: fixed;
   inset: 0;
@@ -722,6 +779,8 @@
   background: rgba(5, 12, 17, 0.68);
   backdrop-filter: blur(12px);
   animation: certificate-confirm-enter 0.16s ease-out both;
+  contain: layout paint style;
+  will-change: opacity;
 }
 
 .certificate-data-confirm {
@@ -734,6 +793,8 @@
   background: rgba(5, 12, 17, 0.58);
   backdrop-filter: blur(10px);
   animation: certificate-confirm-enter 0.16s ease-out both;
+  contain: layout paint style;
+  will-change: opacity;
 }
 
 .certificate-data-confirm__panel {
@@ -768,6 +829,55 @@
 
   to {
     opacity: 1;
+  }
+}
+
+@keyframes certificate-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes certificate-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.certificate-spinner {
+  display: inline-block;
+  inline-size: 1em;
+  block-size: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 999px;
+  animation: certificate-spin 0.7s linear infinite;
+  vertical-align: middle;
+}
+
+.certificate-action--sending {
+  position: relative;
+  overflow: hidden;
+}
+
+.certificate-action--sending::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, currentColor 8%, transparent), transparent);
+  animation: certificate-shimmer 1.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes certificate-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
   }
 }
 
@@ -887,6 +997,20 @@
   .certificate-module__form-panel {
     border-right: 0;
     border-bottom: 1px solid var(--panel-border);
+  }
+}
+
+@media (pointer: coarse) {
+  .certificate-confirm-modal {
+    backdrop-filter: blur(6px);
+  }
+
+  .certificate-data-confirm {
+    backdrop-filter: blur(5px);
+  }
+
+  .certificate-mode-toggle {
+    backdrop-filter: blur(6px);
   }
 }
 

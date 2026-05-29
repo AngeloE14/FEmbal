@@ -1,16 +1,8 @@
-// ===== API DE CORREO DEL DOCUMENTO =====
-// Este archivo levanta un servidor pequeño con Express.
-// El frontend le manda un PDF y un correo destino, y este servidor usa SMTP
-// para enviar el archivo como adjunto.
-
 import express from 'express';
 import fs from 'node:fs';
 import multer from 'multer';
 import nodemailer from 'nodemailer';
 
-// Cargamos el archivo .env manualmente para no agregar otra dependencia.
-// Cada línea con formato CLAVE=VALOR se copia a process.env.
-// Esto permite leer SMTP_PASS, SMTP_HOST y las demás variables al iniciar.
 function loadLocalEnv() {
   if (!fs.existsSync('.env')) {
     return;
@@ -39,8 +31,6 @@ loadLocalEnv();
 
 const app = express();
 
-// Multer lee multipart/form-data. Lo usamos porque el navegador envía el PDF
-// como archivo adjunto, no como texto normal.
 const upload = multer({
   limits: {
     fileSize: 8 * 1024 * 1024,
@@ -51,6 +41,7 @@ const upload = multer({
 
 const port = Number(process.env.EMAIL_API_PORT || 4180);
 const allowedOrigin = process.env.EMAIL_API_ALLOWED_ORIGIN || '*';
+
 const placeholderValues = new Set([
   '...',
   'app-password',
@@ -59,46 +50,48 @@ const placeholderValues = new Set([
   'usuario@example.com',
 ]);
 
-function requireEnv(name) {
-  const value = process.env[name];
+function isPlaceholder(value) {
+  return placeholderValues.has(String(value).trim().toLowerCase());
+}
 
-  // Aquí leemos variables como SMTP_PASS desde .env.
-  // Si falta una, Nodemailer no sabrá cómo conectarse al correo emisor.
-  if (!value) {
-    throw new Error(`Falta la variable de entorno ${name}.`);
-  }
+function getSmtpConfig() {
+  const host = process.env.SMTP_HOST || '';
+  const portStr = process.env.SMTP_PORT || '587';
+  const user = process.env.SMTP_USER || '';
+  const pass = process.env.SMTP_PASS || '';
+  const from = process.env.SMTP_FROM || user;
+  const secure = process.env.SMTP_SECURE === 'true';
 
-  return value;
+  return { host, port: Number(portStr), user, pass, from, secure };
 }
 
 function validateSmtpConfig() {
-  const requiredNames = ['SMTP_HOST', 'SMTP_PORT', 'SMTP_USER', 'SMTP_PASS'];
-  const missingNames = requiredNames.filter((name) => !process.env[name]);
+  const { host, port, user, pass } = getSmtpConfig();
+  const errors = [];
 
-  if (missingNames.length > 0) {
-    throw new Error(`Faltan variables SMTP en .env: ${missingNames.join(', ')}.`);
+  if (!host) errors.push('SMTP_HOST');
+  if (!port || isNaN(port)) errors.push('SMTP_PORT');
+  if (!user) errors.push('SMTP_USER');
+  if (!pass) errors.push('SMTP_PASS');
+
+  if (errors.length > 0) {
+    return { valid: false, message: `Faltan variables SMTP en .env: ${errors.join(', ')}.` };
   }
 
-  const placeholderNames = requiredNames.filter((name) => placeholderValues.has(String(process.env[name]).trim()));
-
-  if (placeholderNames.length > 0) {
-    throw new Error(`Reemplaza los valores de ejemplo en .env: ${placeholderNames.join(', ')}.`);
+  if (isPlaceholder(host) || isPlaceholder(user) || isPlaceholder(pass)) {
+    return { valid: false, message: 'Reemplaza los valores de ejemplo en .env por credenciales SMTP reales.' };
   }
+
+  return { valid: true };
 }
 
 function createTransporter() {
-  validateSmtpConfig();
-
-  // Nodemailer usa estas variables para abrir sesión en el servidor SMTP.
-  // process.env.SMTP_PASS es la contraseña o contraseña de aplicación.
+  const { host, port, user, pass, secure } = getSmtpConfig();
   return nodemailer.createTransport({
-    auth: {
-      pass: requireEnv('SMTP_PASS'),
-      user: requireEnv('SMTP_USER'),
-    },
-    host: requireEnv('SMTP_HOST'),
-    port: Number(process.env.SMTP_PORT || 587),
-    secure: process.env.SMTP_SECURE === 'true',
+    host,
+    port,
+    secure,
+    auth: { user, pass },
   });
 }
 
@@ -114,7 +107,7 @@ function getReadableMailError(error) {
     return 'No se pudo autenticar el correo emisor. Revisa SMTP_USER y SMTP_PASS en .env.';
   }
 
-  if (code === 'ENOTFOUND' || code === 'ECONNECTION' || code === 'ETIMEDOUT' || code === 'ESOCKET') {
+  if (['ENOTFOUND', 'ECONNECTION', 'ETIMEDOUT', 'ESOCKET'].includes(code)) {
     return 'No se pudo conectar al servidor SMTP. Revisa SMTP_HOST, SMTP_PORT y tu conexión a internet.';
   }
 
@@ -125,12 +118,15 @@ function getReadableMailError(error) {
   return `No se pudo enviar el correo: ${error.message}`;
 }
 
+function logError(context, error) {
+  const timestamp = new Date().toISOString();
+  console.error(`[${timestamp}] [${context}]`, error instanceof Error ? error.stack || error.message : error);
+}
+
 app.use((request, response, next) => {
-  // CORS permite que Vite, que corre en otro puerto durante desarrollo,
-  // pueda llamar a esta API sin que el navegador bloquee la petición.
   response.setHeader('Access-Control-Allow-Origin', allowedOrigin);
   response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  response.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  response.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS, GET');
 
   if (request.method === 'OPTIONS') {
     response.sendStatus(204);
@@ -140,19 +136,36 @@ app.use((request, response, next) => {
   next();
 });
 
+const configStatus = validateSmtpConfig();
+
 app.get('/health', (_request, response) => {
-  response.json({ ok: true });
+  response.json({ ok: true, smtp: configStatus });
+});
+
+app.get('/api/documents/email/config', (_request, response) => {
+  if (!configStatus.valid) {
+    response.json({ configured: false, message: configStatus.message });
+    return;
+  }
+
+  response.json({ configured: true });
 });
 
 app.post('/api/documents/email', upload.single('attachment'), async (request, response) => {
   try {
-    // Normalizamos el correo para validar lo que escribió el usuario.
     const recipientEmail = String(request.body.recipientEmail || '').trim();
     const message = String(request.body.message || 'Documento enviado por la pagina web.').trim();
+    const subject = String(request.body.subject || 'Documento ESAMS').trim();
+    const ccEmail = String(request.body.cc || '').trim();
     const attachment = request.file;
 
     if (!recipientEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(recipientEmail)) {
       response.status(400).json({ message: 'Correo destino inválido.' });
+      return;
+    }
+
+    if (ccEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ccEmail)) {
+      response.status(400).json({ message: 'Correo CC inválido.' });
       return;
     }
 
@@ -161,12 +174,19 @@ app.post('/api/documents/email', upload.single('attachment'), async (request, re
       return;
     }
 
+    if (!configStatus.valid) {
+      logError('send-email', configStatus.message);
+      response.status(500).json({ message: configStatus.message });
+      return;
+    }
+
     const transporter = createTransporter();
 
-    // sendMail es la operación que realmente habla con el servidor SMTP.
-    // Si las credenciales o el host están mal, el catch de abajo devuelve
-    // un mensaje entendible para mostrarlo en la interfaz.
-    await transporter.sendMail({
+    const mailOptions = {
+      from: process.env.SMTP_FROM || process.env.SMTP_USER,
+      to: recipientEmail,
+      subject,
+      text: message,
       attachments: [
         {
           content: attachment.buffer,
@@ -174,20 +194,26 @@ app.post('/api/documents/email', upload.single('attachment'), async (request, re
           filename: attachment.originalname || 'documento-embalsamamiento.pdf',
         },
       ],
-      from: process.env.SMTP_FROM || process.env.SMTP_USER,
-      subject: 'Documento ESAMS',
-      text: message || 'Documento enviado por la pagina web.',
-      to: recipientEmail,
-    });
+    };
 
+    if (ccEmail) {
+      mailOptions.cc = ccEmail;
+    }
+
+    await transporter.sendMail(mailOptions);
+
+    console.log(`[${new Date().toISOString()}] Email sent to ${recipientEmail}`);
     response.json({ ok: true });
   } catch (error) {
+    logError('send-email', error);
     response.status(500).json({
       message: getReadableMailError(error),
     });
   }
 });
 
-app.listen(port, '127.0.0.1', () => {
-  console.log(`Document email API listening at http://127.0.0.1:${port}`);
+app.listen(port, '0.0.0.0', () => {
+  const status = configStatus.valid ? 'SMTP configurado' : `SMTP no configurado: ${configStatus.message}`;
+  console.log(`Document email API listening at http://0.0.0.0:${port}`);
+  console.log(`  ${status}`);
 });

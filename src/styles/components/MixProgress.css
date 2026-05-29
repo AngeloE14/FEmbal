@@ -4,6 +4,8 @@
   border: 1px solid var(--mix-divider);
   border-radius: 12px;
   background: var(--tile-result-bg);
+  contain: layout paint style;
+  isolation: isolate;
 }
 
 .mix-progress__head {

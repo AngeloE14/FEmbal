@@ -120,11 +120,16 @@ export const CertificateForm = memo(function CertificateForm({
 
       <fieldset className="certificate-form-section">
         <legend>Datos del procedimiento</legend>
-        {renderTextField({
-          field: 'injectionSite',
-          label: 'Lugar de inyección',
-          placeholder: 'Ej. arteria carótida derecha',
-        })}
+        <label className="certificate-field">
+          <span>Lugar de inyección</span>
+          <input
+            placeholder="Ej. arteria carótida derecha"
+            required
+            type="text"
+            value={data.injectionSite}
+            onChange={handleInputChange('injectionSite')}
+          />
+        </label>
       </fieldset>
 
       <fieldset className="certificate-form-section">

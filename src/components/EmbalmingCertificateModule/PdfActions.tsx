@@ -1,8 +1,3 @@
-// ===== ACCIONES DEL DOCUMENTO =====
-// Este componente contiene los botones para imprimir, generar PDF y enviar correo.
-// El PDF se crea solo cuando la persona pulsa un botón; así el formulario no se
-// vuelve lento mientras alguien escribe.
-
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import type { RefObject } from 'react';
 import { Download, Mail, Printer, X } from 'lucide-react';
@@ -23,13 +18,19 @@ type ActionStatus = {
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export const PdfActions = memo(function PdfActions({
+const getEmailEndpoint = () =>
+  import.meta.env.VITE_DOCUMENT_EMAIL_API_URL || '/api/documents/email';
+
+const Spinner = () => <span className="certificate-spinner" aria-hidden="true" />;
+
+const PdfActions = memo(function PdfActions({
   certificateData,
   previewRef,
 }: PdfActionsProps) {
   const [email, setEmail] = useState('');
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [status, setStatus] = useState<ActionStatus>(null);
+  const [statusKey, setStatusKey] = useState(0);
   const confirmPreviewRef = useRef<HTMLDivElement | null>(null);
   const { createPdfBlob, downloadPdf, filename, isGenerating } = usePdfGenerator(certificateData, previewRef);
   const { isSending, sendEmail } = useEmailSender({
@@ -37,12 +38,15 @@ export const PdfActions = memo(function PdfActions({
     filename,
   });
 
-  // Abrimos una confirmación antes de descargar para evitar generar archivos
-  // por accidente. La vista final usa el mismo componente que el PDF.
-  const openDownloadConfirmation = useCallback(() => {
-    setStatus(null);
-    setIsConfirmOpen(true);
+  const showStatus = useCallback((newStatus: ActionStatus) => {
+    setStatusKey((k) => k + 1);
+    setStatus(newStatus);
   }, []);
+
+  const openDownloadConfirmation = useCallback(() => {
+    showStatus(null);
+    setIsConfirmOpen(true);
+  }, [showStatus]);
 
   const closeDownloadConfirmation = useCallback(() => {
     if (!isGenerating) {
@@ -51,19 +55,19 @@ export const PdfActions = memo(function PdfActions({
   }, [isGenerating]);
 
   const handleConfirmedDownload = useCallback(async () => {
-    setStatus(null);
+    showStatus(null);
 
     try {
       await downloadPdf(confirmPreviewRef.current);
       setIsConfirmOpen(false);
-      setStatus({ message: 'PDF generado correctamente.', type: 'success' });
+      showStatus({ message: 'PDF generado correctamente.', type: 'success' });
     } catch (error) {
-      setStatus({
+      showStatus({
         message: error instanceof Error ? error.message : 'No se pudo generar el PDF.',
         type: 'error',
       });
     }
-  }, [downloadPdf]);
+  }, [downloadPdf, showStatus]);
 
   useEffect(() => {
     if (!isConfirmOpen) {
@@ -86,28 +90,52 @@ export const PdfActions = memo(function PdfActions({
     });
   }, []);
 
-  // Este flujo acepta cualquier correo escrito por el usuario.
-  // Primero validamos el formato y después mandamos el PDF al backend SMTP.
+  const checkEmailConfig = useCallback(async (): Promise<boolean> => {
+    try {
+      const response = await fetch(`${getEmailEndpoint()}/config`);
+      const data = await response.json();
+      if (!data.configured) {
+        showStatus({ message: data.message || 'Correo no configurado. Revisa SMTP en .env.', type: 'error' });
+        return false;
+      }
+      return true;
+    } catch {
+      return true;
+    }
+  }, [showStatus]);
+
   const handleSendEmail = useCallback(async () => {
     const normalizedEmail = email.trim();
 
     if (!emailPattern.test(normalizedEmail)) {
-      setStatus({ message: 'Escribe un correo destino válido.', type: 'error' });
+      showStatus({ message: 'Escribe un correo destino válido.', type: 'error' });
       return;
     }
 
-    setStatus(null);
+    showStatus(null);
+
+    const isConfigured = await checkEmailConfig();
+    if (!isConfigured) return;
 
     try {
       await sendEmail(normalizedEmail);
-      setStatus({ message: 'Documento enviado por correo correctamente.', type: 'success' });
+      showStatus({ message: 'Documento enviado por correo correctamente.', type: 'success' });
     } catch (error) {
-      setStatus({
-        message: error instanceof Error ? error.message : 'No se pudo enviar el correo. Revisa la configuración SMTP.',
+      showStatus({
+        message: error instanceof Error ? error.message : 'No se pudo enviar el correo.',
         type: 'error',
       });
     }
-  }, [email, sendEmail]);
+  }, [email, sendEmail, showStatus, checkEmailConfig]);
+
+  const emailValidationClass = email.length > 0
+    ? (emailPattern.test(email) ? 'certificate-field--valid' : 'certificate-field--invalid')
+    : '';
+
+  const sendBtnClass = [
+    'certificate-secondary-action',
+    isSending ? 'certificate-action--sending' : '',
+  ].filter(Boolean).join(' ');
 
   return (
     <section className="certificate-actions" aria-label="Acciones del documento">
@@ -130,7 +158,7 @@ export const PdfActions = memo(function PdfActions({
         Imprimir
       </button>
       <div className="certificate-email-action">
-        <label className="certificate-field">
+        <label className={`certificate-field ${emailValidationClass}`}>
           <span>Correo destino</span>
           <input
             autoComplete="email"
@@ -142,17 +170,20 @@ export const PdfActions = memo(function PdfActions({
           />
         </label>
         <button
-          className="certificate-secondary-action"
+          className={sendBtnClass}
           disabled={isGenerating || isSending}
           type="button"
           onClick={handleSendEmail}
         >
-          <Mail aria-hidden="true" size={17} strokeWidth={2.2} />
+          {isSending ? <Spinner /> : <Mail aria-hidden="true" size={17} strokeWidth={2.2} />}
           {isSending ? 'Enviando...' : 'Enviar documento'}
         </button>
       </div>
       {status ? (
-        <p className={`certificate-action-status certificate-action-status--${status.type}`}>
+        <p
+          key={statusKey}
+          className={`certificate-action-status certificate-action-status--${status.type} certificate-action-status--entering`}
+        >
           {status.message}
         </p>
       ) : null}
@@ -205,3 +236,5 @@ export const PdfActions = memo(function PdfActions({
     </section>
   );
 });
+
+export { PdfActions };

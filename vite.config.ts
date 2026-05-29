@@ -8,7 +8,7 @@ export default defineConfig({
     host: true,
     port: 4173,
     proxy: {
-      '/api/certificates/email': 'http://127.0.0.1:4180',
+      '/api/documents/email': 'http://127.0.0.1:4180',
     },
   },
   preview: {

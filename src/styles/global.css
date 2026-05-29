@@ -329,11 +329,11 @@ body {
     radial-gradient(circle at 18% 22%, rgba(71, 162, 136, 0.18), transparent 44%),
     radial-gradient(circle at 80% 70%, rgba(76, 129, 196, 0.16), transparent 47%);
   transform: translate3d(0, 0, 0) scale(1);
-  will-change: transform, opacity;
 }
 
 @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
   .fondo-ambiental {
+    will-change: transform, opacity;
     animation: ambiente-flotante 24s ease-in-out infinite alternate;
   }
 }
@@ -399,7 +399,8 @@ html.theme-switching body::before {
   border-radius: 20px;
   overflow: hidden;
   margin-inline: auto;
-  contain: layout paint;
+  contain: layout paint style;
+  isolation: isolate;
 }
 
 .box {
@@ -407,7 +408,7 @@ html.theme-switching body::before {
   border-radius: 14px;
   border: 1px solid var(--box-border);
   padding: 1rem;
-  contain: layout paint;
+  contain: layout paint style;
 }
 
 /* Base compartida de microinteracciones premium */

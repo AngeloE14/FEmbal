@@ -146,6 +146,8 @@ const CertificatePreviewBase = forwardRef<HTMLDivElement, CertificatePreviewProp
             alt=""
             className="certificate-document-logo"
             src="/assets/images/logo-circular.png"
+            loading="lazy"
+            decoding="async"
           />
           <div>
             <p>ESAMS</p>
@@ -154,7 +156,7 @@ const CertificatePreviewBase = forwardRef<HTMLDivElement, CertificatePreviewProp
 
         <div className="certificate-document-meta">
           <span className="certificate-document-meta-brand">
-            <img alt="" src="/assets/images/logo-circular.png" />
+            <img alt="" src="/assets/images/logo-circular.png" loading="lazy" decoding="async" />
             Documento generado a través del sistema
           </span>
         </div>

@@ -132,21 +132,15 @@ export const EmbalmingCertificateModule = memo(function EmbalmingCertificateModu
               </div>
               <PdfActions certificateData={certificateData} previewRef={previewRef} />
             </>
-          ) : (
+          ) : isComplete ? (
             <div className="certificate-preview-empty" aria-live="polite">
               <strong>Documento pendiente</strong>
-              <span>
-                {isComplete
-                  ? 'Confirma la información para ver o generar el documento.'
-                  : 'Completa todos los campos requeridos para ver o generar el documento.'}
-              </span>
-              {isComplete ? (
-                <button className="certificate-primary-action" type="button" onClick={handleOpenDataConfirmation}>
-                  Confirmar datos
-                </button>
-              ) : null}
+              <span>Confirma la información para ver o generar el documento.</span>
+              <button className="certificate-primary-action" type="button" onClick={handleOpenDataConfirmation}>
+                Confirmar datos
+              </button>
             </div>
-          )}
+          ) : null}
         </section>
       </div>
 
