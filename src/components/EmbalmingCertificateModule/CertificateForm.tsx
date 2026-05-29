@@ -10,6 +10,9 @@ import {
 } from './types';
 import { SignaturePad } from './SignaturePad';
 
+// El formulario mantiene solo los campos que el usuario debe capturar.
+// Los textos se dejaron sencillos porque este documento es interno del sistema,
+// no un formato oficial ni una constancia institucional.
 type CertificateFormProps = {
   data: CertificateData;
   onReset: () => void;
@@ -30,9 +33,7 @@ type TextFieldProps = {
 const chemicalLabels: Record<keyof ChemicalSolutionData, string> = {
   arterial: 'Arterial',
   formaldehydeConcentration: 'Concentración de formaldehído',
-  humectant: 'Humectante',
   jaundiceChemical: 'Químico para ictericia',
-  vascularConditioner: 'Acondicionador vascular',
   waterConditioner: 'Acondicionador de agua',
 };
 
@@ -49,6 +50,8 @@ export const CertificateForm = memo(function CertificateForm({
     [onUpdate],
   );
 
+  // Los campos químicos son de solo lectura porque vienen de la calculadora.
+  // Así evitamos que una persona cambie aquí datos que ya fueron calculados.
   const renderSyncedChemicalField = (field: keyof ChemicalSolutionData) => (
     <label className="certificate-field certificate-field--synced" key={field}>
       <span>{chemicalLabels[field]}</span>
@@ -60,6 +63,8 @@ export const CertificateForm = memo(function CertificateForm({
     </label>
   );
 
+  // Helper pequeño para que todos los inputs tengan el mismo diseño y validación.
+  // Esto hace que el formulario sea más fácil de mantener para el equipo.
   const renderTextField = ({ autoComplete, field, label, placeholder, type = 'text' }: TextFieldProps) => (
     <label className="certificate-field" key={field}>
       <span>{label}</span>
@@ -67,6 +72,7 @@ export const CertificateForm = memo(function CertificateForm({
         autoComplete={autoComplete}
         inputMode={type === 'text' ? 'text' : undefined}
         placeholder={placeholder}
+        required
         type={type}
         value={String(data[field])}
         onChange={handleInputChange(field)}
@@ -77,12 +83,11 @@ export const CertificateForm = memo(function CertificateForm({
   return (
     <form className="certificate-form" onSubmit={(event) => event.preventDefault()}>
       <div className="certificate-form-heading">
-        <strong>EAMS</strong>
-        <span>ESCUELA DE ARTES MORTUORIAS DEL SURESTE</span>
+        <strong>ESAMS</strong>
       </div>
 
       <fieldset className="certificate-form-section">
-        <legend>SECTION 1: PROCEDIMIENTO DE EMBALSAMAMIENTO</legend>
+        <legend>Procedimiento</legend>
         {renderTextField({ field: 'funeralHome', label: 'Funeraria o embalsamadora' })}
         <div className="certificate-form-grid">
           {renderTextField({
@@ -99,39 +104,22 @@ export const CertificateForm = memo(function CertificateForm({
       </fieldset>
 
       <fieldset className="certificate-form-section">
-        <legend>SECTION 2: DATOS DEL FALLECIDO</legend>
+        <legend>Datos del fallecido</legend>
         {renderTextField({
           autoComplete: 'name',
           field: 'deceasedName',
           label: 'Nombre de la persona fallecida',
           placeholder: 'Nombre completo del fallecido',
         })}
-        <div className="certificate-form-grid">
-          {renderTextField({
-            field: 'deathCauses',
-            label: 'Causas de defunción',
-            placeholder: 'Ej. paro cardiorrespiratorio, causa natural...',
-          })}
-          {renderTextField({
-            field: 'doctorName',
-            label: 'Médico que certificó la defunción',
-            placeholder: 'Nombre completo del médico certificante',
-          })}
-        </div>
+        {renderTextField({
+          field: 'deathCauses',
+          label: 'Causas de defunción',
+          placeholder: 'Ej. paro cardiorrespiratorio, causa natural...',
+        })}
       </fieldset>
 
       <fieldset className="certificate-form-section">
-        <legend>SECTION 3: DATOS LEGALES</legend>
-        {renderTextField({
-          field: 'doctorLicense',
-          label: 'Cédula profesional del médico certificante',
-          placeholder: 'Cédula profesional',
-        })}
-        {renderTextField({
-          field: 'deathCertificateFolio',
-          label: 'Folio del certificado de defunción',
-          placeholder: 'Folio oficial',
-        })}
+        <legend>Datos del procedimiento</legend>
         {renderTextField({
           field: 'injectionSite',
           label: 'Lugar de inyección',
@@ -140,10 +128,10 @@ export const CertificateForm = memo(function CertificateForm({
       </fieldset>
 
       <fieldset className="certificate-form-section">
-        <legend>SECTION 4: TIPO DE EMBALSAMAMIENTO</legend>
+        <legend>Tipo de embalsamamiento</legend>
         <label className="certificate-field">
           <span>Tipo de embalsamamiento</span>
-          <select value={data.embalmingType} onChange={handleInputChange('embalmingType')}>
+          <select required value={data.embalmingType} onChange={handleInputChange('embalmingType')}>
             {embalmingTypes.map((type) => (
               <option key={type} value={type}>
                 {type}
@@ -154,7 +142,7 @@ export const CertificateForm = memo(function CertificateForm({
       </fieldset>
 
       <fieldset className="certificate-form-section">
-        <legend>SECTION 5: SOLUCIÓN QUÍMICA</legend>
+        <legend>Solución química</legend>
         <p className="certificate-sync-note">
           Datos sincronizados automáticamente desde la calculadora arterial activa.
         </p>
@@ -164,10 +152,11 @@ export const CertificateForm = memo(function CertificateForm({
       </fieldset>
 
       <fieldset className="certificate-form-section">
-        <legend>SECTION 6: RECOMENDACIONES DE TRASLADO</legend>
+        <legend>Recomendaciones de traslado</legend>
         <label className="certificate-field">
           <span>Recomendaciones de traslado</span>
           <textarea
+            required
             rows={6}
             value={data.transferRecommendations}
             onChange={handleInputChange('transferRecommendations')}
@@ -176,13 +165,23 @@ export const CertificateForm = memo(function CertificateForm({
       </fieldset>
 
       <fieldset className="certificate-form-section">
-        <legend>SECTION 7: INFORMACIÓN DEL EMBALSAMADOR</legend>
+        <legend>Médico y embalsamador</legend>
+        {renderTextField({
+          field: 'doctorName',
+          label: 'Médico que indicó la defunción',
+          placeholder: 'Nombre completo del médico certificante',
+        })}
+        {renderTextField({
+          field: 'doctorLicense',
+          label: 'Cédula profesional del médico certificante',
+          placeholder: 'Cédula profesional',
+        })}
         {renderTextField({ autoComplete: 'name', field: 'embalmerName', label: 'Nombre del embalsamador' })}
         {renderTextField({ field: 'embalmerLicense', label: 'Cédula profesional' })}
       </fieldset>
 
       <fieldset className="certificate-form-section">
-        <legend>SECTION 8: FIRMA Y GENERACIÓN</legend>
+        <legend>Firma</legend>
         <SignaturePad onSignatureChange={(signatureDataUrl) => onUpdate('signatureDataUrl', signatureDataUrl)} />
       </fieldset>
 

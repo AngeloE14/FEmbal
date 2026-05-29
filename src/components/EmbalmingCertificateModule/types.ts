@@ -1,14 +1,13 @@
-// ===== CERTIFICATE MODULE =====
-// Tipos de dominio del certificado. Los campos químicos existen en el PDF final,
-// pero se hidratan desde la calculadora para no duplicar cálculos ni estados.
+// ===== MÓDULO DE DOCUMENTO =====
+// Estos tipos describen los datos que viajan entre el formulario, la vista previa
+// y el PDF. Mantenerlos en un solo lugar evita que un campo eliminado siga
+// apareciendo por accidente en otra parte de la pantalla.
 
 export type EmbalmingType = 'Patológico' | 'Caso Legal' | 'Traslado';
 
 export type ChemicalSolutionData = {
   formaldehydeConcentration: string;
   arterial: string;
-  vascularConditioner: string;
-  humectant: string;
   jaundiceChemical: string;
   waterConditioner: string;
 };
@@ -21,7 +20,6 @@ export type CertificateData = {
   deathCauses: string;
   doctorName: string;
   doctorLicense: string;
-  deathCertificateFolio: string;
   injectionSite: string;
   embalmingType: EmbalmingType;
   transferRecommendations: string;
@@ -37,11 +35,32 @@ export type CertificateField = keyof CertificateData;
 
 export const embalmingTypes: EmbalmingType[] = ['Patológico', 'Caso Legal', 'Traslado'];
 
+// Esta lista controla cuándo el formulario está completo. Quitamos el folio
+// porque el equipo pidió eliminarlo del formulario y del documento final.
+export const requiredManualCertificateFields: ManualCertificateField[] = [
+  'funeralHome',
+  'procedureDate',
+  'procedureTime',
+  'deceasedName',
+  'deathCauses',
+  'doctorName',
+  'doctorLicense',
+  'injectionSite',
+  'embalmingType',
+  'transferRecommendations',
+  'embalmerName',
+  'embalmerLicense',
+  'signatureDataUrl',
+];
+
+export const isCertificateDataComplete = (data: CertificateData | ManualCertificateData) =>
+  requiredManualCertificateFields.every((field) => String(data[field]).trim().length > 0);
+
+// Solo dejamos los químicos que deben verse. Los campos retirados se quitaron
+// aquí para que no se rendericen ni se exporten al PDF.
 export const chemicalSolutionFields: Array<keyof ChemicalSolutionData> = [
   'formaldehydeConcentration',
   'arterial',
-  'vascularConditioner',
-  'humectant',
   'jaundiceChemical',
   'waterConditioner',
 ];
@@ -49,8 +68,6 @@ export const chemicalSolutionFields: Array<keyof ChemicalSolutionData> = [
 export const emptyChemicalSolutionData: ChemicalSolutionData = {
   formaldehydeConcentration: 'Calcula una solución arterial para sincronizar este campo.',
   arterial: 'Calcula una solución arterial para sincronizar este campo.',
-  vascularConditioner: 'Sin dato calculado en el sistema actual.',
-  humectant: 'Sin dato calculado en el sistema actual.',
   jaundiceChemical: 'Sin indicación automática del cálculo actual.',
   waterConditioner: 'Calcula una solución arterial para sincronizar este campo.',
 };
@@ -75,7 +92,6 @@ export const createInitialCertificateData = (): ManualCertificateData => {
     deathCauses: '',
     doctorName: '',
     doctorLicense: '',
-    deathCertificateFolio: '',
     injectionSite: '',
     embalmingType: 'Patológico',
     transferRecommendations: '',

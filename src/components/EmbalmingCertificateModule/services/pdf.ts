@@ -1,6 +1,6 @@
-// ===== CERTIFICATE MODULE =====
-// Generación PDF bajo demanda. html2canvas captura la preview HTML optimizada y
-// jsPDF la escala a carta; esto evita bloquear la UI mientras la persona escribe.
+// ===== SERVICIO DE PDF =====
+// html2canvas toma una "foto" del HTML del documento.
+// jsPDF coloca esa imagen dentro de un archivo PDF descargable.
 
 import type { CertificateData } from '../types';
 
@@ -17,7 +17,9 @@ const normalizeFilenamePart = (value: string) =>
     .replace(/^-+|-+$/g, '');
 
 export const buildCertificateFilename = (data: CertificateData) => {
-  const name = normalizeFilenamePart(data.deceasedName) || 'certificado';
+  // Limpiamos el nombre para que sea seguro como nombre de archivo.
+  // Por ejemplo: "José Pérez" se vuelve "jose-perez".
+  const name = normalizeFilenamePart(data.deceasedName) || 'documento';
   const now = new Date();
   const today = [
     now.getFullYear(),
@@ -26,7 +28,7 @@ export const buildCertificateFilename = (data: CertificateData) => {
   ].join('-');
   const date = data.procedureDate || today;
 
-  return `certificado-embalsamamiento-${name}-${date}.pdf`;
+  return `documento-embalsamamiento-${name}-${date}.pdf`;
 };
 
 export const generateCertificatePdfBlob = async (element: HTMLElement): Promise<Blob> => {
@@ -39,7 +41,7 @@ export const generateCertificatePdfBlob = async (element: HTMLElement): Promise<
     requestAnimationFrame(() => resolve());
   });
 
-  // Capturamos un clon tamaño carta para que el PDF sea consistente aunque
+  // Capturamos un clon de tamaño final para que el PDF sea consistente aunque
   // la preview visible esté reducida en móvil.
   const exportElement = element.cloneNode(true) as HTMLElement;
   exportElement.classList.add('certificate-preview-document--exporting');
@@ -70,24 +72,17 @@ export const generateCertificatePdfBlob = async (element: HTMLElement): Promise<
   });
 
   const imageData = canvas.toDataURL('image/png', 1);
-  const renderedHeight = (canvas.height * LETTER_WIDTH_MM) / canvas.width;
-  let remainingHeight = renderedHeight;
-  let position = 0;
-
-  pdf.addImage(imageData, 'PNG', 0, position, LETTER_WIDTH_MM, renderedHeight);
-  remainingHeight -= LETTER_HEIGHT_MM;
-
-  while (remainingHeight > 0) {
-    position -= LETTER_HEIGHT_MM;
-    pdf.addPage('letter', 'portrait');
-    pdf.addImage(imageData, 'PNG', 0, position, LETTER_WIDTH_MM, renderedHeight);
-    remainingHeight -= LETTER_HEIGHT_MM;
-  }
+  // El equipo pidió que el documento salga en una sola hoja.
+  // Por eso colocamos la imagen completa dentro de una sola página y no
+  // agregamos páginas extra aunque el contenido sea largo.
+  pdf.addImage(imageData, 'PNG', 0, 0, LETTER_WIDTH_MM, LETTER_HEIGHT_MM);
 
   return pdf.output('blob');
 };
 
 export const downloadBlob = (blob: Blob, filename: string) => {
+  // Creamos un enlace temporal para que el navegador descargue el archivo.
+  // Luego liberamos la URL temporal para no dejar memoria ocupada.
   const objectUrl = URL.createObjectURL(blob);
   const anchor = document.createElement('a');
 

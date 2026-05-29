@@ -1,19 +1,16 @@
-// ===== CERTIFICATE MODULE =====
-// Hook de correo. Recibe un generador de PDF y envía el Blob real como adjunto
-// mediante el servicio multipart/form-data.
+// ===== HOOK DE ENVÍO POR CORREO =====
+// Un hook guarda lógica reutilizable de React. Aquí controlamos cuándo se está
+// enviando el correo y pedimos al generador que cree el PDF justo antes de enviarlo.
 
 import { useCallback, useState } from 'react';
 import { sendCertificateEmail } from '../services/email';
-import type { CertificateData } from '../types';
 
 type UseEmailSenderParams = {
-  certificateData: CertificateData;
   createPdfBlob: () => Promise<Blob>;
   filename: string;
 };
 
 export function useEmailSender({
-  certificateData,
   createPdfBlob,
   filename,
 }: UseEmailSenderParams) {
@@ -24,9 +21,10 @@ export function useEmailSender({
       setIsSending(true);
 
       try {
+        // El PDF se crea en este momento para adjuntar la versión más reciente
+        // del documento, con los datos ya confirmados por el usuario.
         const pdfBlob = await createPdfBlob();
         await sendCertificateEmail({
-          certificateData,
           filename,
           pdfBlob,
           recipientEmail,
@@ -35,7 +33,7 @@ export function useEmailSender({
         setIsSending(false);
       }
     },
-    [certificateData, createPdfBlob, filename],
+    [createPdfBlob, filename],
   );
 
   return {

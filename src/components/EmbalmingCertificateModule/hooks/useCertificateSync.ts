@@ -1,6 +1,6 @@
-// ===== CERTIFICATE MODULE =====
-// Sincroniza el certificado con los resultados reales de la calculadora.
-// No recalcula la mezcla: consume currentRecommendation, inputs y químico elegido.
+// ===== MÓDULO DE DOCUMENTO =====
+// Este hook copia al documento los datos calculados por la calculadora.
+// Lo hacemos aquí para que el formulario no tenga que repetir fórmulas químicas.
 
 import { useMemo } from 'react';
 import { useCalculatorForm, useCalculatorResults } from '../../../hooks/useCalculator';
@@ -11,8 +11,6 @@ import {
   type ChemicalSolutionData,
   type ManualCertificateData,
 } from '../types';
-
-const noSystemValue = 'Sin dato calculado en el sistema actual.';
 
 export function useCertificateSync(manualData: ManualCertificateData): CertificateData {
   const { inputs, selectedChemical } = useCalculatorForm();
@@ -30,6 +28,8 @@ export function useCertificateSync(manualData: ManualCertificateData): Certifica
       };
     }
 
+    // Solo extraemos los valores que sí se deben mostrar. Los campos retirados
+    // no se calculan aquí para que no puedan reaparecer en el documento.
     const {
       alerts,
       arterialMl = 0,
@@ -45,8 +45,6 @@ export function useCertificateSync(manualData: ManualCertificateData): Certifica
     return {
       formaldehydeConcentration: `Botella ${formatNumber(concentrado, 2)}% | Objetivo base ${formatNumber(baseObjective, 2)}% | Final ${formatNumber(finalTarget, 2)}%`,
       arterial: `${formatMlAndOz(arterialMl, 1, 1)} de ${chemicalLabel}`,
-      vascularConditioner: noSystemValue,
-      humectant: noSystemValue,
       jaundiceChemical: jaundiceAlert ?? 'Sin indicación automática del cálculo actual.',
       waterConditioner: `Agua exacta calculada: ${formatMlAndOz(waterMl, 1, 1)}`,
     };

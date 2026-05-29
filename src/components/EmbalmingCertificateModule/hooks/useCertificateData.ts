@@ -1,5 +1,5 @@
 // ===== CERTIFICATE MODULE =====
-// Estado editable del certificado. La solución química no vive aquí:
+// Estado editable del documento. La solución química no vive aquí:
 // se deriva desde el contexto de la calculadora para evitar datos duplicados.
 
 import { useCallback, useMemo, useState } from 'react';

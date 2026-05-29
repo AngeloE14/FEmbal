@@ -85,7 +85,11 @@ export const SignaturePad = memo(function SignaturePad({ onSignatureChange }: Si
   const lastPointRef = useRef<Point | null>(null);
   const isDrawingRef = useRef(false);
   const hasInkRef = useRef(false);
-  const exportFrameRef = useRef<number>(0);
+  const onSignatureChangeRef = useRef(onSignatureChange);
+
+  useEffect(() => {
+    onSignatureChangeRef.current = onSignatureChange;
+  }, [onSignatureChange]);
 
   const syncCanvasResolution = useCallback(() => {
     const canvas = canvasRef.current;
@@ -111,26 +115,11 @@ export const SignaturePad = memo(function SignaturePad({ onSignatureChange }: Si
         const targetWidth = Math.min(rect.width * 0.82, image.width / ratio);
         const targetHeight = (image.height / image.width) * targetWidth;
         context.drawImage(image, 20, rect.height - targetHeight - 20, targetWidth, targetHeight);
-        onSignatureChange(exportTrimmedTransparentPng(canvas));
+        onSignatureChangeRef.current(exportTrimmedTransparentPng(canvas));
       };
       image.src = previousSignature;
     }
-  }, [onSignatureChange]);
-
-  const schedulePreviewExport = useCallback(() => {
-    if (exportFrameRef.current) {
-      return;
-    }
-
-    exportFrameRef.current = window.requestAnimationFrame(() => {
-      exportFrameRef.current = 0;
-      const canvas = canvasRef.current;
-
-      if (canvas && hasInkRef.current) {
-        onSignatureChange(exportTrimmedTransparentPng(canvas));
-      }
-    });
-  }, [onSignatureChange]);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -145,10 +134,6 @@ export const SignaturePad = memo(function SignaturePad({ onSignatureChange }: Si
 
     return () => {
       resizeObserver.disconnect();
-
-      if (exportFrameRef.current) {
-        window.cancelAnimationFrame(exportFrameRef.current);
-      }
     };
   }, [syncCanvasResolution]);
 
@@ -170,8 +155,7 @@ export const SignaturePad = memo(function SignaturePad({ onSignatureChange }: Si
     context.arc(lastPointRef.current.x, lastPointRef.current.y, 1.08, 0, Math.PI * 2);
     context.fillStyle = '#111111';
     context.fill();
-    schedulePreviewExport();
-  }, [schedulePreviewExport]);
+  }, []);
 
   const handlePointerMove = useCallback((event: ReactPointerEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
@@ -189,8 +173,7 @@ export const SignaturePad = memo(function SignaturePad({ onSignatureChange }: Si
     context.lineTo(nextPoint.x, nextPoint.y);
     context.stroke();
     lastPointRef.current = nextPoint;
-    schedulePreviewExport();
-  }, [schedulePreviewExport]);
+  }, []);
 
   const stopDrawing = useCallback((event: ReactPointerEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
@@ -205,8 +188,8 @@ export const SignaturePad = memo(function SignaturePad({ onSignatureChange }: Si
 
     isDrawingRef.current = false;
     lastPointRef.current = null;
-    onSignatureChange(hasInkRef.current ? exportTrimmedTransparentPng(canvas) : '');
-  }, [onSignatureChange]);
+    onSignatureChangeRef.current(hasInkRef.current ? exportTrimmedTransparentPng(canvas) : '');
+  }, []);
 
   const handleClear = useCallback(() => {
     const canvas = canvasRef.current;
@@ -218,8 +201,8 @@ export const SignaturePad = memo(function SignaturePad({ onSignatureChange }: Si
     getContext(canvas).clearRect(0, 0, canvas.width, canvas.height);
     hasInkRef.current = false;
     lastPointRef.current = null;
-    onSignatureChange('');
-  }, [onSignatureChange]);
+    onSignatureChangeRef.current('');
+  }, []);
 
   return (
     <div className="certificate-signature-field">

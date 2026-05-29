@@ -1,9 +1,7 @@
-// ===== CERTIFICATE MODULE =====
-// Toolbar de acciones. El PDF se genera bajo demanda para evitar lag al escribir.
-// ===== CERTIFICATE UX IMPROVEMENTS =====
-// El botón principal ya no descarga directo: abre una vista final fullscreen y
-// sólo genera el PDF cuando la persona confirma. Esto evita descargas accidentales
-// y ofrece una experiencia cómoda en escritorio y móvil.
+// ===== ACCIONES DEL DOCUMENTO =====
+// Este componente contiene los botones para imprimir, generar PDF y enviar correo.
+// El PDF se crea solo cuando la persona pulsa un botón; así el formulario no se
+// vuelve lento mientras alguien escribe.
 
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import type { RefObject } from 'react';
@@ -35,11 +33,12 @@ export const PdfActions = memo(function PdfActions({
   const confirmPreviewRef = useRef<HTMLDivElement | null>(null);
   const { createPdfBlob, downloadPdf, filename, isGenerating } = usePdfGenerator(certificateData, previewRef);
   const { isSending, sendEmail } = useEmailSender({
-    certificateData,
     createPdfBlob,
     filename,
   });
 
+  // Abrimos una confirmación antes de descargar para evitar generar archivos
+  // por accidente. La vista final usa el mismo componente que el PDF.
   const openDownloadConfirmation = useCallback(() => {
     setStatus(null);
     setIsConfirmOpen(true);
@@ -87,6 +86,8 @@ export const PdfActions = memo(function PdfActions({
     });
   }, []);
 
+  // Este flujo acepta cualquier correo escrito por el usuario.
+  // Primero validamos el formato y después mandamos el PDF al backend SMTP.
   const handleSendEmail = useCallback(async () => {
     const normalizedEmail = email.trim();
 
@@ -99,17 +100,17 @@ export const PdfActions = memo(function PdfActions({
 
     try {
       await sendEmail(normalizedEmail);
-      setStatus({ message: 'Certificado enviado por correo correctamente.', type: 'success' });
+      setStatus({ message: 'Documento enviado por correo correctamente.', type: 'success' });
     } catch (error) {
       setStatus({
-        message: error instanceof Error ? error.message : 'No se pudo enviar el correo.',
+        message: error instanceof Error ? error.message : 'No se pudo enviar el correo. Revisa la configuración SMTP.',
         type: 'error',
       });
     }
   }, [email, sendEmail]);
 
   return (
-    <section className="certificate-actions" aria-label="Acciones del certificado">
+    <section className="certificate-actions" aria-label="Acciones del documento">
       <button
         className="certificate-primary-action"
         disabled={isGenerating || isSending}
@@ -117,7 +118,7 @@ export const PdfActions = memo(function PdfActions({
         onClick={openDownloadConfirmation}
       >
         <Download aria-hidden="true" size={18} strokeWidth={2.2} />
-        GENERAR CERTIFICADO DE EMBALSAMAMIENTO
+        GENERAR DOCUMENTO
       </button>
       <button
         className="certificate-secondary-action"
@@ -147,7 +148,7 @@ export const PdfActions = memo(function PdfActions({
           onClick={handleSendEmail}
         >
           <Mail aria-hidden="true" size={17} strokeWidth={2.2} />
-          {isSending ? 'Enviando...' : 'Enviar por correo'}
+          {isSending ? 'Enviando...' : 'Enviar documento'}
         </button>
       </div>
       {status ? (
@@ -162,7 +163,7 @@ export const PdfActions = memo(function PdfActions({
             <div className="certificate-confirm-modal__head">
               <div>
                 <span>Vista final</span>
-                <h2 id="certificate-confirm-title">¿Desea generar y descargar el certificado de embalsamamiento?</h2>
+                <h2 id="certificate-confirm-title">¿Desea generar y descargar el documento?</h2>
               </div>
               <button
                 aria-label="Cancelar generación"
@@ -175,7 +176,7 @@ export const PdfActions = memo(function PdfActions({
               </button>
             </div>
 
-            <div className="certificate-confirm-modal__preview" aria-label="Vista previa final del certificado">
+            <div className="certificate-confirm-modal__preview" aria-label="Vista previa final del documento">
               <CertificatePreview ref={confirmPreviewRef} data={certificateData} />
             </div>
 
