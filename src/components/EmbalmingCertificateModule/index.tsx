@@ -8,28 +8,51 @@ import { useCertificateData } from './hooks/useCertificateData';
 import { useCertificateSync } from './hooks/useCertificateSync';
 import { isCertificateDataComplete } from './types';
 
-// Este componente abre el módulo completo en un portal.
-// Un portal permite dibujar la pantalla encima de toda la app sin depender del
-// lugar donde se encuentre el botón que la abre.
-type EmbalmingCertificateModuleProps = {
-  isOpen: boolean;
-  onClose: () => void;
-};
-
-export const EmbalmingCertificateModule = memo(function EmbalmingCertificateModule({
+const EmbalmingCertificateModule = memo(function EmbalmingCertificateModule({
   isOpen,
   onClose,
-}: EmbalmingCertificateModuleProps) {
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) {
   const { certificateData: manualCertificateData, resetCertificate, updateField } = useCertificateData();
   const certificateData = useCertificateSync(manualCertificateData);
   const previewRef = useRef<HTMLDivElement | null>(null);
 
-  // Estos estados controlan que la vista previa solo aparezca después de que
-  // todos los campos requeridos estén llenos y la persona confirme los datos.
   const [isDataConfirmed, setIsDataConfirmed] = useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [isConfirmDismissed, setIsConfirmDismissed] = useState(false);
   const isComplete = useMemo(() => isCertificateDataComplete(certificateData), [certificateData]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const formPanel = document.querySelector<HTMLElement>('.certificate-module__form-panel');
+    if (!formPanel) return;
+
+    const isMobile = () => window.innerWidth < 980;
+
+    const handleFocusIn = (event: FocusEvent) => {
+      if (!isMobile()) return;
+      const target = event.target as HTMLElement;
+      const isFormField = target.matches('input, textarea, select');
+      if (!isFormField) return;
+
+      setTimeout(() => {
+        const panelRect = formPanel.getBoundingClientRect();
+        const fieldRect = target.getBoundingClientRect();
+        const isBelowViewport = fieldRect.bottom > panelRect.bottom;
+        const isAboveViewport = fieldRect.top < panelRect.top;
+
+        if (isBelowViewport || isAboveViewport) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          formPanel.scrollTop -= 20;
+        }
+      }, 350);
+    };
+
+    formPanel.addEventListener('focusin', handleFocusIn);
+    return () => formPanel.removeEventListener('focusin', handleFocusIn);
+  }, [isOpen]);
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
@@ -41,16 +64,11 @@ export const EmbalmingCertificateModule = memo(function EmbalmingCertificateModu
   );
 
   useEffect(() => {
-    // Si cualquier dato cambia, pedimos confirmar otra vez.
-    // Esto evita generar un PDF con información editada sin revisar.
     setIsDataConfirmed(false);
     setIsConfirmDismissed(false);
   }, [certificateData]);
 
   useEffect(() => {
-    // Cuando el formulario queda completo, abrimos el diálogo de confirmación.
-    // Si la persona elige revisar, no lo abrimos en bucle hasta que pulse
-    // "Confirmar datos" manualmente.
     if (isOpen && isComplete && !isDataConfirmed && !isConfirmDismissed) {
       setIsConfirmOpen(true);
     } else {
@@ -87,8 +105,6 @@ export const EmbalmingCertificateModule = memo(function EmbalmingCertificateModu
       return undefined;
     }
 
-    // Bloqueamos el scroll del fondo mientras el módulo está abierto.
-    // Así el usuario no mueve la página principal por accidente.
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     window.addEventListener('keydown', handleKeyDown);
@@ -163,3 +179,5 @@ export const EmbalmingCertificateModule = memo(function EmbalmingCertificateModu
     document.body,
   );
 });
+
+export { EmbalmingCertificateModule };

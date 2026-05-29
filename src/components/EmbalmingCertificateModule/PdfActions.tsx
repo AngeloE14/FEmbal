@@ -18,9 +18,6 @@ type ActionStatus = {
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const getEmailEndpoint = () =>
-  import.meta.env.VITE_DOCUMENT_EMAIL_API_URL || '/api/documents/email';
-
 const Spinner = () => <span className="certificate-spinner" aria-hidden="true" />;
 
 const PdfActions = memo(function PdfActions({
@@ -90,20 +87,6 @@ const PdfActions = memo(function PdfActions({
     });
   }, []);
 
-  const checkEmailConfig = useCallback(async (): Promise<boolean> => {
-    try {
-      const response = await fetch(`${getEmailEndpoint()}/config`);
-      const data = await response.json();
-      if (!data.configured) {
-        showStatus({ message: data.message || 'Correo no configurado. Revisa SMTP en .env.', type: 'error' });
-        return false;
-      }
-      return true;
-    } catch {
-      return true;
-    }
-  }, [showStatus]);
-
   const handleSendEmail = useCallback(async () => {
     const normalizedEmail = email.trim();
 
@@ -114,9 +97,6 @@ const PdfActions = memo(function PdfActions({
 
     showStatus(null);
 
-    const isConfigured = await checkEmailConfig();
-    if (!isConfigured) return;
-
     try {
       await sendEmail(normalizedEmail);
       showStatus({ message: 'Documento enviado por correo correctamente.', type: 'success' });
@@ -126,7 +106,7 @@ const PdfActions = memo(function PdfActions({
         type: 'error',
       });
     }
-  }, [email, sendEmail, showStatus, checkEmailConfig]);
+  }, [email, sendEmail, showStatus]);
 
   const emailValidationClass = email.length > 0
     ? (emailPattern.test(email) ? 'certificate-field--valid' : 'certificate-field--invalid')
