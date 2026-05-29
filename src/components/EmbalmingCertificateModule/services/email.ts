@@ -21,11 +21,13 @@ export const sendCertificateEmail = async ({
   recipientEmail,
 }: SendCertificateEmailParams) => {
   const formData = new FormData();
-  const pdfFile = new File([pdfBlob], filename, { type: 'application/pdf' });
+  const typedPdfBlob = pdfBlob.type === 'application/pdf'
+    ? pdfBlob
+    : new Blob([pdfBlob], { type: 'application/pdf' });
 
   formData.append('recipientEmail', recipientEmail);
   formData.append('certificate', JSON.stringify(certificateData));
-  formData.append('attachment', pdfFile);
+  formData.append('attachment', typedPdfBlob, filename);
 
   const response = await fetch(getEmailEndpoint(), {
     body: formData,

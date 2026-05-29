@@ -39,15 +39,28 @@ export const generateCertificatePdfBlob = async (element: HTMLElement): Promise<
     requestAnimationFrame(() => resolve());
   });
 
+  // Capturamos un clon tamaño carta para que el PDF sea consistente aunque
+  // la preview visible esté reducida en móvil.
+  const exportElement = element.cloneNode(true) as HTMLElement;
+  exportElement.classList.add('certificate-preview-document--exporting');
+  exportElement.setAttribute('aria-hidden', 'true');
+  document.body.append(exportElement);
+
   const scale = Math.min(3, Math.max(2, window.devicePixelRatio || 1));
-  const canvas = await html2canvas(element, {
-    backgroundColor: '#ffffff',
-    logging: false,
-    scale,
-    useCORS: true,
-    windowHeight: element.scrollHeight,
-    windowWidth: element.scrollWidth,
-  });
+  let canvas: HTMLCanvasElement;
+
+  try {
+    canvas = await html2canvas(exportElement, {
+      backgroundColor: '#ffffff',
+      logging: false,
+      scale,
+      useCORS: true,
+      windowHeight: exportElement.scrollHeight,
+      windowWidth: exportElement.scrollWidth,
+    });
+  } finally {
+    exportElement.remove();
+  }
 
   const pdf = new jsPDF({
     format: 'letter',

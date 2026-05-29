@@ -18,8 +18,8 @@ export function usePdfGenerator(
   const [isGenerating, setIsGenerating] = useState(false);
   const filename = useMemo(() => buildCertificateFilename(certificateData), [certificateData]);
 
-  const createPdfBlob = useCallback(async () => {
-    const previewElement = previewRef.current;
+  const createPdfBlob = useCallback(async (targetElement?: HTMLElement | null) => {
+    const previewElement = targetElement ?? previewRef.current;
 
     if (!previewElement) {
       throw new Error('No se encontró la vista previa del certificado.');
@@ -28,11 +28,11 @@ export function usePdfGenerator(
     return generateCertificatePdfBlob(previewElement);
   }, [previewRef]);
 
-  const downloadPdf = useCallback(async () => {
+  const downloadPdf = useCallback(async (targetElement?: HTMLElement | null) => {
     setIsGenerating(true);
 
     try {
-      const blob = await createPdfBlob();
+      const blob = await createPdfBlob(targetElement);
       downloadBlob(blob, filename);
       return blob;
     } finally {

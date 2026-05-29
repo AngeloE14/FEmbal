@@ -23,6 +23,7 @@ type TextFieldProps = {
   autoComplete?: string;
   field: ManualCertificateField;
   label: string;
+  placeholder?: string;
   type?: 'date' | 'email' | 'text' | 'time';
 };
 
@@ -59,12 +60,13 @@ export const CertificateForm = memo(function CertificateForm({
     </label>
   );
 
-  const renderTextField = ({ autoComplete, field, label, type = 'text' }: TextFieldProps) => (
+  const renderTextField = ({ autoComplete, field, label, placeholder, type = 'text' }: TextFieldProps) => (
     <label className="certificate-field" key={field}>
       <span>{label}</span>
       <input
         autoComplete={autoComplete}
         inputMode={type === 'text' ? 'text' : undefined}
+        placeholder={placeholder}
         type={type}
         value={String(data[field])}
         onChange={handleInputChange(field)}
@@ -98,9 +100,24 @@ export const CertificateForm = memo(function CertificateForm({
 
       <fieldset className="certificate-form-section">
         <legend>SECTION 2: DATOS DEL FALLECIDO</legend>
-        {renderTextField({ autoComplete: 'name', field: 'deceasedName', label: 'Nombre de la persona fallecida' })}
-        {renderTextField({ field: 'deathCauses', label: 'Causas de defunción' })}
-        {renderTextField({ field: 'doctorName', label: 'Médico que certificó la defunción' })}
+        {renderTextField({
+          autoComplete: 'name',
+          field: 'deceasedName',
+          label: 'Nombre de la persona fallecida',
+          placeholder: 'Nombre completo del fallecido',
+        })}
+        <div className="certificate-form-grid">
+          {renderTextField({
+            field: 'deathCauses',
+            label: 'Causas de defunción',
+            placeholder: 'Ej. paro cardiorrespiratorio, causa natural...',
+          })}
+          {renderTextField({
+            field: 'doctorName',
+            label: 'Médico que certificó la defunción',
+            placeholder: 'Nombre completo del médico certificante',
+          })}
+        </div>
       </fieldset>
 
       <fieldset className="certificate-form-section">
@@ -108,9 +125,18 @@ export const CertificateForm = memo(function CertificateForm({
         {renderTextField({
           field: 'doctorLicense',
           label: 'Cédula profesional del médico certificante',
+          placeholder: 'Cédula profesional',
         })}
-        {renderTextField({ field: 'deathCertificateFolio', label: 'Folio del certificado de defunción' })}
-        {renderTextField({ field: 'injectionSite', label: 'Lugar de inyección' })}
+        {renderTextField({
+          field: 'deathCertificateFolio',
+          label: 'Folio del certificado de defunción',
+          placeholder: 'Folio oficial',
+        })}
+        {renderTextField({
+          field: 'injectionSite',
+          label: 'Lugar de inyección',
+          placeholder: 'Ej. arteria carótida derecha',
+        })}
       </fieldset>
 
       <fieldset className="certificate-form-section">

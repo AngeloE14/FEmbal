@@ -1,9 +1,14 @@
 // ===== CERTIFICATE MODULE =====
 // Toolbar de acciones. El PDF se genera bajo demanda para evitar lag al escribir.
+// ===== CERTIFICATE UX IMPROVEMENTS =====
+// El botón principal ya no descarga directo: abre una vista final fullscreen y
+// sólo genera el PDF cuando la persona confirma. Esto evita descargas accidentales
+// y ofrece una experiencia cómoda en escritorio y móvil.
 
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import type { RefObject } from 'react';
-import { Download, Mail, Printer } from 'lucide-react';
+import { Download, Mail, Printer, X } from 'lucide-react';
+import { CertificatePreview } from './CertificatePreview';
 import { useEmailSender } from './hooks/useEmailSender';
 import { usePdfGenerator } from './hooks/usePdfGenerator';
 import type { CertificateData } from './types';
@@ -25,7 +30,9 @@ export const PdfActions = memo(function PdfActions({
   previewRef,
 }: PdfActionsProps) {
   const [email, setEmail] = useState('');
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [status, setStatus] = useState<ActionStatus>(null);
+  const confirmPreviewRef = useRef<HTMLDivElement | null>(null);
   const { createPdfBlob, downloadPdf, filename, isGenerating } = usePdfGenerator(certificateData, previewRef);
   const { isSending, sendEmail } = useEmailSender({
     certificateData,
@@ -33,11 +40,23 @@ export const PdfActions = memo(function PdfActions({
     filename,
   });
 
-  const handleDownload = useCallback(async () => {
+  const openDownloadConfirmation = useCallback(() => {
+    setStatus(null);
+    setIsConfirmOpen(true);
+  }, []);
+
+  const closeDownloadConfirmation = useCallback(() => {
+    if (!isGenerating) {
+      setIsConfirmOpen(false);
+    }
+  }, [isGenerating]);
+
+  const handleConfirmedDownload = useCallback(async () => {
     setStatus(null);
 
     try {
-      await downloadPdf();
+      await downloadPdf(confirmPreviewRef.current);
+      setIsConfirmOpen(false);
       setStatus({ message: 'PDF generado correctamente.', type: 'success' });
     } catch (error) {
       setStatus({
@@ -46,6 +65,21 @@ export const PdfActions = memo(function PdfActions({
       });
     }
   }, [downloadPdf]);
+
+  useEffect(() => {
+    if (!isConfirmOpen) {
+      return undefined;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        closeDownloadConfirmation();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [closeDownloadConfirmation, isConfirmOpen]);
 
   const handlePrint = useCallback(() => {
     window.requestAnimationFrame(() => {
@@ -80,10 +114,10 @@ export const PdfActions = memo(function PdfActions({
         className="certificate-primary-action"
         disabled={isGenerating || isSending}
         type="button"
-        onClick={handleDownload}
+        onClick={openDownloadConfirmation}
       >
         <Download aria-hidden="true" size={18} strokeWidth={2.2} />
-        {isGenerating ? 'Generando PDF...' : 'GENERAR CERTIFICADO DE EMBALSAMAMIENTO'}
+        GENERAR CERTIFICADO DE EMBALSAMAMIENTO
       </button>
       <button
         className="certificate-secondary-action"
@@ -120,6 +154,52 @@ export const PdfActions = memo(function PdfActions({
         <p className={`certificate-action-status certificate-action-status--${status.type}`}>
           {status.message}
         </p>
+      ) : null}
+
+      {isConfirmOpen ? (
+        <div className="certificate-confirm-modal" role="dialog" aria-modal="true" aria-labelledby="certificate-confirm-title">
+          <div className="certificate-confirm-modal__panel">
+            <div className="certificate-confirm-modal__head">
+              <div>
+                <span>Vista final</span>
+                <h2 id="certificate-confirm-title">¿Desea generar y descargar el certificado de embalsamamiento?</h2>
+              </div>
+              <button
+                aria-label="Cancelar generación"
+                className="certificate-confirm-modal__close"
+                disabled={isGenerating}
+                type="button"
+                onClick={closeDownloadConfirmation}
+              >
+                <X aria-hidden="true" size={18} strokeWidth={2.2} />
+              </button>
+            </div>
+
+            <div className="certificate-confirm-modal__preview" aria-label="Vista previa final del certificado">
+              <CertificatePreview ref={confirmPreviewRef} data={certificateData} />
+            </div>
+
+            <div className="certificate-confirm-modal__actions">
+              <button
+                className="certificate-secondary-action"
+                disabled={isGenerating}
+                type="button"
+                onClick={closeDownloadConfirmation}
+              >
+                Cancelar
+              </button>
+              <button
+                className="certificate-primary-action"
+                disabled={isGenerating}
+                type="button"
+                onClick={handleConfirmedDownload}
+              >
+                <Download aria-hidden="true" size={18} strokeWidth={2.2} />
+                {isGenerating ? 'Generando PDF...' : 'Confirmar'}
+              </button>
+            </div>
+          </div>
+        </div>
       ) : null}
     </section>
   );

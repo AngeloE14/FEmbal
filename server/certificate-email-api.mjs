@@ -6,8 +6,37 @@
 // - attachment: PDF generado en el cliente
 
 import express from 'express';
+import fs from 'node:fs';
 import multer from 'multer';
 import nodemailer from 'nodemailer';
+
+// Carga .env local sin agregar otro runtime dependency. Esto evita el caso común
+// donde el endpoint "funciona" pero no envía porque SMTP_* nunca llegó a process.env.
+function loadLocalEnv() {
+  if (!fs.existsSync('.env')) {
+    return;
+  }
+
+  const lines = fs.readFileSync('.env', 'utf8').split(/\r?\n/);
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+
+    if (!trimmed || trimmed.startsWith('#') || !trimmed.includes('=')) {
+      continue;
+    }
+
+    const separatorIndex = trimmed.indexOf('=');
+    const key = trimmed.slice(0, separatorIndex).trim();
+    const value = trimmed.slice(separatorIndex + 1).trim().replace(/^["']|["']$/g, '');
+
+    if (key && process.env[key] === undefined) {
+      process.env[key] = value;
+    }
+  }
+}
+
+loadLocalEnv();
 
 const app = express();
 const upload = multer({
