@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "dev:lan": "vite --host --port 4173",
+    "certificate:email-api": "node server/certificate-email-api.mjs",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -13,8 +14,15 @@
     "lan:ip": "hostname -I | awk '{print $1}'"
   },
   "dependencies": {
+    "express": "^5.2.1",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.2.1",
+    "lucide-react": "^1.17.0",
+    "multer": "^2.1.1",
+    "nodemailer": "^8.0.9",
     "react": "^19.2.5",
-    "react-dom": "^19.2.5"
+    "react-dom": "^19.2.5",
+    "react-signature-canvas": "^1.1.0-alpha.2"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
