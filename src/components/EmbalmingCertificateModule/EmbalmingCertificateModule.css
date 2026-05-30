@@ -491,6 +491,8 @@
   min-width: 8.5in !important;
   aspect-ratio: auto;
   box-shadow: none;
+  content-visibility: visible !important;
+  contain: none !important;
 }
 
 .certificate-print-source {

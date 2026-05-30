@@ -53,6 +53,16 @@ export const generateCertificatePdfBlob = async (element: HTMLElement, options?:
   exportElement.classList.add('certificate-preview-document--exporting');
   exportElement.setAttribute('aria-hidden', 'true');
 
+  // content-visibility: auto hace que el navegador no renderice el elemento
+  // cuando está fuera de pantalla (left: -10000px). html2canvas capturaría
+  // algo vacío, así que lo desactivamos junto con contain.
+  exportElement.style.removeProperty('content-visibility');
+  exportElement.style.removeProperty('contain');
+
+  // Las imágenes con loading="lazy" no se cargan si el elemento está
+  // fuera de la pantalla. Las forzamos a cargar normal.
+  exportElement.querySelectorAll('img[loading]').forEach(img => img.removeAttribute('loading'));
+
   // Las variables CSS (--certificate-doc-accent, --certificate-doc-gold, etc.)
   // se definen en .certificate-module. Al clonar el elemento y colocarlo fuera
   // de ese contexto (directamente en document.body), las variables dejan de
@@ -66,6 +76,18 @@ export const generateCertificatePdfBlob = async (element: HTMLElement, options?:
   }
 
   document.body.append(exportElement);
+
+  // Esperamos a que las imágenes se carguen antes de capturar
+  const images = Array.from(exportElement.querySelectorAll('img'));
+  await Promise.allSettled(
+    images.map(img => {
+      if (img.complete) return Promise.resolve();
+      return new Promise<void>((resolve) => {
+        img.addEventListener('load', () => resolve(), { once: true });
+        img.addEventListener('error', () => resolve(), { once: true });
+      });
+    })
+  );
 
   const scale = options?.scale ?? Math.min(3, Math.max(2, window.devicePixelRatio || 1));
   let canvas: HTMLCanvasElement;
