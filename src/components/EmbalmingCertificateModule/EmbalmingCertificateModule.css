@@ -900,15 +900,12 @@
   }
 
   .certificate-module__preview-panel {
+    overflow: visible;
     grid-template-rows: auto auto;
   }
 
-  .certificate-module__form-panel,
-  .certificate-module__preview-panel {
-    overflow: visible;
-  }
-
   .certificate-module__form-panel {
+    overflow: auto;
     border-right: 0;
     border-bottom: 1px solid var(--panel-border);
     scroll-behavior: smooth;
