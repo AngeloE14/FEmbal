@@ -17,6 +17,7 @@ export type CertificateData = {
   procedureTime: string;
   deceasedName: string;
   deathCauses: string;
+  deathCertificateFolio: string;
   doctorName: string;
   doctorLicense: string;
   injectionSite: string;
@@ -42,6 +43,7 @@ export const requiredManualCertificateFields: ManualCertificateField[] = [
   'procedureTime',
   'deceasedName',
   'deathCauses',
+  'deathCertificateFolio',
   'doctorName',
   'doctorLicense',
   'injectionSite',
@@ -87,6 +89,7 @@ export const createInitialCertificateData = (): ManualCertificateData => {
     procedureTime: localTime,
     deceasedName: '',
     deathCauses: '',
+    deathCertificateFolio: '',
     doctorName: '',
     doctorLicense: '',
     injectionSite: '',

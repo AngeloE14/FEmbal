@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { CertificateForm } from './CertificateForm';
 import { CertificatePreview } from './CertificatePreview';
@@ -6,7 +6,6 @@ import './EmbalmingCertificateModule.css';
 import { PdfActions } from './PdfActions';
 import { useCertificateData } from './hooks/useCertificateData';
 import { useCertificateSync } from './hooks/useCertificateSync';
-import { isCertificateDataComplete } from './types';
 
 const EmbalmingCertificateModule = memo(function EmbalmingCertificateModule({
   isOpen,
@@ -18,11 +17,11 @@ const EmbalmingCertificateModule = memo(function EmbalmingCertificateModule({
   const { certificateData: manualCertificateData, resetCertificate, updateField } = useCertificateData();
   const certificateData = useCertificateSync(manualCertificateData);
   const previewRef = useRef<HTMLDivElement | null>(null);
-
   const [isDataConfirmed, setIsDataConfirmed] = useState(false);
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-  const [isConfirmDismissed, setIsConfirmDismissed] = useState(false);
-  const isComplete = useMemo(() => isCertificateDataComplete(certificateData), [certificateData]);
+
+  useEffect(() => {
+    setIsDataConfirmed(false);
+  }, [certificateData]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -63,40 +62,12 @@ const EmbalmingCertificateModule = memo(function EmbalmingCertificateModule({
     [onClose],
   );
 
-  useEffect(() => {
-    setIsDataConfirmed(false);
-    setIsConfirmDismissed(false);
-  }, [certificateData]);
-
-  useEffect(() => {
-    if (isOpen && isComplete && !isDataConfirmed && !isConfirmDismissed) {
-      setIsConfirmOpen(true);
-    } else {
-      setIsConfirmOpen(false);
-    }
-  }, [isComplete, isConfirmDismissed, isDataConfirmed, isOpen]);
-
   const handleConfirmData = useCallback(() => {
     setIsDataConfirmed(true);
-    setIsConfirmOpen(false);
   }, []);
-
-  const handleReviewData = useCallback(() => {
-    setIsConfirmDismissed(true);
-    setIsConfirmOpen(false);
-  }, []);
-
-  const handleOpenDataConfirmation = useCallback(() => {
-    if (isComplete) {
-      setIsConfirmDismissed(false);
-      setIsConfirmOpen(true);
-    }
-  }, [isComplete]);
 
   const handleReset = useCallback(() => {
     setIsDataConfirmed(false);
-    setIsConfirmDismissed(false);
-    setIsConfirmOpen(false);
     resetCertificate();
   }, [resetCertificate]);
 
@@ -144,40 +115,24 @@ const EmbalmingCertificateModule = memo(function EmbalmingCertificateModule({
         </aside>
 
         <section className="certificate-module__preview-panel" aria-label="Vista previa del documento">
-          {isComplete && isDataConfirmed ? (
+          {isDataConfirmed ? (
             <>
               <div className="certificate-preview-shell">
                 <CertificatePreview ref={previewRef} data={certificateData} />
               </div>
               <PdfActions certificateData={certificateData} previewRef={previewRef} />
             </>
-          ) : isComplete ? (
+          ) : (
             <div className="certificate-preview-empty" aria-live="polite">
               <strong>Documento pendiente</strong>
-              <span>Confirma la información para ver o generar el documento.</span>
-              <button className="certificate-primary-action" type="button" onClick={handleOpenDataConfirmation}>
-                Confirmar datos
+              <span>Confirma que los datos ingresados son correctos para ver el documento.</span>
+              <button className="certificate-primary-action" type="button" onClick={handleConfirmData}>
+                Sí, son correctos
               </button>
             </div>
-          ) : null}
+          )}
         </section>
       </div>
-
-      {isConfirmOpen ? (
-        <div className="certificate-data-confirm" role="dialog" aria-modal="true" aria-labelledby="certificate-data-confirm-title">
-          <div className="certificate-data-confirm__panel">
-            <h2 id="certificate-data-confirm-title">¿Los datos ingresados son correctos?</h2>
-            <div className="certificate-data-confirm__actions">
-              <button className="certificate-secondary-action" type="button" onClick={handleReviewData}>
-                Revisar
-              </button>
-              <button className="certificate-primary-action" type="button" onClick={handleConfirmData}>
-                Sí, mostrar documento
-              </button>
-            </div>
-          </div>
-        </div>
-      ) : null}
     </div>,
     document.body,
   );

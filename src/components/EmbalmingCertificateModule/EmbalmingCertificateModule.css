@@ -1,13 +1,25 @@
 /* ===== CERTIFICATE MODULE =====
    Integración visual: este módulo consume las variables globales de la app
    para heredar tema claro/oscuro, sombras, bordes, tipografía y acentos.
-   El documento imprimible mantiene fondo blanco porque representa el PDF real. */
+   El documento imprimible mantiene fondo blanco porque representa el PDF real.
+
+   CAMBIOS RECIENTES (mayo 2026):
+   - El cuerpo del documento (.certificate-document-body) pasó de 2 columnas
+     a UNA SOLA COLUMNA. Así los campos tienen más ancho y no se ven apretados.
+   - El padding del documento aumentó de 0.2in a 0.35in para que el contenido
+     no toque los bordes.
+   - El espaciado entre filas (padding, margin) se incrementó para dar
+     "respiración" vertical.
+   - En móviles se desactivaron algunos efectos (backdrop-filter, will-change)
+     para ahorrar batería y mejorar la fluidez. */
 
 /* ===== CERTIFICATE UX IMPROVEMENTS =====
    - Firma dark mode: el área de firma conserva fondo blanco fijo para contraste.
-   - Layout sección 2: el grid usa minmax(0, …) y scroll independiente para que
+   - Layout sección 2: el workspace usa grid y scroll independiente para que
      la preview no invada ni comprima el formulario.
-   - Flujo PDF: se agrega modal fullscreen con confirmación antes de descargar. */
+   - Flujo PDF: se agrega modal fullscreen con confirmación antes de descargar.
+   - Una sola columna: el cuerpo del documento usa flex column (no grid 2 cols)
+     para dar más espacio horizontal a cada campo. */
 
 .certificate-mode-toggle {
   position: fixed;
@@ -469,11 +481,18 @@
   line-height: 1.45;
 }
 
+/* ===== DOCUMENTO PRINCIPAL (PREVIEW / PDF) =====
+   - padding más grande → los campos ya no se ven apretados contra el borde
+   - orientación vertical (portrait) forzada con width/height
+   - content-visibility: auto evita que el navegador dibuje el documento
+     cuando no está visible en pantalla (ahorra batería en móvil) */
 .certificate-preview-document {
-  width: min(100%, 816px);
+  width: min(100%, 8.5in);
   min-width: 0;
-  aspect-ratio: 8.5 / 11;
-  padding: 0.3in 0.3in;
+  min-height: 11in;
+  display: flex;
+  flex-direction: column;
+  padding: 0.35in 0.35in;
   background: #ffffff;
   color: #171411;
   border: 1px solid rgba(16, 29, 39, 0.12);
@@ -509,22 +528,23 @@
   width: 8.5in;
   min-width: 8.5in;
   min-height: 11in;
+  padding: 0.35in 0.35in;
   aspect-ratio: auto;
   box-shadow: none;
 }
 
 .certificate-document-header {
   display: grid;
-  grid-template-columns: 0.85in minmax(0, 1fr);
+  grid-template-columns: 0.65in minmax(0, 1fr);
   align-items: center;
-  gap: 0.18in;
-  padding-bottom: 0.12in;
+  gap: 0.14in;
+  padding-bottom: 0.1in;
   border-bottom: 2px solid var(--certificate-doc-gold);
 }
 
 .certificate-document-logo {
-  width: 0.7in;
-  height: 0.7in;
+  width: 0.5in;
+  height: 0.5in;
   border-radius: 999px;
   object-fit: cover;
 }
@@ -532,37 +552,39 @@
 .certificate-document-header p {
   margin: 0;
   color: var(--certificate-doc-accent);
-  font-size: 0.46in;
+  font-size: 0.36in;
   font-weight: 900;
   line-height: 1;
 }
 
 .certificate-document-header h1 {
-  margin: 0.04in 0 0;
+  margin: 0.03in 0 0;
   color: #191715;
-  font-size: 0.28in;
+  font-size: 0.2in;
   line-height: 1.15;
 }
 
 .certificate-document-header span {
   display: block;
-  margin-top: 0.04in;
+  margin-top: 0.02in;
   color: #4b433b;
-  font-size: 0.2in;
+  font-size: 0.14in;
   font-weight: 700;
   text-transform: uppercase;
 }
 
+/* ===== BARRA DE META (sello "Documento generado a través del sistema") =====
+   - más padding vertical para que no quede apretado */
 .certificate-document-meta {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 0.2in;
+  gap: 0.12in;
   margin: 0.12in 0;
-  padding: 0.1in 0.14in;
+  padding: 0.08in 0.12in;
   border: 1px solid rgba(139, 111, 49, 0.35);
   color: #4a4032;
-  font-size: 0.14in;
+  font-size: 0.11in;
   font-weight: 700;
   text-transform: uppercase;
 }
@@ -570,83 +592,103 @@
 .certificate-document-meta-brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.06in;
+  gap: 0.05in;
   min-width: 0;
 }
 
 .certificate-document-meta-brand img {
-  width: 0.28in;
-  height: 0.28in;
+  width: 0.2in;
+  height: 0.2in;
   flex: 0 0 auto;
   border-radius: 999px;
   object-fit: cover;
 }
 
+/* ===== CUERPO DEL DOCUMENTO =====
+   Cambiamos de 2 columnas a UNA SOLA COLUMNA para que cada campo
+   ocupe todo el ancho disponible. Así los textos largos (como
+   "Recomendaciones de traslado") tienen espacio para expandirse
+   sin apretarse contra otros campos.
+   - flex column → las secciones se apilan una debajo de otra
+   - gap: separación vertical entre secciones */
 .certificate-document-body {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.12in 0.18in;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1in;
 }
 
 .certificate-document-section {
   break-inside: avoid;
-  content-visibility: auto;
-  contain-intrinsic-size: 180px;
 }
 
+/* ===== ENCABEZADO DE CADA SECCIÓN =====
+   - padding más grande da más "aire" al título
+   - font-size: 0.19in es un poco más grande que antes pero
+     sigue cabiendo en una sola hoja */
 .certificate-document-section h2 {
   margin: 0 0 0.04in;
-  padding: 0.07in 0.1in;
+  padding: 0.08in 0.14in;
   background: var(--certificate-doc-accent);
   color: #f6fff9;
   font-family: Arial, sans-serif;
-  font-size: 0.22in;
+  font-size: 0.19in;
   font-weight: 800;
   line-height: 1.1;
 }
 
 .certificate-document-section dl {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.08in 0.12in;
+  grid-template-columns: 1fr;
+  gap: 0.05in 0;
   margin: 0;
 }
 
+/* ===== CADA FILA (ETIQUETA + VALOR) =====
+   - padding superior e inferior para separar unas filas de otras
+   - la línea inferior (border-bottom) ayuda a leer de forma horizontal */
 .certificate-document-row {
   min-width: 0;
-  padding-bottom: 0.04in;
-  border-bottom: 1px solid rgba(16, 29, 39, 0.22);
+  padding: 0.04in 0 0.05in;
+  border-bottom: 1px solid rgba(16, 29, 39, 0.18);
 }
 
+.certificate-document-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* ===== ETIQUETA DEL CAMPO (label) =====
+   - mayúscula + bold + color gris → se distingue del valor
+   - font-size más grande que antes para mejor legibilidad */
 .certificate-document-row dt {
   color: #52606a;
   font-family: Arial, sans-serif;
-  font-size: 0.14in;
+  font-size: 0.12in;
   font-weight: 800;
   line-height: 1.2;
   text-transform: uppercase;
 }
 
+/* ===== VALOR DEL CAMPO =====
+   - margin-top separa el valor de la etiqueta (respiracion vertical)
+   - min-height evita que filas vacías colapsen
+   - font-size: 0.17in balance entre legibilidad y espacio */
 .certificate-document-row dd {
-  min-height: 0.22in;
-  margin: 0.03in 0 0;
+  min-height: 0.2in;
+  margin: 0.04in 0 0;
   color: #171411;
-  font-size: 0.2in;
+  font-size: 0.17in;
   font-weight: 700;
   line-height: 1.25;
   overflow-wrap: anywhere;
   white-space: pre-wrap;
 }
 
-.certificate-document-section:nth-of-type(5),
-.certificate-document-section:nth-of-type(6) {
-  grid-column: 1 / -1;
-}
-
-.certificate-document-section:nth-of-type(6) dl {
-  grid-template-columns: 1fr;
-}
-
+/* ===== PIE DE PÁGINA =====
+   - línea dorada divisoria (border-top)
+   - más separación (margin-top, padding-top) para que la firma no
+     quede pegada al último campo */
 .certificate-document-footer {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -660,19 +702,19 @@
 .certificate-signature-preview {
   display: grid;
   justify-items: center;
-  min-height: 0.55in;
+  min-height: 0.5in;
 }
 
 .certificate-signature-preview img {
-  max-width: 2.5in;
-  max-height: 0.5in;
+  max-width: 2in;
+  max-height: 0.35in;
   object-fit: contain;
 }
 
 .certificate-signature-preview span {
   align-self: end;
   color: #171411;
-  font-size: 0.18in;
+  font-size: 0.14in;
 }
 
 .certificate-signature-preview strong {
@@ -682,7 +724,7 @@
   text-align: center;
   color: #3b322a;
   font-family: Arial, sans-serif;
-  font-size: 0.14in;
+  font-size: 0.13in;
   text-transform: uppercase;
 }
 
@@ -1003,7 +1045,7 @@
   .certificate-preview-shell .certificate-preview-document {
     width: min(100%, 420px);
     min-width: 0;
-    padding: 0.18in 0.16in;
+    padding: 0.25in 0.25in;
     box-shadow: none;
     content-visibility: auto;
   }
@@ -1068,7 +1110,7 @@
   .certificate-confirm-modal__preview .certificate-preview-document {
     width: min(100%, 420px);
     min-width: 0;
-    padding: 0.16in;
+    padding: 0.25in;
     box-shadow: none;
   }
 
@@ -1120,65 +1162,64 @@
   }
 
   .certificate-preview-document {
-    padding: 0.2in 0.18in;
+    padding: 0.25in 0.25in;
   }
 
   .certificate-document-header {
-    grid-template-columns: 0.65in minmax(0, 1fr);
-    gap: 0.12in;
+    grid-template-columns: 0.45in minmax(0, 1fr);
+    gap: 0.08in;
   }
 
   .certificate-document-logo {
-    width: 0.55in;
-    height: 0.55in;
+    width: 0.35in;
+    height: 0.35in;
   }
 
   .certificate-document-header p {
-    font-size: 0.32in;
+    font-size: 0.24in;
   }
 
   .certificate-document-header h1 {
-    font-size: 0.2in;
+    font-size: 0.14in;
   }
 
   .certificate-document-meta {
     flex-wrap: wrap;
-    gap: 0.1in;
-    font-size: 0.11in;
+    gap: 0.06in;
+    font-size: 0.09in;
   }
 
   .certificate-document-body {
-    grid-template-columns: 1fr;
-    gap: 0.1in;
-  }
-
-  .certificate-document-section dl {
-    grid-template-columns: 1fr;
     gap: 0.06in;
   }
 
   .certificate-document-section h2 {
-    font-size: 0.18in;
+    font-size: 0.16in;
   }
 
   .certificate-document-row dt {
-    font-size: 0.12in;
+    font-size: 0.1in;
   }
 
   .certificate-document-row dd {
-    font-size: 0.17in;
+    font-size: 0.14in;
   }
 
   .certificate-document-footer {
     grid-template-columns: 1fr;
-    gap: 0.12in;
+    gap: 0.06in;
+    margin-top: 0.08in;
   }
 
   .certificate-confirm-modal__preview .certificate-preview-document {
-    padding: 0.2in 0.15in;
+    padding: 0.25in;
   }
 }
 
+/* ===== MEJORAS DE RENDIMIENTO EN MÓVIL =====
+   - backdrop-filter: consume mucha batería en móviles, lo desactivamos
+   - will-change: lo reducimos para no gastar memoria de GPU
+   - overscroll-behavior: evitamos el rebote del navegador al hacer scroll */
 @media (pointer: coarse) {
   .certificate-confirm-modal {
     backdrop-filter: none;
@@ -1190,6 +1231,14 @@
 
   .certificate-mode-toggle {
     backdrop-filter: none;
+  }
+
+  .certificate-module {
+    will-change: auto;
+  }
+
+  .certificate-preview-document {
+    will-change: auto;
   }
 }
 
@@ -1209,7 +1258,7 @@
 
   .certificate-preview-document {
     width: min(100%, 420px);
-    padding: 0.18in 0.16in;
+    padding: 0.25in 0.25in;
   }
 
   .certificate-confirm-modal {
@@ -1245,7 +1294,7 @@
 
 @media print {
   @page {
-    size: letter;
+    size: 8.5in 11in;
     margin: 0;
   }
 
@@ -1295,7 +1344,7 @@
     height: 11in !important;
     min-height: 11in !important;
     margin: 0 !important;
-    padding: 0.3in !important;
+    padding: 0.35in 0.35in !important;
     border: 0 !important;
     box-shadow: none !important;
     aspect-ratio: auto !important;

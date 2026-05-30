@@ -6,7 +6,12 @@
   background: var(--card);
   position: relative;
   overflow: clip;
-  contain: layout paint;
+  contain: layout paint style;
+  /* content-visibility: auto evita que el navegador dibuje esta sección
+     si no está visible en pantalla (está al final, abajo del todo).
+     contain-intrinsic-size: 200px reserva espacio mientras no se ve. */
+  content-visibility: auto;
+  contain-intrinsic-size: 200px;
 }
 
 .redes-sociales::before {

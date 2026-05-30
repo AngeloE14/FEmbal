@@ -1,6 +1,10 @@
-// ===== MÓDULO DE DOCUMENTO =====
+// ===== MÓDULO DE DOCUMENTO (VISTA PREVIA) =====
 // Esta vista es la plantilla visual que se convierte en PDF.
-// Si quitamos un campo aquí, también desaparece del archivo generado.
+// - Cada sección usa UNA SOLA COLUMNA (ya no 2) para que los campos
+//   tengan más espacio horizontal (respiración).
+// - Si quitamos un campo aquí, también desaparece del archivo generado.
+// - forwardRef permite que el módulo de PDF acceda al elemento HTML
+//   para capturarlo con html2canvas.
 
 import { forwardRef, memo, useMemo } from 'react';
 import type { CertificateData } from './types';
@@ -84,18 +88,16 @@ const CertificatePreviewBase = forwardRef<HTMLDivElement, CertificatePreviewProp
           rows: [
             { label: 'Nombre de la persona fallecida', value: data.deceasedName },
             { label: 'Causas de defunción', value: data.deathCauses },
+            { label: 'Folio del certificado de defunción', value: data.deathCertificateFolio },
           ],
           title: 'Datos del fallecido',
         },
         {
           rows: [
             { label: 'Lugar de inyección', value: data.injectionSite },
+            { label: 'Tipo de embalsamamiento', value: data.embalmingType },
           ],
           title: 'Datos del procedimiento',
-        },
-        {
-          rows: [{ label: 'Tipo de embalsamamiento', value: data.embalmingType }],
-          title: 'Tipo de embalsamamiento',
         },
         {
           rows: [
@@ -122,6 +124,7 @@ const CertificatePreviewBase = forwardRef<HTMLDivElement, CertificatePreviewProp
       [
         data.arterial,
         data.deathCauses,
+        data.deathCertificateFolio,
         data.deceasedName,
         data.doctorLicense,
         data.doctorName,

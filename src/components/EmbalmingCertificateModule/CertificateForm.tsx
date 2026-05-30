@@ -115,6 +115,11 @@ export const CertificateForm = memo(function CertificateForm({
           label: 'Causas de defunción',
           placeholder: 'Ej. paro cardiorrespiratorio, causa natural...',
         })}
+        {renderTextField({
+          field: 'deathCertificateFolio',
+          label: 'Folio del certificado de defunción',
+          placeholder: 'Folio del certificado de defunción',
+        })}
       </fieldset>
 
       <fieldset className="certificate-form-section">
