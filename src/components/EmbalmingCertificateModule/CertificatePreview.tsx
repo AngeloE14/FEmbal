@@ -4,6 +4,7 @@
 
 import { forwardRef, memo, useMemo } from 'react';
 import type { CertificateData } from './types';
+import { assetUrl } from '../../utils/paths';
 
 type CertificatePreviewProps = {
   data: CertificateData;
@@ -145,7 +146,7 @@ const CertificatePreviewBase = forwardRef<HTMLDivElement, CertificatePreviewProp
           <img
             alt=""
             className="certificate-document-logo"
-            src="/assets/images/logo-circular.png"
+            src={assetUrl('/assets/images/logo-circular.png')}
             loading="lazy"
             decoding="async"
           />
@@ -156,7 +157,7 @@ const CertificatePreviewBase = forwardRef<HTMLDivElement, CertificatePreviewProp
 
         <div className="certificate-document-meta">
           <span className="certificate-document-meta-brand">
-            <img alt="" src="/assets/images/logo-circular.png" loading="lazy" decoding="async" />
+            <img alt="" src={assetUrl('/assets/images/logo-circular.png')} loading="lazy" decoding="async" />
             Documento generado a través del sistema
           </span>
         </div>

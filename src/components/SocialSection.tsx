@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { assetUrl } from '../utils/paths';
 import '../styles/components/SocialSection.css';
 
 /**
@@ -20,7 +21,7 @@ export const SocialSection = memo(function SocialSection() {
           aria-label="Abrir Instagram de Escuela de Artes Mortuorias del Sureste en una nueva pestaña"
         >
           <span className="redes-sociales__icono" aria-hidden="true">
-            <img src="/assets/images/instagram.png" alt="" width={26} height={26} loading="lazy" decoding="async" fetchPriority="low" />
+            <img src={assetUrl('/assets/images/instagram.png')} alt="" width={26} height={26} loading="lazy" decoding="async" fetchPriority="low" />
           </span>
           <span className="redes-sociales__texto">
             <span className="redes-sociales__nombre">Instagram</span>

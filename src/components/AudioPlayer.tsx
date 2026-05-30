@@ -4,6 +4,7 @@
  */
 
 import { useEffect, useRef } from 'react';
+import { assetUrl } from '../utils/paths';
 
 export function AudioPlayer() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -80,5 +81,5 @@ export function AudioPlayer() {
     };
   }, []);
 
-  return <audio id="audioCarga" ref={audioRef} src="/assets/audio/sonido.mp3" preload="auto" playsInline></audio>;
+  return <audio id="audioCarga" ref={audioRef} src={assetUrl('/assets/audio/sonido.mp3')} preload="auto" playsInline></audio>;
 }

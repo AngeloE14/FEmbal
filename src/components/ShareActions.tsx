@@ -4,6 +4,7 @@
  */
 
 import { memo } from 'react';
+import { assetUrl } from '../utils/paths';
 import '../styles/components/ShareActions.css';
 
 interface ShareActionsProps {
@@ -25,7 +26,7 @@ export const ShareActions = memo(function ShareActions({ shareFeedback, onShare 
         aria-live="polite"
         style={{ display: shareFeedback ? 'flex' : 'none' }}
       >
-        <img src="/assets/images/logo-circular.png" alt="Logo CalcEmbal" width={24} height={24} loading="lazy" decoding="async" />
+        <img src={assetUrl('/assets/images/logo-circular.png')} alt="Logo CalcEmbal" width={24} height={24} loading="lazy" decoding="async" />
         <span id="shareFeedbackText">{shareFeedback}</span>
       </p>
     </div>

@@ -8,6 +8,7 @@ import '../styles/components/FormSection.css';
 import { useCalculatorForm } from '../hooks/useCalculator';
 import { DEFAULT_CHEMICAL_LABEL } from '../utils/constants';
 import { parseInputNumber } from '../utils/formatters';
+import { assetUrl } from '../utils/paths';
 import { CHEMICAL_OPTIONS, PRESET_BUTTONS } from '../utils/profiles';
 
 export const FormSection = memo(function FormSection() {
@@ -126,7 +127,7 @@ export const FormSection = memo(function FormSection() {
                   setIsSelectOpen(false);
                 }}
               >
-                <img src={option.image} alt={option.label} width={48} height={48} loading="lazy" decoding="async" />{' '}
+                <img src={assetUrl(option.image)} alt={option.label} width={48} height={48} loading="lazy" decoding="async" />{' '}
                 <span>{option.label}</span>
               </button>
             ))}
