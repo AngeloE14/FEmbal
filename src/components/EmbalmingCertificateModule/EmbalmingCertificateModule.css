@@ -891,12 +891,13 @@
   }
 
   .certificate-module {
-    overflow: auto;
+    overflow: hidden;
   }
 
   .certificate-module__workspace {
     grid-template-columns: 1fr;
-    overflow: visible;
+    grid-template-rows: minmax(0, 1fr) auto;
+    overflow: hidden;
   }
 
   .certificate-module__preview-panel {
