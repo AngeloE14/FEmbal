@@ -31,7 +31,13 @@ export const buildCertificateFilename = (data: CertificateData) => {
   return `documento-embalsamamiento-${name}-${date}.pdf`;
 };
 
-export const generateCertificatePdfBlob = async (element: HTMLElement): Promise<Blob> => {
+export type PdfOptions = {
+  scale?: number;
+  imageFormat?: 'PNG' | 'JPEG';
+  imageQuality?: number;
+};
+
+export const generateCertificatePdfBlob = async (element: HTMLElement, options?: PdfOptions): Promise<Blob> => {
   const [{ default: html2canvas }, { jsPDF }] = await Promise.all([
     import('html2canvas'),
     import('jspdf'),
@@ -46,9 +52,22 @@ export const generateCertificatePdfBlob = async (element: HTMLElement): Promise<
   const exportElement = element.cloneNode(true) as HTMLElement;
   exportElement.classList.add('certificate-preview-document--exporting');
   exportElement.setAttribute('aria-hidden', 'true');
+
+  // Las variables CSS (--certificate-doc-accent, --certificate-doc-gold, etc.)
+  // se definen en .certificate-module. Al clonar el elemento y colocarlo fuera
+  // de ese contexto (directamente en document.body), las variables dejan de
+  // resolverse. Aquí copiamos sus valores calculados para conservar los colores.
+  const computed = getComputedStyle(element);
+  for (const prop of ['--certificate-doc-accent', '--certificate-doc-gold', '--certificate-doc-accent-strong', '--certificate-doc-accent-soft']) {
+    const value = computed.getPropertyValue(prop).trim();
+    if (value) {
+      exportElement.style.setProperty(prop, value);
+    }
+  }
+
   document.body.append(exportElement);
 
-  const scale = Math.min(3, Math.max(2, window.devicePixelRatio || 1));
+  const scale = options?.scale ?? Math.min(3, Math.max(2, window.devicePixelRatio || 1));
   let canvas: HTMLCanvasElement;
 
   try {
@@ -71,11 +90,26 @@ export const generateCertificatePdfBlob = async (element: HTMLElement): Promise<
     compress: true,
   });
 
-  const imageData = canvas.toDataURL('image/png', 1);
-  // El equipo pidió que el documento salga en una sola hoja.
-  // Por eso colocamos la imagen completa dentro de una sola página y no
-  // agregamos páginas extra aunque el contenido sea largo.
-  pdf.addImage(imageData, 'PNG', 0, 0, LETTER_WIDTH_MM, LETTER_HEIGHT_MM);
+  const imageFormat = (options?.imageFormat || 'PNG').toLowerCase();
+  const imageQuality = options?.imageQuality ?? 1;
+  const imageData = canvas.toDataURL(`image/${imageFormat}`, imageQuality);
+
+  const pageWidth = LETTER_WIDTH_MM;
+  const pageHeight = LETTER_HEIGHT_MM;
+  const imgAspect = canvas.width / canvas.height;
+
+  let renderWidth = pageWidth;
+  let renderHeight = pageWidth / imgAspect;
+
+  if (renderHeight > pageHeight) {
+    renderHeight = pageHeight;
+    renderWidth = pageHeight * imgAspect;
+  }
+
+  const xOffset = (pageWidth - renderWidth) / 2;
+  const yOffset = (pageHeight - renderHeight) / 2;
+
+  pdf.addImage(imageData, imageFormat.toUpperCase() as 'PNG' | 'JPEG', xOffset, yOffset, renderWidth, renderHeight);
 
   return pdf.output('blob');
 };
