@@ -891,13 +891,16 @@
   }
 
   .certificate-module {
-    overflow: hidden;
+    grid-template-rows: auto auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .certificate-module__workspace {
     grid-template-columns: 1fr;
-    grid-template-rows: minmax(0, 1fr) auto;
-    overflow: hidden;
+    grid-template-rows: auto auto;
+    overflow: visible;
   }
 
   .certificate-module__preview-panel {
@@ -906,7 +909,7 @@
   }
 
   .certificate-module__form-panel {
-    overflow: auto;
+    overflow: visible;
     border-right: 0;
     border-bottom: 1px solid var(--panel-border);
     scroll-behavior: smooth;
