@@ -105,8 +105,11 @@ const EmbalmingCertificateModule = memo(function EmbalmingCertificateModule({
       return undefined;
     }
 
+    const mobileQuery = window.matchMedia('(max-width: 980px)');
     const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    if (!mobileQuery.matches) {
+      document.body.style.overflow = 'hidden';
+    }
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {

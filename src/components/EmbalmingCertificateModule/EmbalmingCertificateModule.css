@@ -891,13 +891,14 @@
   }
 
   .certificate-module {
+    position: absolute;
+    inset: 0 0 auto;
     display: block;
-    height: 100vh;
-    height: 100dvh;
-    overflow-x: hidden;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    -webkit-overflow-scrolling: touch;
+    min-height: 100vh;
+    min-height: 100dvh;
+    height: auto;
+    overflow: visible;
+    overscroll-behavior: auto;
     contain: none;
   }
 
@@ -912,6 +913,7 @@
     grid-template-columns: 1fr;
     overflow: visible;
     min-height: auto;
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
   .certificate-module__preview-panel {
@@ -970,7 +972,7 @@
 
 @media (max-width: 640px) {
   .certificate-module__form-panel {
-    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
+    padding-bottom: calc(7rem + env(safe-area-inset-bottom));
   }
 
   .certificate-field input,
