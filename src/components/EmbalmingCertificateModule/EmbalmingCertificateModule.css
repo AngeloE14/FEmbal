@@ -920,6 +920,7 @@
     display: block;
     overflow: visible;
     padding: 0.85rem;
+    background: transparent;
     contain: none;
   }
 
@@ -967,6 +968,77 @@
 
   .certificate-field--synced textarea {
     min-height: 4.25rem;
+  }
+
+  .certificate-preview-shell {
+    display: none;
+  }
+
+  .certificate-preview-empty {
+    width: 100%;
+    box-shadow: none;
+  }
+
+  .certificate-actions {
+    border-radius: 8px;
+    padding: 0.85rem;
+  }
+
+  .certificate-data-confirm {
+    place-items: end stretch;
+    padding: max(0.75rem, env(safe-area-inset-top)) max(0.75rem, env(safe-area-inset-right)) max(0.75rem, env(safe-area-inset-bottom)) max(0.75rem, env(safe-area-inset-left));
+    contain: none;
+  }
+
+  .certificate-data-confirm__panel {
+    width: 100%;
+    gap: 0.85rem;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .certificate-data-confirm__panel h2 {
+    font-size: 1.15rem;
+  }
+
+  .certificate-data-confirm__actions {
+    grid-template-columns: 1fr;
+  }
+
+  .certificate-confirm-modal {
+    align-items: stretch;
+    padding: 0;
+    contain: none;
+  }
+
+  .certificate-confirm-modal__panel {
+    width: 100%;
+    max-height: 100dvh;
+    border-radius: 0;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+  }
+
+  .certificate-confirm-modal__head {
+    padding: calc(0.85rem + env(safe-area-inset-top)) 0.85rem 0.85rem;
+  }
+
+  .certificate-confirm-modal__preview {
+    align-content: start;
+    padding: 0.75rem;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .certificate-confirm-modal__preview .certificate-preview-document {
+    width: min(100%, 420px);
+    min-width: 0;
+    padding: 0.16in;
+    box-shadow: none;
+  }
+
+  .certificate-confirm-modal__actions {
+    grid-template-columns: 1fr;
+    padding: 0.85rem 0.85rem calc(0.85rem + env(safe-area-inset-bottom));
   }
 }
 
@@ -1092,8 +1164,8 @@
   }
 
   .certificate-preview-document {
-    width: min(100%, 816px);
-    padding: 0.28in 0.24in;
+    width: min(100%, 420px);
+    padding: 0.18in 0.16in;
   }
 
   .certificate-confirm-modal {
@@ -1108,11 +1180,11 @@
   }
 
   .certificate-confirm-modal__preview {
-    padding: 0.85rem;
+    padding: 0.75rem;
   }
 
   .certificate-confirm-modal__preview .certificate-preview-document {
-    width: min(100%, 816px);
+    width: min(100%, 420px);
     min-width: 0;
   }
 

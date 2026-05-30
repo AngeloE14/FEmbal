@@ -45,7 +45,8 @@ const PdfActions = memo(function PdfActions({
     showStatus(null);
 
     try {
-      await downloadPdf(confirmPreviewRef.current);
+      const isCompactViewport = window.matchMedia('(max-width: 640px)').matches;
+      await downloadPdf(confirmPreviewRef.current, isCompactViewport ? { imageFormat: 'JPEG', imageQuality: 0.92, scale: 1.5 } : undefined);
       setIsConfirmOpen(false);
       showStatus({ message: 'PDF generado correctamente.', type: 'success' });
     } catch (error) {
