@@ -32,10 +32,8 @@
   touch-action: manipulation;
   backdrop-filter: blur(14px);
   transition:
-    transform 0.18s ease,
-    border-color 0.18s ease,
-    background-color 0.18s ease,
-    box-shadow 0.18s ease;
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
 }
 
 .certificate-mode-toggle__icon {
@@ -83,9 +81,10 @@
     linear-gradient(135deg, var(--bg-a), var(--bg-b));
   font-family: var(--font-sans);
   overflow: hidden;
-  animation: certificate-module-enter 0.18s ease-out both;
+  animation: certificate-module-enter 0.12s ease-out both;
   contain: layout paint style;
   isolation: isolate;
+  transform: translateZ(0);
 }
 
 :root[data-theme="dark"] .certificate-module {
@@ -107,7 +106,7 @@
 @keyframes certificate-module-enter {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(4px);
   }
 
   to {
@@ -159,12 +158,9 @@
   cursor: pointer;
   touch-action: manipulation;
   transition:
-    transform 0.18s ease,
-    border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    background-color 0.18s ease,
-    color 0.18s ease,
-    opacity 0.18s ease;
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    opacity 0.15s ease;
 }
 
 .certificate-close-action,
@@ -335,9 +331,8 @@
   font-weight: 650;
   box-shadow: none;
   transition:
-    border-color 0.16s ease,
-    background-color 0.16s ease,
-    box-shadow 0.16s ease;
+    border-color 0.12s ease,
+    box-shadow 0.12s ease;
 }
 
 .certificate-field input::placeholder,
@@ -485,6 +480,7 @@
   box-shadow: 0 22px 44px -28px rgba(0, 0, 0, 0.58);
   font-family: Georgia, "Times New Roman", serif;
   contain: layout paint style;
+  content-visibility: auto;
 }
 
 .certificate-preview-document--exporting {
@@ -493,6 +489,24 @@
   top: 0;
   width: 8.5in !important;
   min-width: 8.5in !important;
+  aspect-ratio: auto;
+  box-shadow: none;
+}
+
+.certificate-print-source {
+  position: fixed;
+  top: 0;
+  left: -10000px;
+  z-index: -1;
+  width: 8.5in;
+  pointer-events: none;
+  contain: layout paint style;
+}
+
+.certificate-print-source .certificate-preview-document {
+  width: 8.5in;
+  min-width: 8.5in;
+  min-height: 11in;
   aspect-ratio: auto;
   box-shadow: none;
 }
@@ -574,6 +588,8 @@
 
 .certificate-document-section {
   break-inside: avoid;
+  content-visibility: auto;
+  contain-intrinsic-size: 180px;
 }
 
 .certificate-document-section h2 {
@@ -718,13 +734,13 @@
 }
 
 .certificate-action-status--entering {
-  animation: certificate-status-slide-in 0.28s ease-out both;
+  animation: certificate-status-slide-in 0.15s ease-out both;
 }
 
 @keyframes certificate-status-slide-in {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(4px);
   }
   to {
     opacity: 1;
@@ -741,9 +757,8 @@
   padding: max(0.9rem, env(safe-area-inset-top)) max(0.9rem, env(safe-area-inset-right)) max(0.9rem, env(safe-area-inset-bottom)) max(0.9rem, env(safe-area-inset-left));
   background: rgba(5, 12, 17, 0.68);
   backdrop-filter: blur(12px);
-  animation: certificate-confirm-enter 0.16s ease-out both;
+  animation: certificate-confirm-enter 0.1s ease-out both;
   contain: layout paint style;
-  will-change: opacity;
 }
 
 .certificate-data-confirm {
@@ -755,7 +770,7 @@
   padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
   background: rgba(5, 12, 17, 0.58);
   backdrop-filter: blur(10px);
-  animation: certificate-confirm-enter 0.16s ease-out both;
+  animation: certificate-confirm-enter 0.1s ease-out both;
   contain: layout paint style;
   will-change: opacity;
 }
@@ -899,7 +914,10 @@
     height: auto;
     overflow: visible;
     overscroll-behavior: auto;
-    contain: none;
+    contain: layout paint;
+    animation: none;
+    background: var(--panel-bg);
+    will-change: auto;
   }
 
   .certificate-module__topbar {
@@ -921,7 +939,7 @@
     overflow: visible;
     padding: 0.85rem;
     background: transparent;
-    contain: none;
+    contain: layout paint;
   }
 
   .certificate-module__preview-panel:empty {
@@ -934,7 +952,7 @@
     border-right: 0;
     border-bottom: 1px solid var(--panel-border);
     scroll-behavior: smooth;
-    contain: none;
+    contain: layout paint;
   }
 
   .certificate-form {
@@ -960,6 +978,8 @@
   .certificate-form-section {
     gap: 0.82rem;
     padding: 0.92rem;
+    content-visibility: auto;
+    contain-intrinsic-size: 220px;
   }
 
   .certificate-field textarea {
@@ -971,7 +991,19 @@
   }
 
   .certificate-preview-shell {
-    display: none;
+    display: block;
+    overflow: visible;
+    contain: layout paint;
+    overscroll-behavior: contain;
+    padding-bottom: 0.2rem;
+  }
+
+  .certificate-preview-shell .certificate-preview-document {
+    width: min(100%, 420px);
+    min-width: 0;
+    padding: 0.18in 0.16in;
+    box-shadow: none;
+    content-visibility: auto;
   }
 
   .certificate-preview-empty {
@@ -987,7 +1019,8 @@
   .certificate-data-confirm {
     place-items: end stretch;
     padding: max(0.75rem, env(safe-area-inset-top)) max(0.75rem, env(safe-area-inset-right)) max(0.75rem, env(safe-area-inset-bottom)) max(0.75rem, env(safe-area-inset-left));
-    contain: none;
+    contain: layout paint;
+    animation: none;
   }
 
   .certificate-data-confirm__panel {
@@ -1008,7 +1041,8 @@
   .certificate-confirm-modal {
     align-items: stretch;
     padding: 0;
-    contain: none;
+    contain: layout paint;
+    animation: none;
   }
 
   .certificate-confirm-modal__panel {
@@ -1039,6 +1073,14 @@
   .certificate-confirm-modal__actions {
     grid-template-columns: 1fr;
     padding: 0.85rem 0.85rem calc(0.85rem + env(safe-area-inset-bottom));
+  }
+
+  .certificate-close-action,
+  .certificate-primary-action,
+  .certificate-secondary-action,
+  .certificate-reset-action {
+    transition-duration: 0.1s;
+    min-height: 3.15rem;
   }
 }
 
@@ -1137,15 +1179,15 @@
 
 @media (pointer: coarse) {
   .certificate-confirm-modal {
-    backdrop-filter: blur(6px);
+    backdrop-filter: none;
   }
 
   .certificate-data-confirm {
-    backdrop-filter: blur(5px);
+    backdrop-filter: none;
   }
 
   .certificate-mode-toggle {
-    backdrop-filter: blur(6px);
+    backdrop-filter: none;
   }
 }
 
@@ -1205,27 +1247,61 @@
     margin: 0;
   }
 
-  body {
+  html, body {
     background: #ffffff !important;
     padding: 0 !important;
+    margin: 0 !important;
+    min-height: 0 !important;
+    height: auto !important;
   }
 
-  body * {
+  body > * {
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
     visibility: hidden !important;
   }
 
-  .certificate-preview-document,
-  .certificate-preview-document * {
+  .certificate-print-source {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 8.5in !important;
+    height: 11in !important;
+    z-index: 9999 !important;
+    display: block !important;
+    visibility: visible !important;
+    overflow: visible !important;
+    contain: none !important;
+  }
+
+  .certificate-print-source,
+  .certificate-print-source * {
     visibility: visible !important;
   }
 
-  .certificate-preview-document {
+  .certificate-print-source .certificate-preview-document {
     position: fixed !important;
-    inset: 0 auto auto 0 !important;
+    top: 0 !important;
+    left: 0 !important;
     width: 8.5in !important;
     min-width: 8.5in !important;
+    height: 11in !important;
     min-height: 11in !important;
+    margin: 0 !important;
+    padding: 0.3in !important;
     border: 0 !important;
     box-shadow: none !important;
+    aspect-ratio: auto !important;
+    overflow: hidden !important;
+  }
+
+  .certificate-document-section {
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
 }

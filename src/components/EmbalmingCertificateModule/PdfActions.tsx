@@ -15,6 +15,15 @@ type ActionStatus = {
   type: 'error' | 'success';
 } | null;
 
+const COLLECTED_VARS = ['--certificate-doc-accent', '--certificate-doc-accent-strong', '--certificate-doc-accent-soft', '--certificate-doc-gold'] as const;
+
+const collectCssVars = (): string => {
+  const moduleEl = document.querySelector('.certificate-module');
+  if (!moduleEl) return '';
+  const computed = getComputedStyle(moduleEl);
+  return ':root {\n' + COLLECTED_VARS.map(v => `${v}: ${computed.getPropertyValue(v).trim()};`).join('\n') + '\n}';
+};
+
 const PdfActions = memo(function PdfActions({
   certificateData,
   previewRef,
@@ -23,6 +32,7 @@ const PdfActions = memo(function PdfActions({
   const [status, setStatus] = useState<ActionStatus>(null);
   const [statusKey, setStatusKey] = useState(0);
   const confirmPreviewRef = useRef<HTMLDivElement | null>(null);
+  const printPreviewRef = useRef<HTMLDivElement | null>(null);
   const { downloadPdf, isGenerating } = usePdfGenerator(certificateData, previewRef);
 
   const showStatus = useCallback((newStatus: ActionStatus) => {
@@ -73,13 +83,112 @@ const PdfActions = memo(function PdfActions({
   }, [closeDownloadConfirmation, isConfirmOpen]);
 
   const handlePrint = useCallback(() => {
-    window.requestAnimationFrame(() => {
+    const source = printPreviewRef.current;
+    if (!source) return;
+
+    const clone = source.cloneNode(true) as HTMLElement;
+    clone.querySelectorAll('[loading]').forEach(el => el.removeAttribute('loading'));
+
+    const styles = document.querySelectorAll('style, link[rel="stylesheet"]');
+    const stylesHtml = Array.from(styles).map(s => s.outerHTML).join('\n');
+    const cssVars = collectCssVars();
+
+    const win = window.open('', '_blank');
+    if (!win) {
       window.print();
-    });
+      return;
+    }
+
+    win.document.write(`
+      <!DOCTYPE html>
+      <html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <title>Imprimir documento</title>
+        ${stylesHtml}
+        <style>
+          ${cssVars}
+          @page { size: letter; margin: 0; }
+          html, body {
+            margin: 0;
+            padding: 0;
+            background: #ffffff;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+          }
+          body {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+          }
+          .certificate-preview-document {
+            width: 8.5in;
+            min-height: 11in;
+            padding: 0.3in;
+            margin: 0;
+            border: 0;
+            box-shadow: none;
+            background: #ffffff;
+            color: #171411;
+            font-family: Georgia, "Times New Roman", serif;
+            box-sizing: border-box;
+            aspect-ratio: auto;
+          }
+          .certificate-document-section {
+            break-inside: avoid;
+            page-break-inside: avoid;
+          }
+        </style>
+      </head>
+      <body>
+        ${clone.outerHTML}
+        <script>
+          var imgs = document.images;
+          var remaining = imgs.length;
+          if (remaining === 0) {
+            window.print();
+            setTimeout(function() { window.close(); }, 500);
+          } else {
+            for (var i = 0; i < imgs.length; i++) {
+              if (imgs[i].complete) {
+                remaining--;
+                if (remaining === 0) {
+                  window.print();
+                  setTimeout(function() { window.close(); }, 500);
+                }
+              } else {
+                imgs[i].onload = function() {
+                  remaining--;
+                  if (remaining === 0) {
+                    window.print();
+                    setTimeout(function() { window.close(); }, 500);
+                  }
+                };
+                imgs[i].onerror = function() {
+                  remaining--;
+                  if (remaining === 0) {
+                    window.print();
+                    setTimeout(function() { window.close(); }, 500);
+                  }
+                };
+              }
+            }
+          }
+        <\/script>
+      </body>
+      </html>
+    `);
+
+    win.document.close();
   }, []);
 
   return (
     <section className="certificate-actions" aria-label="Acciones del documento">
+      <div className="certificate-print-source" aria-hidden="true">
+        <CertificatePreview ref={printPreviewRef} data={certificateData} />
+      </div>
+
       <button
         className="certificate-primary-action"
         disabled={isGenerating}

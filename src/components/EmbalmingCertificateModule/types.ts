@@ -8,7 +8,6 @@ export type EmbalmingType = 'Patológico' | 'Caso Legal' | 'Traslado';
 export type ChemicalSolutionData = {
   formaldehydeConcentration: string;
   arterial: string;
-  jaundiceChemical: string;
   waterConditioner: string;
 };
 
@@ -61,14 +60,12 @@ export const isCertificateDataComplete = (data: CertificateData | ManualCertific
 export const chemicalSolutionFields: Array<keyof ChemicalSolutionData> = [
   'formaldehydeConcentration',
   'arterial',
-  'jaundiceChemical',
   'waterConditioner',
 ];
 
 export const emptyChemicalSolutionData: ChemicalSolutionData = {
   formaldehydeConcentration: 'Calcula una solución arterial para sincronizar este campo.',
   arterial: 'Calcula una solución arterial para sincronizar este campo.',
-  jaundiceChemical: 'Sin indicación automática del cálculo actual.',
   waterConditioner: 'Calcula una solución arterial para sincronizar este campo.',
 };
 

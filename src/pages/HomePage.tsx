@@ -22,6 +22,10 @@ const LazyCertificateModule = lazy(async () => {
 export function HomePage() {
   const [isCertificateModeOpen, setIsCertificateModeOpen] = useState(false);
 
+  const preloadCertificateModule = useCallback(() => {
+    import('../components/EmbalmingCertificateModule');
+  }, []);
+
   const openCertificateMode = useCallback(() => {
     setIsCertificateModeOpen(true);
   }, []);
@@ -40,6 +44,8 @@ export function HomePage() {
         role="switch"
         type="button"
         onClick={openCertificateMode}
+        onPointerEnter={preloadCertificateModule}
+        onTouchStart={preloadCertificateModule}
       >
         <span className="certificate-mode-toggle__icon" aria-hidden="true">
           <FileBadge2 size={18} strokeWidth={2.2} />

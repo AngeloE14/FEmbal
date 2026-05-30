@@ -33,7 +33,6 @@ type TextFieldProps = {
 const chemicalLabels: Record<keyof ChemicalSolutionData, string> = {
   arterial: 'Arterial',
   formaldehydeConcentration: 'Concentración de formaldehído',
-  jaundiceChemical: 'Químico para ictericia',
   waterConditioner: 'Acondicionador de agua',
 };
 

@@ -101,7 +101,6 @@ const CertificatePreviewBase = forwardRef<HTMLDivElement, CertificatePreviewProp
           rows: [
             { label: 'Concentración de formaldehído', value: data.formaldehydeConcentration },
             { label: 'Arterial', value: data.arterial },
-            { label: 'Químico para ictericia', value: data.jaundiceChemical },
             { label: 'Acondicionador de agua', value: data.waterConditioner },
           ],
           title: 'Solución química',
@@ -132,7 +131,6 @@ const CertificatePreviewBase = forwardRef<HTMLDivElement, CertificatePreviewProp
         data.formaldehydeConcentration,
         data.funeralHome,
         data.injectionSite,
-        data.jaundiceChemical,
         data.procedureDate,
         data.procedureTime,
         data.transferRecommendations,
