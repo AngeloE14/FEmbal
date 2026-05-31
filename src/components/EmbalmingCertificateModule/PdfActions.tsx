@@ -1,15 +1,14 @@
 // ===== ACCIONES DEL PDF (DESCARGAR / IMPRIMIR) =====
 // Este componente dibuja los botones "GENERAR DOCUMENTO" e "Imprimir".
-// También maneja el modal de confirmación antes de generar el PDF.
-// 
-// La generación del PDF usa el ref (confirmPreviewRef) de la vista previa
-// para capturarla con html2canvas y plasmarla en un PDF tamaño carta vertical.
-// 
-// En móvil (≤640px) se usa JPEG con calidad 0.92 y escala 1.5 para que
-// el PDF sea más ligero y rápido de generar.
-import { memo, useCallback, useEffect, useRef, useState } from 'react';
+//
+// FLUJO SIMPLIFICADO (mayo 2026):
+// - Se eliminó el modal de confirmación "Cancelar/Confirmar" que entorpecía
+//   el flujo. Ahora "GENERAR DOCUMENTO" inicia la descarga inmediatamente.
+// - En móvil (≤640px) se usa JPEG con calidad 0.92 y escala 1.5 para que
+//   el PDF sea más ligero y rápido de generar.
+import { memo, useCallback, useRef, useState } from 'react';
 import type { RefObject } from 'react';
-import { Download, Printer, X } from 'lucide-react';
+import { Download, Printer } from 'lucide-react';
 import { CertificatePreview } from './CertificatePreview';
 import { usePdfGenerator } from './hooks/usePdfGenerator';
 import type { CertificateData } from './types';
@@ -37,10 +36,8 @@ const PdfActions = memo(function PdfActions({
   certificateData,
   previewRef,
 }: PdfActionsProps) {
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [status, setStatus] = useState<ActionStatus>(null);
   const [statusKey, setStatusKey] = useState(0);
-  const confirmPreviewRef = useRef<HTMLDivElement | null>(null);
   const printPreviewRef = useRef<HTMLDivElement | null>(null);
   const { downloadPdf, isGenerating } = usePdfGenerator(certificateData, previewRef);
 
@@ -49,24 +46,12 @@ const PdfActions = memo(function PdfActions({
     setStatus(newStatus);
   }, []);
 
-  const openDownloadConfirmation = useCallback(() => {
-    showStatus(null);
-    setIsConfirmOpen(true);
-  }, [showStatus]);
-
-  const closeDownloadConfirmation = useCallback(() => {
-    if (!isGenerating) {
-      setIsConfirmOpen(false);
-    }
-  }, [isGenerating]);
-
-  const handleConfirmedDownload = useCallback(async () => {
+  const handleDirectDownload = useCallback(async () => {
     showStatus(null);
 
     try {
       const isCompactViewport = window.matchMedia('(max-width: 640px)').matches;
-      await downloadPdf(confirmPreviewRef.current, isCompactViewport ? { imageFormat: 'JPEG', imageQuality: 0.92, scale: 1.5 } : undefined);
-      setIsConfirmOpen(false);
+      await downloadPdf(previewRef.current, isCompactViewport ? { imageFormat: 'JPEG', imageQuality: 0.92, scale: 1.5 } : undefined);
       showStatus({ message: 'PDF generado correctamente.', type: 'success' });
     } catch (error) {
       showStatus({
@@ -74,22 +59,7 @@ const PdfActions = memo(function PdfActions({
         type: 'error',
       });
     }
-  }, [downloadPdf, showStatus]);
-
-  useEffect(() => {
-    if (!isConfirmOpen) {
-      return undefined;
-    }
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        closeDownloadConfirmation();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [closeDownloadConfirmation, isConfirmOpen]);
+  }, [downloadPdf, showStatus, previewRef]);
 
   const handlePrint = useCallback(() => {
     const source = printPreviewRef.current;
@@ -347,10 +317,10 @@ const PdfActions = memo(function PdfActions({
         className="certificate-primary-action"
         disabled={isGenerating}
         type="button"
-        onClick={openDownloadConfirmation}
+        onClick={handleDirectDownload}
       >
         <Download aria-hidden="true" size={18} strokeWidth={2.2} />
-        GENERAR DOCUMENTO
+        {isGenerating ? 'Generando PDF...' : 'GENERAR DOCUMENTO'}
       </button>
       <button
         className="certificate-secondary-action"
@@ -368,52 +338,6 @@ const PdfActions = memo(function PdfActions({
         >
           {status.message}
         </p>
-      ) : null}
-
-      {isConfirmOpen ? (
-        <div className="certificate-confirm-modal" role="dialog" aria-modal="true" aria-labelledby="certificate-confirm-title">
-          <div className="certificate-confirm-modal__panel">
-            <div className="certificate-confirm-modal__head">
-              <div>
-                <span>Vista final</span>
-                <h2 id="certificate-confirm-title">¿Desea generar y descargar el documento?</h2>
-              </div>
-              <button
-                aria-label="Cancelar generación"
-                className="certificate-confirm-modal__close"
-                disabled={isGenerating}
-                type="button"
-                onClick={closeDownloadConfirmation}
-              >
-                <X aria-hidden="true" size={18} strokeWidth={2.2} />
-              </button>
-            </div>
-
-            <div className="certificate-confirm-modal__preview" aria-label="Vista previa final del documento">
-              <CertificatePreview ref={confirmPreviewRef} data={certificateData} />
-            </div>
-
-            <div className="certificate-confirm-modal__actions">
-              <button
-                className="certificate-secondary-action"
-                disabled={isGenerating}
-                type="button"
-                onClick={closeDownloadConfirmation}
-              >
-                Cancelar
-              </button>
-              <button
-                className="certificate-primary-action"
-                disabled={isGenerating}
-                type="button"
-                onClick={handleConfirmedDownload}
-              >
-                <Download aria-hidden="true" size={18} strokeWidth={2.2} />
-                {isGenerating ? 'Generando PDF...' : 'Confirmar'}
-              </button>
-            </div>
-          </div>
-        </div>
       ) : null}
     </section>
   );

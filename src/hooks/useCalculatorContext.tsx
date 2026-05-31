@@ -9,7 +9,7 @@
  * Migrado desde la lógica imperativa del proyecto original en JS.
  */
 
-import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, useDeferredValue, type ReactNode } from 'react';
 import {
   COARSE_POINTER_QUERY,
   DEFAULT_CONDITIONS,
@@ -135,6 +135,8 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const caseData = useMemo(() => buildCaseDataFromInputs(inputs), [inputs]);
+  const deferredCaseData = useDeferredValue(caseData);
+  const isCaseDataStale = deferredCaseData !== caseData;
 
   const clearOutputs = useCallback(() => {
     setCurrentRecommendation(null);
@@ -212,7 +214,9 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
   );
 
   useEffect(() => {
-    const caseSignature = buildCaseSignature(caseData);
+    if (isCaseDataStale) return;
+
+    const caseSignature = buildCaseSignature(deferredCaseData);
 
     if (caseSignature === lastCaseSignatureRef.current) {
       return;
@@ -220,11 +224,11 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
 
     const timeoutId = window.setTimeout(() => {
       lastCaseSignatureRef.current = caseSignature;
-      runCalculation(caseData);
+      runCalculation(deferredCaseData);
     }, inputDebounceMs);
 
     return () => window.clearTimeout(timeoutId);
-  }, [caseData, inputDebounceMs, runCalculation]);
+  }, [deferredCaseData, inputDebounceMs, runCalculation, isCaseDataStale]);
 
   useEffect(() => {
     return () => {

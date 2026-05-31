@@ -323,6 +323,8 @@ body {
   overflow-x: clip;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  scroll-padding: max(1.5rem, env(safe-area-inset-top)) 0 max(4rem, env(safe-area-inset-bottom));
   padding: max(1.25rem, env(safe-area-inset-top)) max(1.25rem, env(safe-area-inset-right)) max(1.25rem, env(safe-area-inset-bottom)) max(1.25rem, env(safe-area-inset-left));
   transition: color var(--theme-switch-duration) var(--theme-switch-ease);
   -webkit-tap-highlight-color: transparent;

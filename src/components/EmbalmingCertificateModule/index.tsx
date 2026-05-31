@@ -66,6 +66,10 @@ const EmbalmingCertificateModule = memo(function EmbalmingCertificateModule({
     setIsDataConfirmed(true);
   }, []);
 
+  const handleBackToForm = useCallback(() => {
+    setIsDataConfirmed(false);
+  }, []);
+
   const handleReset = useCallback(() => {
     setIsDataConfirmed(false);
     resetCertificate();
@@ -94,46 +98,70 @@ const EmbalmingCertificateModule = memo(function EmbalmingCertificateModule({
   }
 
   return createPortal(
-    <div className="certificate-module" role="dialog" aria-modal="true" aria-labelledby="certificate-module-title">
-      <div className="certificate-module__topbar">
-        <div>
-          <span>Modo Documento</span>
-          <h1 id="certificate-module-title">Documento interno</h1>
+    <>
+      <div className="certificate-module" role="dialog" aria-modal="true" aria-labelledby="certificate-module-title">
+        <div className="certificate-module__topbar">
+          <div>
+            <span>Modo Documento</span>
+            <h1 id="certificate-module-title">Documento interno</h1>
+          </div>
+          <div className="certificate-topbar-actions">
+            <button className="certificate-reset-action" type="button" onClick={handleReset}>
+              Reiniciar formulario
+            </button>
+            <button className="certificate-close-action" type="button" onClick={onClose}>
+              Cerrar
+            </button>
+          </div>
         </div>
-        <button className="certificate-close-action" type="button" onClick={onClose}>
-          Cerrar
-        </button>
-      </div>
 
-      <div className="certificate-module__workspace">
-        <aside className="certificate-module__form-panel">
-          <CertificateForm
-            data={certificateData}
-            onReset={handleReset}
-            onUpdate={updateField}
-          />
-        </aside>
+        <div className="certificate-module__workspace">
+          <aside className="certificate-module__form-panel">
+            <CertificateForm
+              data={certificateData}
+              onUpdate={updateField}
+            />
+          </aside>
 
-        <section className="certificate-module__preview-panel" aria-label="Vista previa del documento">
-          {isDataConfirmed ? (
-            <>
-              <div className="certificate-preview-shell">
-                <CertificatePreview ref={previewRef} data={certificateData} />
-              </div>
-              <PdfActions certificateData={certificateData} previewRef={previewRef} />
-            </>
-          ) : (
+          <section className="certificate-module__preview-panel" aria-label="Vista previa del documento">
             <div className="certificate-preview-empty" aria-live="polite">
-              <strong>Documento pendiente</strong>
-              <span>Confirma que los datos ingresados son correctos para ver el documento.</span>
+              <strong>¿Estas seguro?</strong>
+              <span>Confirma tus datos para continuar.</span>
               <button className="certificate-primary-action" type="button" onClick={handleConfirmData}>
                 Sí, son correctos
               </button>
             </div>
-          )}
-        </section>
+          </section>
+        </div>
       </div>
-    </div>,
+
+      {isDataConfirmed && (
+        <div className="certificate-confirm-modal" role="dialog" aria-modal="true">
+          <div className="certificate-confirm-modal__panel">
+            <div className="certificate-confirm-modal__head">
+              <div>
+                <span>Previsualización</span>
+                <h2>Documento interno</h2>
+              </div>
+              <button
+                aria-label="Volver al formulario"
+                className="certificate-secondary-action"
+                type="button"
+                onClick={handleBackToForm}
+              >
+                Volver
+              </button>
+            </div>
+            <div className="certificate-confirm-modal__preview">
+              <CertificatePreview ref={previewRef} data={certificateData} />
+            </div>
+            <div className="certificate-confirm-modal__actions">
+              <PdfActions certificateData={certificateData} previewRef={previewRef} />
+            </div>
+          </div>
+        </div>
+      )}
+    </>,
     document.body,
   );
 });

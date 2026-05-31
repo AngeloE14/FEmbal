@@ -153,6 +153,7 @@ const CertificatePreviewBase = forwardRef<HTMLDivElement, CertificatePreviewProp
           />
           <div>
             <p>ESAMS</p>
+            <h1>CERTIFICADO DE EMBALSAMAMIENTO</h1>
           </div>
         </header>
 

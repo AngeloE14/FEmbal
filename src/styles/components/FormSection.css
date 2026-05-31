@@ -2,6 +2,7 @@
   margin-bottom: 0.9rem;
   position: relative;
   padding-bottom: 0.2rem;
+  scroll-margin: 1.25rem;
 }
 
 .field::after {

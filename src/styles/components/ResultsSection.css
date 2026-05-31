@@ -47,7 +47,6 @@
   transition: opacity 0.3s ease, transform 0.3s ease;
   pointer-events: none;
   z-index: -1;
-  will-change: transform, opacity;
 }
 
 .box-results > * {
@@ -72,7 +71,6 @@
 .panel-resultados.panel-resultados--actualizando .mix-progress,
 .panel-resultados.panel-resultados--actualizando .mini-grid .tile {
   animation: results-enter 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
-  will-change: transform, opacity;
 }
 
 .box-results.is-updating .mini-grid .tile:nth-child(1),

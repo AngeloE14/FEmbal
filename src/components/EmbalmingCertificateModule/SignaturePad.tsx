@@ -218,8 +218,8 @@ export const SignaturePad = memo(function SignaturePad({ onSignatureChange }: Si
           onPointerUp={stopDrawing}
         />
       </div>
-      <button className="certificate-secondary-action" type="button" onClick={handleClear}>
-        Limpiar firma
+      <button className="certificate-secondary-action certificate-secondary-action--clear" type="button" onClick={handleClear}>
+        Borrar firma
       </button>
     </div>
   );

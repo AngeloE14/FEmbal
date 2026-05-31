@@ -15,7 +15,6 @@ import { SignaturePad } from './SignaturePad';
 // no un formato oficial ni una constancia institucional.
 type CertificateFormProps = {
   data: CertificateData;
-  onReset: () => void;
   onUpdate: <Field extends ManualCertificateField>(
     field: Field,
     value: ManualCertificateData[Field],
@@ -38,7 +37,6 @@ const chemicalLabels: Record<keyof ChemicalSolutionData, string> = {
 
 export const CertificateForm = memo(function CertificateForm({
   data,
-  onReset,
   onUpdate,
 }: CertificateFormProps) {
   const handleInputChange = useCallback(
@@ -193,10 +191,6 @@ export const CertificateForm = memo(function CertificateForm({
         <legend>Firma</legend>
         <SignaturePad onSignatureChange={(signatureDataUrl) => onUpdate('signatureDataUrl', signatureDataUrl)} />
       </fieldset>
-
-      <button className="certificate-reset-action" type="button" onClick={onReset}>
-        Reiniciar formulario
-      </button>
     </form>
   );
 });
