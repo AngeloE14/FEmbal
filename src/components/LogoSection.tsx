@@ -11,14 +11,14 @@ export const LogoSection = memo(function LogoSection() {
 
   return (
     <section className="logo-head" aria-label="Logo institucional">
-      <div className="logo-season logo-season--spring">
-        <div className="spring-petals" aria-hidden="true">
-          <span className="spring-petal spring-petal--1"></span>
-          <span className="spring-petal spring-petal--2"></span>
-          <span className="spring-petal spring-petal--3"></span>
-          <span className="spring-petal spring-petal--4"></span>
-          <span className="spring-petal spring-petal--5"></span>
-          <span className="spring-petal spring-petal--6"></span>
+      <div className="logo-season logo-season--summer">
+        <div className="summer-sparkles" aria-hidden="true">
+          <span className="summer-sparkle summer-sparkle--1"></span>
+          <span className="summer-sparkle summer-sparkle--2"></span>
+          <span className="summer-sparkle summer-sparkle--3"></span>
+          <span className="summer-sparkle summer-sparkle--4"></span>
+          <span className="summer-sparkle summer-sparkle--5"></span>
+          <span className="summer-sparkle summer-sparkle--6"></span>
         </div>
         <img
           src={logoSrc}

@@ -94,7 +94,7 @@
   --toggle-float-text: #203241;
   --toggle-float-hover: #f2f6fa;
 
-  --theme-switch-duration: 85ms;
+  --theme-switch-duration: 50ms;                           /* duración más rápida para sensación instantánea */
   --theme-switch-ease: cubic-bezier(0.4, 0, 0.2, 1);
   --theme-overlay: rgba(255, 255, 255, 0.22);
 }
@@ -190,7 +190,7 @@
   --toggle-float-text: #e8f1f7;
   --toggle-float-hover: rgba(30, 45, 57, 0.95);
 
-  --theme-overlay: rgba(2, 10, 16, 0.28);
+  --theme-overlay: rgba(2, 10, 16, 0.36);                  /* ligeramente más opaco → transición más tersa */
 }
 
 /* Si no hay preferencia guardada, usa la del sistema */
@@ -381,13 +381,13 @@ body::before {
 }
 
 html.theme-switching body::before {
-  opacity: 0.16;
+  opacity: 0.28;                                           /* crossfade más visible → cambio más suave */
 }
 
 /* En móvil priorizamos respuesta instantánea y estable. */
 @media (max-width: 720px), (pointer: coarse) {
   :root {
-    --theme-switch-duration: 55ms;
+    --theme-switch-duration: 35ms;                         /* aún más rápido en táctil */
     --theme-switch-ease: cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
@@ -771,22 +771,34 @@ input[readonly]:focus {
   }
 }
 
+body,
 .panel,
 .box,
-.result-main,
-.mix-progress,
-.tile,
-.auto-hint,
 .alert,
 .hero,
-.logo-head {
+.logo-head,
+.result-main,
+.tile,
+.mix-progress,
+.auto-hint,
+.notes,
+label,
+select,
+input,
+.chip,
+.field-help,
+.theme-toggle {
+  /* transición simultánea de propiedades que cambian con data-theme */
   transition:
     background-color var(--theme-switch-duration) var(--theme-switch-ease),
-    border-color var(--theme-switch-duration) var(--theme-switch-ease);
+    border-color var(--theme-switch-duration) var(--theme-switch-ease),
+    color var(--theme-switch-duration) var(--theme-switch-ease),
+    box-shadow var(--theme-switch-duration) var(--theme-switch-ease);
 }
 
 /* En tactil evitamos transiciones masivas de color/fondo al cambiar tema. */
 @media (pointer: coarse), (max-width: 720px) {
+  body,
   .panel,
   .box,
   .result-main,
@@ -797,7 +809,12 @@ input[readonly]:focus {
   label,
   .notes,
   .hero,
-  .logo-head {
+  .logo-head,
+  select,
+  input,
+  .chip,
+  .field-help,
+  .theme-toggle {
     transition: none;
   }
 }
@@ -842,7 +859,7 @@ input[readonly]:focus {
   }
 
   .logo-head {
-    padding: 0.9rem 1rem 0.2rem;
+    padding: 0.9rem 1rem 0.55rem;
     background: linear-gradient(120deg, var(--hero-bg-a), var(--hero-bg-b));
   }
 
@@ -863,14 +880,6 @@ input[readonly]:focus {
   .logo-head img {
     animation-duration: 5.6s;
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
-  }
-
-  .logo-season--spring::before {
-    box-shadow: 0 0 0 6px rgba(255, 183, 197, 0.1);
-  }
-
-  .spring-petal {
-    --petal-drop-y: 88px;
   }
 
   input,
@@ -1070,7 +1079,7 @@ input[readonly]:focus {
 
 @media (prefers-reduced-data: reduce) {
   .fondo-ambiental,
-  .spring-petals,
+  .summer-sparkles,
   .logo-season::before,
   .logo-season::after,
   .box-results::after {
