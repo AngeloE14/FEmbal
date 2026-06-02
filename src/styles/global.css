@@ -67,9 +67,9 @@
   --results-badge-text: #f1fff8;
   --results-highlight-a: rgba(149, 240, 213, 0.28);
   --results-highlight-b: rgba(36, 139, 112, 0.2);
-  --mix-track: rgba(151, 177, 192, 0.22);
-  --mix-chemical: #2f87be;
-  --mix-water: #239c7a;
+  --mix-track: rgba(151, 177, 192, 0.18);
+  --mix-chemical: #239c7a;
+  --mix-water: #2f87be;
   --mix-text: #355264;
   --mix-strong: #1c3d4d;
   --mix-divider: rgba(20, 61, 78, 0.18);
@@ -164,8 +164,8 @@
   --results-highlight-a: rgba(87, 228, 183, 0.24);
   --results-highlight-b: rgba(17, 74, 61, 0.26);
   --mix-track: rgba(115, 149, 170, 0.24);
-  --mix-chemical: #59beed;
-  --mix-water: #44d2a9;
+  --mix-chemical: #44d2a9;
+  --mix-water: #59beed;
   --mix-text: #bfd6e4;
   --mix-strong: #e4f5ff;
   --mix-divider: rgba(151, 207, 236, 0.24);
@@ -258,9 +258,9 @@
     --results-badge-text: #08271f;
     --results-highlight-a: rgba(87, 228, 183, 0.24);
     --results-highlight-b: rgba(17, 74, 61, 0.26);
-    --mix-track: rgba(115, 149, 170, 0.24);
-    --mix-chemical: #59beed;
-    --mix-water: #44d2a9;
+  --mix-track: rgba(115, 149, 170, 0.18);
+    --mix-chemical: #44d2a9;
+    --mix-water: #59beed;
     --mix-text: #bfd6e4;
     --mix-strong: #e4f5ff;
     --mix-divider: rgba(151, 207, 236, 0.24);
@@ -322,7 +322,6 @@ body {
   position: relative;
   overflow-x: clip;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
   scroll-padding: max(1.5rem, env(safe-area-inset-top)) 0 max(4rem, env(safe-area-inset-bottom));
   padding: max(1.25rem, env(safe-area-inset-top)) max(1.25rem, env(safe-area-inset-right)) max(1.25rem, env(safe-area-inset-bottom)) max(1.25rem, env(safe-area-inset-left));
@@ -600,14 +599,15 @@ select option:hover {
   font: inherit;
   font-size: 0.96rem;
   font-weight: 500;
-  background: transparent;
+  background: var(--select-bg);
   color: var(--input-text);
   cursor: pointer;
   touch-action: manipulation;
   transition:
     border-color 0.18s ease,
     box-shadow 0.18s ease,
-    transform 0.15s ease;
+    transform 0.15s ease,
+    background-color 0.18s ease;
 }
 
 .select-selected:focus {
@@ -623,14 +623,14 @@ select option:hover {
 .select-selected::after {
   content: '';
   position: absolute;
-  right: 14px;
+  right: 13px;
   top: 50%;
-  transform: translateY(-50%);
   width: 0;
   height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-top: 5px solid var(--select-arrow);
+  translate: 0 -2px;
 }
 
 .select-items {
@@ -641,25 +641,26 @@ select option:hover {
   background: var(--select-menu-bg);
   border: 1px solid var(--field-line);
   border-top: none;
+  border-radius: 0 0 8px 8px;
   z-index: 10;
   max-height: 200px;
   overflow-y: auto;
   overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
   contain: content;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 .select-item {
-  padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.4rem, 2vw, 0.5rem);
+  padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.6rem, 2vw, 0.75rem);
   cursor: pointer;
   color: var(--select-menu-text);
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  transition: background-color 0.12s ease;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.08);
+  transition: background-color 0.15s ease;
   width: 100%;
-  min-height: 3rem;
+  min-height: 2.8rem;
   text-align: left;
   font: inherit;
   background: transparent;
@@ -681,6 +682,7 @@ select option:hover {
 .select-item:hover,
 .select-item:focus-visible {
   background: var(--select-menu-hover);
+  translate: 4px;
   outline: none;
 }
 
@@ -729,7 +731,6 @@ input[readonly]:focus {
 
 /* Contenido no crítico: se renderiza bajo demanda para mejorar rendimiento inicial */
 @supports (content-visibility: auto) {
-  .logo-head,
   .redes-sociales,
   .footer {
     content-visibility: auto;
@@ -762,7 +763,7 @@ input[readonly]:focus {
   .select-selected:focus {
     transform: translateY(-1px) scale(1.005);
   }
-
+}
 
 
 @media (min-width: 720px) {
@@ -837,6 +838,11 @@ input,
 
 /* Tablet vertical e iPad vertical */
 @media (max-width: 900px) {
+  body {
+    scroll-behavior: auto;
+    overscroll-behavior: contain;
+  }
+
   .layout {
     grid-template-columns: 1fr;
   }
@@ -948,6 +954,8 @@ input,
 @media (max-width: 520px) {
   body {
     padding: max(0.75rem, env(safe-area-inset-top)) max(0.75rem, env(safe-area-inset-right)) max(0.75rem, env(safe-area-inset-bottom)) max(0.75rem, env(safe-area-inset-left));
+    scroll-behavior: auto;
+    overscroll-behavior: contain;
   }
 
   .panel {

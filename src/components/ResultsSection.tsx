@@ -3,14 +3,14 @@
  * Origen: caja de resultados del HTML tradicional.
  */
 
-import { memo, type ReactNode } from 'react';
+import { memo, useCallback, useMemo, type ReactNode } from 'react';
 import '../styles/components/ResultsSection.css';
 import { useCalculatorResults } from '../hooks/useCalculator';
 import { formatMlAndOz, formatNumber } from '../utils/formatters';
 import { MixProgress } from './MixProgress';
 import { ShareActions } from './ShareActions';
 
-const FORMULA_TOKEN_REGEX = /(C1·V1|C2·V2|C1|C2|V1|V2|->|=|x|\d+(?:[.,]\d+)?\s?(?:kg|gal|ml|L|fl oz|psi|%))/g;
+const FORMULA_TOKEN_REGEX = /(C1·V1|C2·V2|C1|C2|V1|V2|->|=|\bx\b|\d+(?:[.,]\d+)?\s?(?:kg|gal|ml|L|fl oz|psi|%))/g;
 
 function renderFormulaRichText(text?: string): ReactNode {
   if (!text) {
@@ -70,7 +70,7 @@ export const ResultsSection = memo(function ResultsSection() {
   const baseObjective = hasResult ? currentRecommendation?.baseObjective ?? 0 : 0;
   const finalTarget = hasResult ? currentRecommendation?.finalTarget ?? 0 : 0;
 
-  const articleClass = [
+  const articleClass = useMemo(() => [
     'box',
     'box-results',
     'tarjeta-interactiva',
@@ -78,7 +78,13 @@ export const ResultsSection = memo(function ResultsSection() {
     isResultsUpdating ? 'is-updating panel-resultados--actualizando' : '',
   ]
     .join(' ')
-    .trim();
+    .trim(), [isResultsUpdating]);
+
+  const formulaVolume = useMemo(() => renderFormulaRichText(currentRecommendation?.formulaVolume), [currentRecommendation?.formulaVolume]);
+  const formulaConcentration = useMemo(() => renderFormulaRichText(currentRecommendation?.formulaConcentration), [currentRecommendation?.formulaConcentration]);
+  const formulaFinal = useMemo(() => renderFormulaRichText(currentRecommendation?.formulaFinal), [currentRecommendation?.formulaFinal]);
+
+  const handleShare = useCallback(() => void shareResult(), [shareResult]);
 
   return (
     <article className={articleClass}>
@@ -137,13 +143,13 @@ export const ResultsSection = memo(function ResultsSection() {
       <section className="formula-card tarjeta-informativa" aria-live="polite">
         <h3>Fórmula detallada</h3>
         <p id="formulaVolume" className="formula-line formula-line--volume">
-          {renderFormulaRichText(hasResult ? currentRecommendation?.formulaVolume : undefined)}
+          {formulaVolume}
         </p>
         <p id="formulaConcentration" className="formula-line formula-line--concentration">
-          {renderFormulaRichText(hasResult ? currentRecommendation?.formulaConcentration : undefined)}
+          {formulaConcentration}
         </p>
         <p id="formulaFinal" className="formula-line formula-line--final">
-          {renderFormulaRichText(hasResult ? currentRecommendation?.formulaFinal : undefined)}
+          {formulaFinal}
         </p>
       </section>
 
@@ -151,7 +157,7 @@ export const ResultsSection = memo(function ResultsSection() {
         {error}
       </div>
 
-      <ShareActions shareFeedback={shareFeedback} onShare={() => void shareResult()} />
+      <ShareActions shareFeedback={shareFeedback} onShare={handleShare} />
 
       <p className="notes">
         <b>Rutina práctica:</b> Carga primero agua, incorpora el arterial concentrado, completa volumen y reevalúa drenaje,

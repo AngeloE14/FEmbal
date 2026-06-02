@@ -113,7 +113,7 @@ select option:hover {
   font: inherit;
   font-size: 0.96rem;
   font-weight: 500;
-  background: transparent;
+  background: var(--select-bg);
   color: var(--input-text);
   cursor: pointer;
   touch-action: manipulation;
@@ -138,14 +138,14 @@ select option:hover {
 .select-selected::after {
   content: '';
   position: absolute;
-  right: 14px;
+  right: 13px;
   top: 50%;
-  transform: translateY(-50%);
   width: 0;
   height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-top: 5px solid var(--select-arrow);
+  translate: 0 -2px;
 }
 
 .select-items {
@@ -156,25 +156,26 @@ select option:hover {
   background: var(--select-menu-bg);
   border: 1px solid var(--field-line);
   border-top: none;
+  border-radius: 0 0 8px 8px;
   z-index: 10;
   max-height: 200px;
   overflow-y: auto;
   overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
   contain: content;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 .select-item {
-  padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.4rem, 2vw, 0.5rem);
+  padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.6rem, 2vw, 0.75rem);
   cursor: pointer;
   color: var(--select-menu-text);
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  transition: background-color 0.2s ease;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.08);
+  transition: background-color 0.15s ease;
   width: 100%;
-  min-height: 3rem;
+  min-height: 2.8rem;
   text-align: left;
   font: inherit;
   background: transparent;
@@ -196,6 +197,7 @@ select option:hover {
 .select-item:hover,
 .select-item:focus-visible {
   background: var(--select-menu-hover);
+  translate: 4px;
   outline: none;
 }
 

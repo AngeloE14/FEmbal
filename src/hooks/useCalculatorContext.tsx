@@ -302,7 +302,7 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
     }
 
     const payload = {
-      title: 'CalcEmbal · Solucion arterial',
+      title: 'ESAMS · Formulador Arterial',
       url: window.location.href,
       summary,
     };

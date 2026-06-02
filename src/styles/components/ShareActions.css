@@ -3,6 +3,8 @@
   display: grid;
   gap: 0.55rem;
   contain: layout paint style;
+  content-visibility: auto;
+  contain-intrinsic-size: 80px;
 }
 
 .share-button {
@@ -21,7 +23,6 @@
   transition:
     transform 0.24s ease,
     box-shadow 0.24s ease,
-    border-color 0.24s ease,
     opacity 0.2s ease;
 }
 

@@ -103,14 +103,14 @@ const EmbalmingCertificateModule = memo(function EmbalmingCertificateModule({
         <div className="certificate-module__topbar">
           <div>
             <span>Modo Documento</span>
-            <h1 id="certificate-module-title">Documento interno</h1>
+            <h1 id="certificate-module-title">Datos del certificado</h1>
           </div>
           <div className="certificate-topbar-actions">
             <button className="certificate-reset-action" type="button" onClick={handleReset}>
               Reiniciar formulario
             </button>
             <button className="certificate-close-action" type="button" onClick={onClose}>
-              Cerrar
+              ✕
             </button>
           </div>
         </div>
@@ -121,16 +121,18 @@ const EmbalmingCertificateModule = memo(function EmbalmingCertificateModule({
               data={certificateData}
               onUpdate={updateField}
             />
+            {!isDataConfirmed && (
+              <div className="certificate-preview-empty" aria-live="polite">
+                <strong>¿Estas seguro?</strong>
+                <span>Confirma tus datos para continuar.</span>
+                <button className="certificate-primary-action" type="button" onClick={handleConfirmData}>
+                  Sí, son correctos
+                </button>
+              </div>
+            )}
           </aside>
 
           <section className="certificate-module__preview-panel" aria-label="Vista previa del documento">
-            <div className="certificate-preview-empty" aria-live="polite">
-              <strong>¿Estas seguro?</strong>
-              <span>Confirma tus datos para continuar.</span>
-              <button className="certificate-primary-action" type="button" onClick={handleConfirmData}>
-                Sí, son correctos
-              </button>
-            </div>
           </section>
         </div>
       </div>
@@ -141,7 +143,7 @@ const EmbalmingCertificateModule = memo(function EmbalmingCertificateModule({
             <div className="certificate-confirm-modal__head">
               <div>
                 <span>Previsualización</span>
-                <h2>Documento interno</h2>
+                <h2>Vista previa</h2>
               </div>
               <button
                 aria-label="Volver al formulario"

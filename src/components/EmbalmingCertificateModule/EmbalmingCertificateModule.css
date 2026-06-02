@@ -151,7 +151,8 @@
 .certificate-module__topbar h1 {
   margin: 0;
   color: var(--ink);
-  font-family: var(--font-serif);
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
   font-size: clamp(1.25rem, 2.3vw, 1.85rem);
   line-height: 1.05;
 }
@@ -159,54 +160,62 @@
 .certificate-topbar-actions {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.4rem;
 }
 
 .certificate-close-action,
 .certificate-primary-action,
 .certificate-secondary-action,
 .certificate-reset-action {
-  min-height: 2.8rem;
-  border: 1px solid transparent;
-  border-radius: 12px;
-  padding: 0.72rem 0.9rem;
-  font: inherit;
-  font-size: 0.88rem;
-  font-weight: 850;
+  min-height: 2rem;
+  border: none;
+  border-radius: 8px;
+  padding: 0.35rem 0.7rem;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
   cursor: pointer;
   touch-action: manipulation;
   transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease,
     opacity 0.15s ease,
-    background-color 0.15s ease,
-    border-color 0.15s ease;
+    background-color 0.15s ease;
 }
 
 .certificate-close-action {
-  background: color-mix(in srgb, hsl(0, 65%, 42%) 24%, var(--card));
-  border-color: color-mix(in srgb, hsl(0, 65%, 42%), transparent 10%);
+  background: transparent;
   color: var(--ink);
-  box-shadow: 0 8px 16px -14px rgba(0, 0, 0, 0.36);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1;
+  padding: 0.35rem 0.6rem;
+  min-width: 2rem;
+  display: grid;
+  place-items: center;
+}
+
+.certificate-close-action:hover,
+.certificate-close-action:focus-visible {
+  background: color-mix(in srgb, hsl(0, 65%, 42%) 18%, transparent);
 }
 
 .certificate-secondary-action {
-  background: color-mix(in srgb, var(--result-main-border) 28%, var(--card));
-  border-color: color-mix(in srgb, var(--result-main-border), transparent 4%);
+  background: transparent;
   color: var(--ink);
-  box-shadow: 0 8px 16px -14px rgba(0, 0, 0, 0.36);
+}
+
+.certificate-reset-action {
+  background: color-mix(in srgb, var(--ink) 10%, transparent);
+  color: var(--ink);
+}
+
+.certificate-reset-action:hover,
+.certificate-reset-action:focus-visible {
+  background: color-mix(in srgb, var(--ink) 18%, transparent);
 }
 
 .certificate-secondary-action--clear {
   background: color-mix(in srgb, hsl(210, 65%, 45%) 24%, var(--card));
   border-color: color-mix(in srgb, hsl(210, 65%, 45%), transparent 10%);
-}
-
-.certificate-reset-action {
-  background: color-mix(in srgb, hsl(25, 90%, 50%) 26%, var(--card));
-  border-color: color-mix(in srgb, hsl(25, 90%, 50%), transparent 8%);
-  color: var(--ink);
-  box-shadow: 0 8px 16px -14px rgba(0, 0, 0, 0.36);
 }
 
 .certificate-primary-action {
@@ -222,15 +231,9 @@
 .certificate-primary-action:hover,
 .certificate-primary-action:focus-visible,
 .certificate-secondary-action:hover,
-.certificate-secondary-action:focus-visible,
-.certificate-reset-action:hover,
-.certificate-reset-action:focus-visible {
+.certificate-secondary-action:focus-visible {
   outline: none;
-  transform: translateY(-1px);
-  border-color: var(--result-main-border);
-  box-shadow:
-    0 16px 24px -22px rgba(0, 0, 0, 0.72),
-    0 0 0 3px var(--results-ring);
+  opacity: 0.7;
 }
 
 .certificate-close-action:disabled,
@@ -238,8 +241,7 @@
 .certificate-secondary-action:disabled,
 .certificate-reset-action:disabled {
   cursor: not-allowed;
-  opacity: 0.58;
-  transform: none;
+  opacity: 0.35;
 }
 
 .certificate-module__workspace {
@@ -256,6 +258,10 @@
   min-width: 0;
   min-height: 0;
   overflow: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  scroll-behavior: auto;
   padding: clamp(0.85rem, 2vw, 1.35rem);
   scrollbar-gutter: stable;
   contain: layout paint style;
@@ -263,9 +269,7 @@
 
 .certificate-module__form-panel {
   border-right: 1px solid var(--panel-border);
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--field-muted) 44%, transparent), transparent 18rem),
-    color-mix(in srgb, var(--card) 82%, transparent);
+  background: color-mix(in srgb, var(--card) 82%, transparent);
 }
 
 .certificate-module__preview-panel {
@@ -278,6 +282,10 @@
     radial-gradient(circle at 92% 86%, var(--results-highlight-b), transparent 32%),
     color-mix(in srgb, var(--field-muted) 62%, transparent);
   isolation: isolate;
+}
+
+.certificate-module__preview-panel:empty {
+  display: none;
 }
 
 .certificate-form {
@@ -484,15 +492,15 @@
 }
 
 .certificate-preview-empty {
-  align-self: center;
-  justify-self: center;
   display: grid;
   gap: 0.45rem;
-  width: min(32rem, 100%);
+  width: min(50rem, 100%);
+  margin-inline: auto;
   border: 1px solid var(--box-border);
   border-left: 4px solid var(--result-main-border);
   border-radius: 8px;
   padding: 1.1rem 1.15rem;
+  margin-top: 0.5rem;
   background: var(--card);
   color: var(--notes-strong);
   box-shadow: 0 14px 28px -26px rgba(0, 0, 0, 0.72);
@@ -1001,8 +1009,6 @@
     position: absolute;
     inset: 0 0 auto;
     display: block;
-    min-height: 100vh;
-    min-height: 100dvh;
     height: auto;
     overflow: visible;
     overscroll-behavior: auto;
@@ -1023,13 +1029,12 @@
     grid-template-columns: 1fr;
     overflow: visible;
     min-height: auto;
-    padding-bottom: env(safe-area-inset-bottom);
   }
 
   .certificate-module__preview-panel {
     display: block;
     overflow: visible;
-    padding: 0.85rem;
+    padding: 0 0.85rem 0.85rem;
     background: transparent;
     contain: layout paint;
   }
@@ -1040,10 +1045,10 @@
 
   .certificate-module__form-panel {
     overflow: visible;
-    padding: 0.85rem;
+    padding: 0.85rem 0.85rem 0;
     border-right: 0;
-    border-bottom: 1px solid var(--panel-border);
-    scroll-behavior: smooth;
+    border-bottom: none;
+    scroll-behavior: auto;
     contain: layout paint;
   }
 
@@ -1069,7 +1074,7 @@
 
   .certificate-form-section {
     gap: 0.82rem;
-    padding: 0.92rem;
+    padding: 0.92rem 0.92rem 0;
     content-visibility: auto;
     contain-intrinsic-size: 220px;
   }
@@ -1101,6 +1106,9 @@
   .certificate-preview-empty {
     width: 100%;
     box-shadow: none;
+    padding: 0.85rem 0.85rem 0;
+    margin-top: 0.4rem;
+    border-left-width: 4px;
   }
 
   .certificate-actions {
@@ -1152,7 +1160,6 @@
     align-content: start;
     padding: 0.75rem;
     overflow: auto;
-    -webkit-overflow-scrolling: touch;
   }
 
   .certificate-confirm-modal__preview .certificate-preview-document {
@@ -1171,7 +1178,15 @@
   .certificate-secondary-action,
   .certificate-reset-action {
     transition-duration: 0.1s;
-    min-height: 3.15rem;
+    min-height: 2rem;
+    padding: 0.35rem 0.7rem;
+    font-size: 0.78rem;
+  }
+
+  .certificate-close-action {
+    font-size: 1rem;
+    padding: 0.35rem 0.6rem;
+    min-width: 2rem;
   }
 }
 
@@ -1189,12 +1204,16 @@
 
 @media (max-width: 480px) {
   .certificate-module__topbar {
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.4rem;
+    padding-bottom: 0.65rem;
   }
 
   .certificate-module__topbar h1 {
-    font-size: 1.1rem;
+    font-size: 0.92rem;
+  }
+
+  .certificate-module__topbar span {
+    font-size: 0.65rem;
   }
 
   .certificate-form-section {

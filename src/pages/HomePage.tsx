@@ -50,7 +50,7 @@ export function HomePage() {
         <span className="certificate-mode-toggle__icon" aria-hidden="true">
           <FileBadge2 size={18} strokeWidth={2.2} />
         </span>
-        <span className="certificate-mode-toggle__label">Modo Certificado</span>
+        <span className="certificate-mode-toggle__label">Certificado</span>
       </button>
       <main className="panel">
         <Calculator />

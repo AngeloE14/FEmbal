@@ -1,9 +1,5 @@
 .result-main {
-  background: var(--result-bg);
-  border: 1px solid var(--result-border);
-  border-radius: 12px;
-  padding: 0.85rem;
-  margin-bottom: 0.8rem;
+  padding: 0 0 0.5rem;
 }
 
 .box-results {
@@ -57,13 +53,11 @@
 }
 
 .box-results h2 {
+  font-family: 'Lora', serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-top: 1rem;
   color: var(--tile-result-strong);
-}
-
-.box-results .result-main {
-  background: var(--result-main-bg);
-  border-color: var(--result-main-border);
-  box-shadow: var(--result-main-shadow);
 }
 
 .box-results.is-updating .result-main,
@@ -292,7 +286,7 @@
 @media (max-width: 680px) {
   .box-results::before {
     right: 0.78rem;
-    top: 10px;
+    top: 12px;
     font-size: 0.62rem;
   }
 
@@ -300,6 +294,11 @@
     box-shadow:
       var(--results-shell-shadow),
       0 0 0 3px var(--results-ring);
+    padding-top: 40px;
+  }
+
+  .box-results h2 {
+    font-size: 1.1rem;
   }
 }
 
@@ -310,7 +309,12 @@
   }
 
   .box-results {
-    padding-top: 30px;
+    padding-top: 38px;
+  }
+
+  .box-results h2 {
+    font-size: 1.05rem;
+    margin-top: 0.6rem;
   }
 }
 
@@ -363,14 +367,21 @@
 
 .formula-card h3 {
   margin: 0 0 0.5rem;
-  font-size: 0.92rem;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--tile-result-strong);
 }
 
 .formula-card .formula-line {
   margin: 0.32rem 0;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
   font-size: 0.82rem;
   line-height: 1.5;
+  white-space: pre-line;
   color: color-mix(in srgb, var(--tile-result-value) 88%, white 12%);
 }
 
@@ -392,6 +403,8 @@
   border-radius: 6px;
   padding: 0.04rem 0.22rem;
   margin-inline: 0.04rem;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
 }
 
 .formula-token--formula {

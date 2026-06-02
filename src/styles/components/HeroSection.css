@@ -1,14 +1,6 @@
 .hero {
   padding: 0.7rem 1.4rem 1rem;
-  background:
-    linear-gradient(120deg, var(--hero-bg-a), var(--hero-bg-b)),
-    repeating-linear-gradient(
-      -35deg,
-      rgba(255, 255, 255, 0.06) 0,
-      rgba(255, 255, 255, 0.06) 10px,
-      transparent 10px,
-      transparent 20px
-    );
+  background: linear-gradient(120deg, var(--hero-bg-a), var(--hero-bg-b));
   color: var(--hero-text);
 }
 
@@ -22,7 +14,7 @@
 
 .hero h1 {
   margin: 0;
-  font-family: var(--font-serif);
+  font-family: 'Lora', serif;
   font-size: clamp(1.46rem, 3.8vw, 2.06rem);
   letter-spacing: 0.45px;
 }

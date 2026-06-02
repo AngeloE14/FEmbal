@@ -108,7 +108,7 @@ export function buildRecommendation(caseData: CaseData): RecommendationResult {
       ? `Volumen final indicado: ${formatNumber(caseData.volumenPrepararLitros as number, 2)} L = ${formatNumber(totalSolutionMl, 0)} ml.`
       : `Volumen base: ${formatNumber(caseData.peso as number, 0)} kg x ${formatNumber(GALLONS_PER_KG, 4)} = ${formatNumber(volumeBaseGallons, 2)} gal.`,
     formulaConcentration: `Concentracion final: ${formatNumber(baseObjective, 2)}%`,
-    formulaFinal: `Arterial: (${formatNumber(finalTarget, 2)} x ${formatNumber(totalSolutionMl, 0)} ml) / ${formatNumber(caseData.concentrado as number, 2)} = ${formatNumber(arterialMl, 1)} ml. Agua exacta: ${formatNumber(totalSolutionMl, 0)} - ${formatNumber(arterialMl, 1)} = ${formatNumber(waterMl, 1)} ml.`,
+    formulaFinal: `Arterial: (${formatNumber(finalTarget, 2)} x ${formatNumber(totalSolutionMl, 0)} ml) / ${formatNumber(caseData.concentrado as number, 2)} = ${formatNumber(arterialMl, 1)} ml.\nAgua exacta: ${formatNumber(totalSolutionMl, 0)} - ${formatNumber(arterialMl, 1)} = ${formatNumber(waterMl, 1)} ml.`,
   };
 }
 

@@ -10,10 +10,10 @@
  *  6. Reproduce una sola vez (flag alreadyPlayed).
  */
 
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { assetUrl } from '../utils/paths';
 
-export function AudioPlayer() {
+export const AudioPlayer = memo(function AudioPlayer() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -102,10 +102,10 @@ export function AudioPlayer() {
     };
 
     // Oyentes para primera interacción (fallback)
-    document.addEventListener('pointerdown', playOnInteraction, { passive: true });
-    document.addEventListener('touchstart', playOnInteraction, { passive: true });
-    document.addEventListener('click', playOnInteraction, { passive: true });
-    document.addEventListener('keydown', playOnInteraction);
+    document.addEventListener('pointerdown', playOnInteraction, { passive: true, once: true });
+    document.addEventListener('touchstart', playOnInteraction, { passive: true, once: true });
+    document.addEventListener('click', playOnInteraction, { passive: true, once: true });
+    document.addEventListener('keydown', playOnInteraction, { once: true });
 
     // Reintentar cuando la página se activa (pageshow/visibilitychange)
     const handlePageShow = (event: PageTransitionEvent) => {
@@ -129,4 +129,4 @@ export function AudioPlayer() {
   }, []);
 
   return <audio id="audioCarga" ref={audioRef} src={assetUrl('/assets/audio/sonido.mp3')} preload="auto" playsInline></audio>;
-}
+});

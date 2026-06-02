@@ -2,10 +2,11 @@
  * Botón flotante para alternar tema claro/oscuro.
  */
 
+import { memo } from 'react';
 import '../styles/components/ThemeToggle.css';
 import { useTheme } from '../hooks/useTheme';
 
-export function ThemeToggle() {
+export const ThemeToggle = memo(function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
 
   return (
@@ -23,4 +24,4 @@ export function ThemeToggle() {
       <span className="theme-toggle__text">{theme === 'dark' ? 'Modo claro' : 'Modo oscuro'}</span>
     </button>
   );
-}
+});
