@@ -1,6 +1,13 @@
 /**
  * Reproducción de audio de bienvenida (una sola vez).
- * Respeta políticas del navegador: intenta autoplay y cae a interacción del usuario.
+ * Estrategia por capas:
+ *  1. Intenta reproducción normal (puede fallar por políticas de autoplay).
+ *  2. Si falla, reproduce en silencio (muted) y luego reactiva el sonido.
+ *  3. Reintenta cada 500ms durante los primeros segundos (algunos navegadores
+ *     relajan la política tras la carga inicial).
+ *  4. Escucha pageshow/visibilitychange para reintentar cuando la página se activa.
+ *  5. Como último recurso, espera la primera interacción del usuario.
+ *  6. Reproduce una sola vez (flag alreadyPlayed).
  */
 
 import { useEffect, useRef } from 'react';
@@ -11,73 +18,113 @@ export function AudioPlayer() {
 
   useEffect(() => {
     const audio = audioRef.current;
-    if (!audio) {
-      return;
-    }
+    if (!audio) return;
 
     audio.volume = 0.55;
     audio.load();
 
     let alreadyPlayed = false;
-    let pendingAttempt = false;
+    let retryTimer: ReturnType<typeof setTimeout> | null = null;
+    let retryCount = 0;
+    const MAX_RETRIES = 6;
 
-    const removeFallbackListeners = () => {
+    const cleanup = () => {
       document.removeEventListener('pointerdown', playOnInteraction);
       document.removeEventListener('touchstart', playOnInteraction);
       document.removeEventListener('click', playOnInteraction);
       document.removeEventListener('keydown', playOnInteraction);
+      if (retryTimer) clearTimeout(retryTimer);
     };
 
-    const tryPlay = async (logBlocked = false) => {
-      if (alreadyPlayed || pendingAttempt) {
-        return;
+    const playUnmuted = async (): Promise<boolean> => {
+      if (alreadyPlayed) return true;
+      try {
+        audio.muted = false;
+        audio.volume = 0.55;
+        await audio.play();
+        alreadyPlayed = true;
+        cleanup();
+        return true;
+      } catch {
+        return false;
       }
+    };
 
-      pendingAttempt = true;
-
-      const playPromise = audio.play();
-      if (playPromise && typeof playPromise.then === 'function') {
-        try {
-          await playPromise;
-          alreadyPlayed = true;
-          removeFallbackListeners();
-        } catch {
-          if (logBlocked) {
-            // No mostramos error visual para mantener la experiencia original.
-            console.log('El navegador bloqueó la reproducción automática.');
+    const playMutedThenUnmute = async (): Promise<boolean> => {
+      if (alreadyPlayed) return true;
+      try {
+        audio.muted = true;
+        await audio.play();
+        // Reproduciendo en silencio → reactivar sonido tras una fracción de segundo
+        setTimeout(() => {
+          if (!alreadyPlayed) {
+            audio.muted = false;
+            audio.volume = 0.55;
+            alreadyPlayed = true;
+            cleanup();
           }
-        } finally {
-          pendingAttempt = false;
-        }
-
-        return;
+        }, 150);
+        return true;
+      } catch {
+        return false;
       }
+    };
 
-      alreadyPlayed = true;
-      pendingAttempt = false;
-      removeFallbackListeners();
+    const attemptPlay = async () => {
+      if (alreadyPlayed) return;
+
+      // Intento 1: reproducción normal (no silenciada)
+      const ok = await playUnmuted();
+      if (ok) return;
+
+      // Intento 2: reproducción silenciada y luego reactivar sonido
+      const mutedOk = await playMutedThenUnmute();
+      if (mutedOk) return;
+
+      // Si falló todo, reintentar más tarde
+      if (retryCount < MAX_RETRIES) {
+        retryCount += 1;
+        retryTimer = setTimeout(attemptPlay, 500);
+      }
     };
 
     const playOnInteraction = () => {
-      void tryPlay(false);
+      if (alreadyPlayed) return;
+      if (audio.muted) {
+        // Si ya está reproduciendo en silencio, solo reactivar sonido
+        audio.muted = false;
+        audio.volume = 0.55;
+        alreadyPlayed = true;
+        cleanup();
+      } else {
+        void attemptPlay();
+      }
     };
 
+    // Oyentes para primera interacción (fallback)
     document.addEventListener('pointerdown', playOnInteraction, { passive: true });
     document.addEventListener('touchstart', playOnInteraction, { passive: true });
     document.addEventListener('click', playOnInteraction, { passive: true });
     document.addEventListener('keydown', playOnInteraction);
 
-    void tryPlay(true);
-
-    const handleCanPlay = () => {
-      void tryPlay(true);
+    // Reintentar cuando la página se activa (pageshow/visibilitychange)
+    const handlePageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) void attemptPlay();
     };
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') void attemptPlay();
+    };
+    window.addEventListener('pageshow', handlePageShow);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
-    audio.addEventListener('canplay', handleCanPlay, { once: true });
+    // Disparar primer intento al montar y en canplay
+    void attemptPlay();
+    audio.addEventListener('canplay', () => void attemptPlay(), { once: true });
 
     return () => {
-      removeFallbackListeners();
-      audio.removeEventListener('canplay', handleCanPlay);
+      cleanup();
+      window.removeEventListener('pageshow', handlePageShow);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, []);
 

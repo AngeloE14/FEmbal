@@ -16,12 +16,13 @@
     0 0 0 4px var(--results-ring);
   overflow: visible;
   contain: layout paint style;
+  padding-top: 32px;
 }
 
 .box-results::before {
   content: "RESULTADOS";
   position: absolute;
-  top: -12px;
+  top: 10px;
   right: 1rem;
   padding: 0.24rem 0.62rem;
   border-radius: 999px;
@@ -44,9 +45,10 @@
     radial-gradient(circle at 95% 90%, var(--results-highlight-b), transparent 34%);
   opacity: 0.62;
   transform: translate3d(0, 0, 0) scale(1);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.25s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
   pointer-events: none;
   z-index: -1;
+  will-change: transform, opacity;
 }
 
 .box-results > * {
@@ -290,7 +292,7 @@
 @media (max-width: 680px) {
   .box-results::before {
     right: 0.78rem;
-    top: -10px;
+    top: 10px;
     font-size: 0.62rem;
   }
 
@@ -303,8 +305,12 @@
 
 @media (max-width: 520px) {
   .box-results::before {
-    top: -9px;
+    top: 10px;
     right: 0.64rem;
+  }
+
+  .box-results {
+    padding-top: 30px;
   }
 }
 

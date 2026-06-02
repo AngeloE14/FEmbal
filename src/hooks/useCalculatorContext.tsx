@@ -12,7 +12,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState, useDeferredValue, type ReactNode } from 'react';
 import {
   COARSE_POINTER_QUERY,
-  DEFAULT_CONDITIONS,
   DEFAULT_INPUTS,
   type CalculatorInputs,
   type CaseData,
@@ -38,10 +37,6 @@ function buildCaseDataFromInputs(inputs: CalculatorInputs): CaseData {
     objetivoManual: parseInputNumber(inputs.objetivoManual),
     peso: parseInputNumber(inputs.peso),
     volumenPrepararLitros: parseInputNumber(inputs.volumenPrepararLitros),
-    complexion: 'media',
-    preservacion: 'normal',
-    descomposicion: 'ninguna',
-    condiciones: { ...DEFAULT_CONDITIONS },
   };
 }
 

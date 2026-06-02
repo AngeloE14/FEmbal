@@ -464,6 +464,8 @@
   height: 100%;
   background: #ffffff;
   touch-action: none;
+  will-change: contents;
+  contain: layout paint style;
 }
 
 .certificate-reset-action {
