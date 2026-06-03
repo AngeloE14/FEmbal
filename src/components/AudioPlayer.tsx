@@ -21,7 +21,6 @@ export const AudioPlayer = memo(function AudioPlayer() {
     if (!audio) return;
 
     audio.volume = 0.55;
-    audio.load();
 
     let alreadyPlayed = false;
     let retryTimer: ReturnType<typeof setTimeout> | null = null;
@@ -90,22 +89,49 @@ export const AudioPlayer = memo(function AudioPlayer() {
 
     const playOnInteraction = () => {
       if (alreadyPlayed) return;
-      if (audio.muted) {
+      if (!audio.paused && audio.muted) {
         // Si ya está reproduciendo en silencio, solo reactivar sonido
         audio.muted = false;
         audio.volume = 0.55;
         alreadyPlayed = true;
         cleanup();
+        return;
+      }
+      // Llamar a play() directamente (sin async/await) para preservar el gesto del usuario
+      audio.muted = false;
+      audio.volume = 0.55;
+      const p = audio.play();
+      if (p) {
+        p.then(() => {
+          if (!alreadyPlayed) {
+            alreadyPlayed = true;
+            cleanup();
+          }
+        }).catch(() => {
+          if (alreadyPlayed) return;
+          audio.muted = true;
+          audio.play().then(() => {
+            setTimeout(() => {
+              if (!alreadyPlayed) {
+                audio.muted = false;
+                audio.volume = 0.55;
+                alreadyPlayed = true;
+                cleanup();
+              }
+            }, 150);
+          }).catch(() => {});
+        });
       } else {
-        void attemptPlay();
+        alreadyPlayed = true;
+        cleanup();
       }
     };
 
     // Oyentes para primera interacción (fallback)
-    document.addEventListener('pointerdown', playOnInteraction, { passive: true, once: true });
-    document.addEventListener('touchstart', playOnInteraction, { passive: true, once: true });
-    document.addEventListener('click', playOnInteraction, { passive: true, once: true });
-    document.addEventListener('keydown', playOnInteraction, { once: true });
+    document.addEventListener('pointerdown', playOnInteraction, { passive: true });
+    document.addEventListener('touchstart', playOnInteraction, { passive: true });
+    document.addEventListener('click', playOnInteraction, { passive: true });
+    document.addEventListener('keydown', playOnInteraction);
 
     // Reintentar cuando la página se activa (pageshow/visibilitychange)
     const handlePageShow = (event: PageTransitionEvent) => {
@@ -118,8 +144,8 @@ export const AudioPlayer = memo(function AudioPlayer() {
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
     // Disparar primer intento al montar y en canplay
-    void attemptPlay();
     audio.addEventListener('canplay', () => void attemptPlay(), { once: true });
+    void attemptPlay();
 
     return () => {
       cleanup();

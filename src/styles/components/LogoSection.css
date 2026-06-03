@@ -149,13 +149,18 @@
   object-fit: cover;
   display: block;
   box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
-  transform: translateZ(0);
+  will-change: transform;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .logo-head img {
-    will-change: transform;
-    animation: logo-float 4.7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation: logo-float 5.7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+}
+
+@media (max-width: 680px) {
+  .logo-head img {
+    animation-duration: 5.7s;
   }
 }
 
