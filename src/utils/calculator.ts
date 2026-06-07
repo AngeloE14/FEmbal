@@ -96,6 +96,7 @@ export function buildRecommendation(caseData: CaseData): RecommendationResult {
 
   return {
     ok: true,
+    peso: caseData.peso ?? undefined,
     concentrado: caseData.concentrado as number,
     baseObjective,
     finalTarget,

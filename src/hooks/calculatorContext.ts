@@ -26,6 +26,7 @@ export interface CalculatorResultsContextValue {
   currentRecommendation: RecommendationResult | null;
   resetForm: () => void;
   shareResult: () => Promise<void>;
+  shareResultAsImage: () => Promise<void>;
 }
 
 /**

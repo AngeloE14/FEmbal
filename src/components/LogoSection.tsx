@@ -1,16 +1,13 @@
 import { memo } from 'react';
 import '../styles/components/LogoSection.css';
-
-/**
- * Bloque visual del logotipo.
- * Se mantiene casi idéntico al original para preservar identidad de marca.
- */
+import { useI18n } from '../hooks/useI18n';
 
 export const LogoSection = memo(function LogoSection() {
+  const { t } = useI18n();
   const logoSrc = 'assets/images/logo-circular.png';
 
   return (
-    <section className="logo-head" aria-label="Logo institucional">
+    <section className="logo-head">
       <div className="logo-season logo-season--summer">
         <div className="summer-sparkles" aria-hidden="true">
           <span className="summer-sparkle summer-sparkle--1"></span>
@@ -22,7 +19,7 @@ export const LogoSection = memo(function LogoSection() {
         </div>
         <img
           src={logoSrc}
-          alt="Logo Escuela de Artes Mortuorias del Sureste"
+          alt={t('logo.alt')}
           width={220}
           height={220}
           loading="eager"

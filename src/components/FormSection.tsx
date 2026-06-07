@@ -6,11 +6,12 @@
 import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import '../styles/components/FormSection.css';
 import { useCalculatorForm } from '../hooks/useCalculator';
-import { DEFAULT_CHEMICAL_LABEL } from '../utils/constants';
+import { useI18n } from '../hooks/useI18n';
 import { parseInputNumber } from '../utils/formatters';
 import { CHEMICAL_OPTIONS, PRESET_BUTTONS } from '../utils/profiles';
 
 export const FormSection = memo(function FormSection() {
+  const { t } = useI18n();
   const {
     inputs,
     selectedChemical,
@@ -24,7 +25,7 @@ export const FormSection = memo(function FormSection() {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const selectRootRef = useRef<HTMLDivElement | null>(null);
   const chemicalListId = 'comboConcentradoList';
-  const selectedChemicalLabel = selectedChemical?.label ?? DEFAULT_CHEMICAL_LABEL;
+  const selectedChemicalLabel = selectedChemical?.label ?? t('form.select.default');
   const objectiveValue = useMemo(() => parseInputNumber(inputs.objetivoManual), [inputs.objetivoManual]);
 
   // Cierra el combo cuando se pulsa fuera, para mantener UX táctil clara.
@@ -69,13 +70,13 @@ export const FormSection = memo(function FormSection() {
   return (
     <article className="box tarjeta-interactiva">
       <div className="field">
-        <label htmlFor="concentrado">Concentración del químico arterial en botella (%)</label>
+        <label htmlFor="concentrado">{t('form.concentrado.label')}</label>
         <input
           id="concentrado"
           type="number"
           min="0.1"
           step="0.1"
-          placeholder="Ej. 30"
+          placeholder={t('form.concentrado.placeholder')}
           autoComplete="off"
           inputMode="decimal"
           value={inputs.concentrado}
@@ -94,7 +95,7 @@ export const FormSection = memo(function FormSection() {
         />
 
         <label htmlFor="comboConcentrado" className="combo-label">
-          Selecciona un químico arterial
+          {t('form.select.label')}
         </label>
 
         <div
@@ -126,22 +127,22 @@ export const FormSection = memo(function FormSection() {
                   setIsSelectOpen(false);
                 }}
               >
-                <span>{option.label}</span>
+                <span>{t(`chemical.option.${option.value}`)}</span>
               </button>
             ))}
           </div>
         </div>
       </div>
 
-      <div className="form-grid">
+        <div className="form-grid">
         <div className="field">
-          <label htmlFor="peso">Peso estimado (kg)</label>
+          <label htmlFor="peso">{t('form.peso.label')}</label>
           <input
             id="peso"
             type="number"
             min="1"
             step="1"
-            placeholder="Opcional. Ej. 80"
+            placeholder={t('form.peso.placeholder')}
             autoComplete="off"
             inputMode="decimal"
             value={inputs.peso}
@@ -150,13 +151,13 @@ export const FormSection = memo(function FormSection() {
         </div>
 
         <div className="field">
-          <label htmlFor="volumenPreparar">Volumen final a preparar (litros)</label>
+          <label htmlFor="volumenPreparar">{t('form.volumen.label')}</label>
           <input
             id="volumenPreparar"
             type="number"
             min="0.1"
             step="0.1"
-            placeholder="Ej. 2"
+            placeholder={t('form.volumen.placeholder')}
             autoComplete="off"
             inputMode="decimal"
             value={inputs.volumenPrepararLitros}
@@ -166,13 +167,13 @@ export const FormSection = memo(function FormSection() {
       </div>
 
       <div className="field">
-        <label htmlFor="objetivo">Concentración deseada en el tanque (%)</label>
+        <label htmlFor="objetivo">{t('form.objetivo.label')}</label>
         <input
           id="objetivo"
           type="number"
           min="0.1"
           step="0.1"
-          placeholder="Si lo dejas vacío, se calcula automáticamente"
+          placeholder={t('form.objetivo.placeholder')}
           autoComplete="off"
           inputMode="decimal"
           value={inputs.objetivoManual}
@@ -180,7 +181,7 @@ export const FormSection = memo(function FormSection() {
         />
       </div>
 
-      <div className="presets" aria-label="Ajustes rápidos de concentración">
+      <div className="presets" aria-label={t('form.presets.aria')}>
         {PRESET_BUTTONS.map((preset) => (
           <button
             key={preset.key}
@@ -193,17 +194,16 @@ export const FormSection = memo(function FormSection() {
             aria-pressed={isPresetButtonActive(preset.min, preset.max)}
             onClick={() => applyPreset(preset.set)}
           >
-            {preset.label}
+            {t(`form.preset.${preset.key}`)}
           </button>
         ))}
       </div>
 
       <p className="auto-hint" role="status">
-        Calculo en tiempo real.
+        {t('form.realtime')}
       </p>
       <p className="notes">
-        <b>Base del cálculo:</b> Si escribes volumen final, se usa ese total exacto. Si lo dejas vacío, se estima por peso.
-        Dilución <code>C1·V1 = C2·V2</code>.
+        {t('form.base.note')}
       </p>
     </article>
   );

@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import { assetUrl } from '../utils/paths';
+import { useI18n } from '../hooks/useI18n';
 import '../styles/components/SocialSection.css';
 
 /**
@@ -8,9 +9,10 @@ import '../styles/components/SocialSection.css';
  */
 
 export const SocialSection = memo(function SocialSection() {
+  const { t } = useI18n();
   return (
-    <section className="redes-sociales" aria-label="Redes sociales">
-      <h2 className="redes-sociales__titulo">Redes sociales</h2>
+    <section className="redes-sociales" aria-label={t('social.title')}>
+      <h2 className="redes-sociales__titulo">{t('social.title')}</h2>
 
       <nav className="redes-sociales__lista" aria-label="Enlaces de redes sociales">
         <a
@@ -18,14 +20,14 @@ export const SocialSection = memo(function SocialSection() {
           href="https://www.instagram.com/esc.artes.mortuorias?igsh=ZXRoMTN4NDRqeHA0"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Abrir Instagram de Escuela de Artes Mortuorias del Sureste en una nueva pestaña"
+          aria-label={t('social.instagram.aria')}
         >
           <span className="redes-sociales__icono" aria-hidden="true">
             <img src={assetUrl('/assets/images/instagram.png')} alt="" width={26} height={26} loading="lazy" decoding="async" fetchPriority="low" />
           </span>
           <span className="redes-sociales__texto">
-            <span className="redes-sociales__nombre">Instagram</span>
-            <span className="redes-sociales__meta">@esc.artes.mortuorias</span>
+            <span className="redes-sociales__nombre">{t('social.instagram')}</span>
+            <span className="redes-sociales__meta">{t('social.instagram.handle')}</span>
           </span>
           <span className="redes-sociales__cta" aria-hidden="true">
             ↗
@@ -37,7 +39,7 @@ export const SocialSection = memo(function SocialSection() {
           href="https://vm.tiktok.com/ZS9F2fxBqsaBR-Cqay8/"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Abrir TikTok de Escuela de Artes Mortuorias del Sureste en una nueva pestaña"
+          aria-label={t('social.tiktok.aria')}
         >
           <span className="redes-sociales__icono" aria-hidden="true">
             <svg viewBox="0 0 24 24" width={24} height={24} focusable="false">
@@ -45,8 +47,8 @@ export const SocialSection = memo(function SocialSection() {
             </svg>
           </span>
           <span className="redes-sociales__texto">
-            <span className="redes-sociales__nombre">TikTok</span>
-            <span className="redes-sociales__meta">Contenido y tips</span>
+            <span className="redes-sociales__nombre">{t('social.tiktok')}</span>
+            <span className="redes-sociales__meta">{t('social.tiktok.desc')}</span>
           </span>
           <span className="redes-sociales__cta" aria-hidden="true">
             ↗
@@ -58,7 +60,7 @@ export const SocialSection = memo(function SocialSection() {
           href="mailto:informes.esams@gmail.com"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Enviar correo a informes.esams@gmail.com en una nueva pestaña"
+          aria-label={t('social.email.aria')}
         >
           <span className="redes-sociales__icono" aria-hidden="true">
             <svg viewBox="0 0 24 24" width={24} height={24} focusable="false">
@@ -66,8 +68,8 @@ export const SocialSection = memo(function SocialSection() {
             </svg>
           </span>
           <span className="redes-sociales__texto">
-            <span className="redes-sociales__nombre">Correo</span>
-            <span className="redes-sociales__meta">informes.esams@gmail.com</span>
+            <span className="redes-sociales__nombre">{t('social.email')}</span>
+            <span className="redes-sociales__meta">{t('social.email.address')}</span>
           </span>
           <span className="redes-sociales__cta" aria-hidden="true">
             ↗

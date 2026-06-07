@@ -1,5 +1,6 @@
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useI18n } from '../../hooks/useI18n';
 import { CertificateForm } from './CertificateForm';
 import { CertificatePreview } from './CertificatePreview';
 import './EmbalmingCertificateModule.css';
@@ -14,6 +15,7 @@ const EmbalmingCertificateModule = memo(function EmbalmingCertificateModule({
   isOpen: boolean;
   onClose: () => void;
 }) {
+  const { t } = useI18n();
   const { certificateData: manualCertificateData, resetCertificate, updateField } = useCertificateData();
   const certificateData = useCertificateSync(manualCertificateData);
   const previewRef = useRef<HTMLDivElement | null>(null);
@@ -102,12 +104,12 @@ const EmbalmingCertificateModule = memo(function EmbalmingCertificateModule({
       <div className="certificate-module" role="dialog" aria-modal="true" aria-labelledby="certificate-module-title">
         <div className="certificate-module__topbar">
           <div>
-            <span>Modo Documento</span>
-            <h1 id="certificate-module-title">Datos del certificado</h1>
+            <span>{t('certificate.mode')}</span>
+            <h1 id="certificate-module-title">{t('certificate.title')}</h1>
           </div>
           <div className="certificate-topbar-actions">
             <button className="certificate-reset-action" type="button" onClick={handleReset}>
-              Reiniciar formulario
+              {t('certificate.reset')}
             </button>
             <button className="certificate-close-action" type="button" onClick={onClose}>
               ✕
@@ -123,10 +125,10 @@ const EmbalmingCertificateModule = memo(function EmbalmingCertificateModule({
             />
             {!isDataConfirmed && (
               <div className="certificate-preview-empty" aria-live="polite">
-                <strong>¿Estas seguro?</strong>
-                <span>Confirma tus datos para continuar.</span>
+                <strong>{t('certificate.confirm.title')}</strong>
+                <span>{t('certificate.confirm.desc')}</span>
                 <button className="certificate-primary-action" type="button" onClick={handleConfirmData}>
-                  Sí, son correctos
+                  {t('certificate.confirm.btn')}
                 </button>
               </div>
             )}
@@ -142,16 +144,16 @@ const EmbalmingCertificateModule = memo(function EmbalmingCertificateModule({
           <div className="certificate-confirm-modal__panel">
             <div className="certificate-confirm-modal__head">
               <div>
-                <span>Previsualización</span>
-                <h2>Vista previa</h2>
+                <span>{t('certificate.preview')}</span>
+                <h2>{t('certificate.preview.title')}</h2>
               </div>
               <button
-                aria-label="Volver al formulario"
+                aria-label={t('certificate.back')}
                 className="certificate-secondary-action"
                 type="button"
                 onClick={handleBackToForm}
               >
-                Volver
+                {t('certificate.back')}
               </button>
             </div>
             <div className="certificate-confirm-modal__preview">

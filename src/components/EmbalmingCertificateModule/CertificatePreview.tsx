@@ -8,6 +8,7 @@
 
 import { forwardRef, memo, useMemo } from 'react';
 import type { CertificateData } from './types';
+import { useI18n } from '../../hooks/useI18n';
 import { assetUrl } from '../../utils/paths';
 
 type CertificatePreviewProps = {
@@ -71,54 +72,53 @@ const CertificateDocumentBlock = memo(function CertificateDocumentBlock({
 
 const CertificatePreviewBase = forwardRef<HTMLDivElement, CertificatePreviewProps>(
   function CertificatePreview({ data }, ref) {
-    // Aquí definimos exactamente qué campos salen en el documento.
-    // Por eso no incluimos los campos que el equipo pidió retirar:
-    // si no están en esta lista, no salen en la salida final.
+    const { t } = useI18n();
+
     const sections = useMemo<PreviewBlock[]>(
       () => [
         {
           rows: [
-            { label: 'Funeraria o embalsamadora', value: data.funeralHome },
-            { label: 'Fecha del procedimiento', value: formatDate(data.procedureDate) },
-            { label: 'Hora del procedimiento', value: data.procedureTime },
+            { label: t('certificate.form.funeralHome'), value: data.funeralHome },
+            { label: t('certificate.form.date'), value: formatDate(data.procedureDate) },
+            { label: t('certificate.form.time'), value: data.procedureTime },
           ],
-          title: 'Procedimiento',
+          title: t('certificate.form.section.procedure'),
         },
         {
           rows: [
-            { label: 'Nombre de la persona fallecida', value: data.deceasedName },
-            { label: 'Causas de defunción', value: data.deathCauses },
-            { label: 'Folio del certificado de defunción', value: data.deathCertificateFolio },
+            { label: t('certificate.form.deceasedName'), value: data.deceasedName },
+            { label: t('certificate.form.deathCauses'), value: data.deathCauses },
+            { label: t('certificate.form.folio'), value: data.deathCertificateFolio },
           ],
-          title: 'Datos del fallecido',
+          title: t('certificate.form.section.deceased'),
         },
         {
           rows: [
-            { label: 'Lugar de inyección', value: data.injectionSite },
-            { label: 'Tipo de embalsamamiento', value: data.embalmingType },
+            { label: t('certificate.form.injectionSite'), value: data.injectionSite },
+            { label: t('certificate.form.embalmingType'), value: data.embalmingType },
           ],
-          title: 'Datos del procedimiento',
+          title: t('certificate.form.section.procedure.detail'),
         },
         {
           rows: [
-            { label: 'Concentración de formaldehído', value: data.formaldehydeConcentration },
-            { label: 'Arterial', value: data.arterial },
-            { label: 'Acondicionador de agua', value: data.waterConditioner },
+            { label: t('certificate.chem.fa'), value: data.formaldehydeConcentration },
+            { label: t('certificate.chem.arterial'), value: data.arterial },
+            { label: t('certificate.chem.water'), value: data.waterConditioner },
           ],
-          title: 'Solución química',
+          title: t('certificate.form.section.chemical'),
         },
         {
-          rows: [{ label: 'Recomendaciones de traslado', value: data.transferRecommendations }],
-          title: 'Recomendaciones de traslado',
+          rows: [{ label: t('certificate.form.transfer'), value: data.transferRecommendations }],
+          title: t('certificate.form.section.transfer'),
         },
         {
           rows: [
-            { label: 'Médico que indicó la defunción', value: data.doctorName },
-            { label: 'Cédula profesional del médico certificante', value: data.doctorLicense },
-            { label: 'Nombre del embalsamador', value: data.embalmerName },
-            { label: 'Cédula profesional', value: data.embalmerLicense },
+            { label: t('certificate.form.doctorName'), value: data.doctorName },
+            { label: t('certificate.form.doctorLicense'), value: data.doctorLicense },
+            { label: t('certificate.form.embalmerName'), value: data.embalmerName },
+            { label: t('certificate.form.embalmerLabel'), value: data.embalmerLicense },
           ],
-          title: 'Médico y embalsamador',
+          title: t('certificate.form.section.doctor'),
         },
       ],
       [
@@ -138,6 +138,7 @@ const CertificatePreviewBase = forwardRef<HTMLDivElement, CertificatePreviewProp
         data.procedureTime,
         data.transferRecommendations,
         data.waterConditioner,
+        t,
       ],
     );
 
@@ -153,14 +154,14 @@ const CertificatePreviewBase = forwardRef<HTMLDivElement, CertificatePreviewProp
           />
           <div>
             <p>ESAMS</p>
-            <h1>CERTIFICADO DE EMBALSAMAMIENTO</h1>
+            <h1>{t('certificate.doc.title')}</h1>
           </div>
         </header>
 
         <div className="certificate-document-meta">
           <span className="certificate-document-meta-brand">
             <img alt="" src={assetUrl('/assets/images/logo-circular.png')} loading="lazy" decoding="async" />
-            Documento generado a través del sistema
+            {t('certificate.doc.generated')}
           </span>
         </div>
 
@@ -177,11 +178,11 @@ const CertificatePreviewBase = forwardRef<HTMLDivElement, CertificatePreviewProp
         <footer className="certificate-document-footer">
           <div className="certificate-signature-preview">
             {data.signatureDataUrl ? (
-              <img alt="Firma digital del embalsamador" src={data.signatureDataUrl} />
+              <img alt={t('certificate.doc.signature')} src={data.signatureDataUrl} />
             ) : (
               <span>{emptyValue}</span>
             )}
-            <strong>Firma del embalsamador</strong>
+            <strong>{t('certificate.doc.signature')}</strong>
           </div>
         </footer>
       </article>

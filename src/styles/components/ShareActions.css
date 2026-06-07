@@ -2,12 +2,16 @@
   margin-top: 0.9rem;
   display: grid;
   gap: 0.55rem;
-  contain: layout paint style;
-  content-visibility: auto;
-  contain-intrinsic-size: 80px;
+  position: relative;
+  z-index: 2;
+}
+
+.share-wrapper {
+  position: relative;
 }
 
 .share-button {
+  width: 100%;
   border: 1px solid rgba(43, 152, 124, 0.46);
   background: linear-gradient(135deg, #1f9d7d, #157c63);
   color: #f6fff9;
@@ -26,6 +30,14 @@
     opacity 0.2s ease;
 }
 
+.share-button::after {
+  content: "▾";
+  display: inline-block;
+  margin-left: 0.4rem;
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
 .share-button:hover,
 .share-button:focus-visible {
   outline: none;
@@ -37,6 +49,61 @@
   cursor: not-allowed;
   opacity: 0.55;
   transform: none;
+}
+
+.share-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--card);
+  border: 1px solid var(--box-border);
+  border-radius: 12px;
+  padding: 0.3rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  animation: share-menu-enter 0.12s ease both;
+}
+
+@keyframes share-menu-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.share-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background-color 0.12s ease;
+}
+
+.share-menu__item:hover,
+.share-menu__item:focus-visible {
+  background: var(--select-menu-hover);
+  outline: none;
+}
+
+.share-menu__icon {
+  font-size: 1.1rem;
+  line-height: 1;
 }
 
 .share-feedback {

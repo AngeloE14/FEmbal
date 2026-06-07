@@ -3,6 +3,7 @@
 
 import { memo, useCallback, useEffect, useRef } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
+import { useI18n } from '../../hooks/useI18n';
 
 type SignaturePadProps = {
   onSignatureChange: (signatureDataUrl: string) => void;
@@ -65,6 +66,7 @@ const exportTrimmedTransparentPng = (canvas: HTMLCanvasElement) => {
 };
 
 export const SignaturePad = memo(function SignaturePad({ onSignatureChange }: SignaturePadProps) {
+  const { t } = useI18n();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const lastPointRef = useRef<Point | null>(null);
@@ -235,7 +237,7 @@ export const SignaturePad = memo(function SignaturePad({ onSignatureChange }: Si
       <div className="certificate-signature-canvas-wrap">
         <canvas
           ref={canvasRef}
-          aria-label="Área de firma digital"
+          aria-label={t('certificate.form.signature.area')}
           className="certificate-signature-canvas"
           onPointerCancel={stopDrawing}
           onPointerDown={handlePointerDown}
@@ -245,7 +247,7 @@ export const SignaturePad = memo(function SignaturePad({ onSignatureChange }: Si
         />
       </div>
       <button className="certificate-secondary-action certificate-secondary-action--clear" type="button" onClick={handleClear}>
-        Borrar firma
+        {t('certificate.form.signature.clear')}
       </button>
     </div>
   );

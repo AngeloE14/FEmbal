@@ -6,14 +6,16 @@
  */
 
 import { CalculatorProvider } from './hooks/useCalculatorContext';
+import { I18nProvider } from './hooks/useI18n';
 import { HomePage } from './pages/HomePage';
 
 function App() {
   return (
-    // El provider comparte estado/acciones con toda la UI calculadora.
-    <CalculatorProvider>
-      <HomePage />
-    </CalculatorProvider>
+    <I18nProvider>
+      <CalculatorProvider>
+        <HomePage />
+      </CalculatorProvider>
+    </I18nProvider>
   );
 }
 

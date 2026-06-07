@@ -75,7 +75,7 @@ export function useTheme() {
 
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window === 'undefined') {
-      return 'light';
+      return 'dark';
     }
 
     const stored = getStoredTheme();
@@ -83,7 +83,7 @@ export function useTheme() {
       return stored;
     }
 
-    return window.matchMedia(SYSTEM_DARK_QUERY).matches ? 'dark' : 'light';
+    return 'dark';
   });
 
   const shouldUseNativeViewTransition = useMemo(() => {

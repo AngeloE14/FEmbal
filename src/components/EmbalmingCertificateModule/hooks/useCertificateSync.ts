@@ -3,6 +3,7 @@
 // Lo hacemos aquí para que el formulario no tenga que repetir fórmulas químicas.
 
 import { useMemo } from 'react';
+import { useI18n } from '../../../hooks/useI18n';
 import { useCalculatorForm, useCalculatorResults } from '../../../hooks/useCalculator';
 import { formatMlAndOz, formatNumber } from '../../../utils/formatters';
 import {
@@ -13,6 +14,7 @@ import {
 } from '../types';
 
 export function useCertificateSync(manualData: ManualCertificateData): CertificateData {
+  const { t } = useI18n();
   const { inputs, selectedChemical } = useCalculatorForm();
   const { currentRecommendation } = useCalculatorResults();
 
@@ -23,13 +25,11 @@ export function useCertificateSync(manualData: ManualCertificateData): Certifica
       return {
         ...emptyChemicalSolutionData,
         formaldehydeConcentration: concentrado
-          ? `Concentración en botella capturada: ${concentrado}%`
-          : emptyChemicalSolutionData.formaldehydeConcentration,
+          ? `Botella: ${concentrado}%`
+          : t('certificate.chem.sync.empty'),
       };
     }
 
-    // Solo extraemos los valores que sí se deben mostrar. Los campos retirados
-    // no se calculan aquí para que no puedan reaparecer en el documento.
     const {
       arterialMl = 0,
       baseObjective = 0,
@@ -38,14 +38,14 @@ export function useCertificateSync(manualData: ManualCertificateData): Certifica
       waterMl = 0,
     } = currentRecommendation;
 
-    const chemicalLabel = selectedChemical?.label ?? 'Fluido arterial concentrado';
+    const chemicalLabel = selectedChemical?.label ?? t('chemical.arterial');
 
     return {
       formaldehydeConcentration: `Botella ${formatNumber(concentrado, 2)}% | Objetivo base ${formatNumber(baseObjective, 2)}% | Final ${formatNumber(finalTarget, 2)}%`,
-      arterial: `${formatMlAndOz(arterialMl, 1, 1)} de ${chemicalLabel}`,
-      waterConditioner: `Agua exacta calculada: ${formatMlAndOz(waterMl, 1, 1)}`,
+      arterial: `${formatMlAndOz(arterialMl, 1, 1)} ${chemicalLabel}`,
+      waterConditioner: `${formatMlAndOz(waterMl, 1, 1)}`,
     };
-  }, [currentRecommendation, inputs.concentrado, selectedChemical]);
+  }, [currentRecommendation, inputs.concentrado, selectedChemical, t]);
 
   return useMemo(
     () => ({

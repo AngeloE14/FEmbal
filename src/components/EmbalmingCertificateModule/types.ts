@@ -66,9 +66,9 @@ export const chemicalSolutionFields: Array<keyof ChemicalSolutionData> = [
 ];
 
 export const emptyChemicalSolutionData: ChemicalSolutionData = {
-  formaldehydeConcentration: 'Calcula una solución arterial para sincronizar este campo.',
-  arterial: 'Calcula una solución arterial para sincronizar este campo.',
-  waterConditioner: 'Calcula una solución arterial para sincronizar este campo.',
+  formaldehydeConcentration: '',
+  arterial: '',
+  waterConditioner: '',
 };
 
 export const createInitialCertificateData = (): ManualCertificateData => {

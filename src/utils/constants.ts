@@ -42,6 +42,7 @@ export interface PresetButton {
 export interface RecommendationResult {
   ok: boolean;
   error?: string;
+  peso?: number;
   concentrado?: number;
   baseObjective?: number;
   finalTarget?: number;

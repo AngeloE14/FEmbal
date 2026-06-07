@@ -9,6 +9,7 @@
 import { memo, useCallback, useRef, useState } from 'react';
 import type { RefObject } from 'react';
 import { Download, Printer } from 'lucide-react';
+import { useI18n } from '../../hooks/useI18n';
 import { CertificatePreview } from './CertificatePreview';
 import { usePdfGenerator } from './hooks/usePdfGenerator';
 import type { CertificateData } from './types';
@@ -36,6 +37,7 @@ const PdfActions = memo(function PdfActions({
   certificateData,
   previewRef,
 }: PdfActionsProps) {
+  const { t } = useI18n();
   const [status, setStatus] = useState<ActionStatus>(null);
   const [statusKey, setStatusKey] = useState(0);
   const printPreviewRef = useRef<HTMLDivElement | null>(null);
@@ -52,10 +54,10 @@ const PdfActions = memo(function PdfActions({
     try {
       const isCompactViewport = window.matchMedia('(max-width: 640px)').matches;
       await downloadPdf(previewRef.current, isCompactViewport ? { imageFormat: 'JPEG', imageQuality: 0.92, scale: 1.5 } : undefined);
-      showStatus({ message: 'PDF generado correctamente.', type: 'success' });
+      showStatus({ message: t('certificate.pdf.success'), type: 'success' });
     } catch (error) {
       showStatus({
-        message: error instanceof Error ? error.message : 'No se pudo generar el PDF.',
+        message: error instanceof Error ? error.message : t('certificate.pdf.error'),
         type: 'error',
       });
     }
@@ -320,7 +322,7 @@ const PdfActions = memo(function PdfActions({
         onClick={handleDirectDownload}
       >
         <Download aria-hidden="true" size={18} strokeWidth={2.2} />
-        {isGenerating ? 'Generando PDF...' : 'GENERAR DOCUMENTO'}
+        {isGenerating ? t('certificate.pdf.generating') : t('certificate.pdf.download')}
       </button>
       <button
         className="certificate-secondary-action"
@@ -329,7 +331,7 @@ const PdfActions = memo(function PdfActions({
         onClick={handlePrint}
       >
         <Printer aria-hidden="true" size={17} strokeWidth={2.2} />
-        Imprimir
+        {t('certificate.pdf.print')}
       </button>
       {status ? (
         <p

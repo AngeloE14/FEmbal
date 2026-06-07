@@ -6,6 +6,7 @@
 import { memo, useCallback, useMemo, type ReactNode } from 'react';
 import '../styles/components/ResultsSection.css';
 import { useCalculatorResults } from '../hooks/useCalculator';
+import { useI18n } from '../hooks/useI18n';
 import { formatMlAndOz, formatNumber } from '../utils/formatters';
 import { MixProgress } from './MixProgress';
 import { ShareActions } from './ShareActions';
@@ -55,11 +56,13 @@ function renderFormulaRichText(text?: string): ReactNode {
 }
 
 export const ResultsSection = memo(function ResultsSection() {
+  const { t } = useI18n();
   const {
     currentRecommendation,
     error,
     shareFeedback,
     shareResult,
+    shareResultAsImage,
     isResultsUpdating,
   } = useCalculatorResults();
 
@@ -80,23 +83,26 @@ export const ResultsSection = memo(function ResultsSection() {
     .join(' ')
     .trim(), [isResultsUpdating]);
 
+  const badgeLabel = t('results.badge');
+
   const formulaVolume = useMemo(() => renderFormulaRichText(currentRecommendation?.formulaVolume), [currentRecommendation?.formulaVolume]);
   const formulaConcentration = useMemo(() => renderFormulaRichText(currentRecommendation?.formulaConcentration), [currentRecommendation?.formulaConcentration]);
   const formulaFinal = useMemo(() => renderFormulaRichText(currentRecommendation?.formulaFinal), [currentRecommendation?.formulaFinal]);
 
-  const handleShare = useCallback(() => void shareResult(), [shareResult]);
+  const handleShare = useCallback(() => shareResult(), [shareResult]);
+  const handleShareAsImage = useCallback(() => shareResultAsImage(), [shareResultAsImage]);
 
   return (
-    <article className={articleClass}>
-      <h2>Formula arterial recomendada</h2>
+    <article className={articleClass} data-badge={badgeLabel}>
+      <h2>{t('results.title')}</h2>
 
       <div className="result-main bloque-resultado">
         <div className="value" id="quimicoMl">
-          {hasResult ? `${formatNumber(arterialMl, 1)} ml de fluido arterial concentrado` : 'Completa el perfil para calcular'}
+          {hasResult ? `${formatNumber(arterialMl, 1)} ${t('chemical.arterial')}` : t('results.empty')}
         </div>
         <div className="sub" id="quimicoOz">
           {hasResult
-            ? `${formatNumber(arterialMl / 29.5735, 1)} fl oz | Base ${formatNumber(baseObjective, 2)}% -> final ${formatNumber(finalTarget, 2)}%`
+            ? `${formatNumber(arterialMl / 29.5735, 1)} fl oz | ${t('results.sub.base')} ${formatNumber(baseObjective, 2)}% -> ${t('results.sub.final')} ${formatNumber(finalTarget, 2)}%`
             : '—'}
         </div>
       </div>
@@ -106,32 +112,32 @@ export const ResultsSection = memo(function ResultsSection() {
       ) : (
         <div className="mix-progress bloque-mezcla" aria-live="polite">
           <div className="mix-progress__head">
-            <span id="mixChemicalPct">Arterial: —</span>
-            <span id="mixWaterPct">Agua: —</span>
+            <span id="mixChemicalPct">{t('results.arterial.empty')}</span>
+            <span id="mixWaterPct">{t('results.water.empty')}</span>
           </div>
-          <div className="mix-progress__track" role="img" aria-label="Proporción visual de arterial y agua en la mezcla">
+          <div className="mix-progress__track" role="img" aria-label={t('mix.aria')}>
             <div className="mix-progress__bar mix-progress__bar--chemical" id="mixChemicalBar"></div>
             <div className="mix-progress__bar mix-progress__bar--water" id="mixWaterBar"></div>
           </div>
           <p className="mix-progress__explain" id="mixExplain">
-            Completa los datos para ver la distribución exacta de la solución.
+            {t('results.empty.explain')}
           </p>
         </div>
       )}
 
       <div className="mini-grid resumen-metrico">
         <div className="tile tarjeta-dato">
-          <strong>💧 Agua exacta</strong>
+          <strong>{t('results.water.label')}</strong>
           <span id="aguaMl">{hasResult ? formatMlAndOz(waterMl, 0, 1) : '—'}</span>
         </div>
 
         <div className="tile tarjeta-dato">
-          <strong>⚗️ Concentración final</strong>
+          <strong>{t('results.concentration.label')}</strong>
           <span id="verificacion">{hasResult ? `${formatNumber(finalTarget, 2)}%` : '—'}</span>
         </div>
 
         <div className="tile tarjeta-dato">
-          <strong>📦 Volumen total</strong>
+          <strong>{t('results.volume.label')}</strong>
           <span id="volumenFinal">
             {hasResult
               ? `${formatNumber(totalSolutionMl / 1000, 2)} L / ${formatNumber(totalSolutionMl, 0)} ml`
@@ -141,7 +147,7 @@ export const ResultsSection = memo(function ResultsSection() {
       </div>
 
       <section className="formula-card tarjeta-informativa" aria-live="polite">
-        <h3>Fórmula detallada</h3>
+        <h3>{t('results.formula.title')}</h3>
         <p id="formulaVolume" className="formula-line formula-line--volume">
           {formulaVolume}
         </p>
@@ -157,11 +163,15 @@ export const ResultsSection = memo(function ResultsSection() {
         {error}
       </div>
 
-      <ShareActions shareFeedback={shareFeedback} onShare={handleShare} />
+      <ShareActions
+        shareFeedback={shareFeedback}
+        hasResult={hasResult}
+        onShare={handleShare}
+        onShareAsImage={handleShareAsImage}
+      />
 
       <p className="notes">
-        <b>Rutina práctica:</b> Carga primero agua, incorpora el arterial concentrado, completa volumen y reevalúa drenaje,
-        distensión y necesidad de refuerzo en cada etapa.
+        {t('results.practice.note')}
       </p>
     </article>
   );
