@@ -128,6 +128,36 @@
   display: none;
 }
 
+.floating-tools__tutorial-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--toggle-float-text);
+  cursor: pointer;
+  touch-action: manipulation;
+  opacity: 0.45;
+  font-size: 1.15rem;
+  line-height: 1;
+  transition: opacity 0.18s ease, background-color 0.18s ease;
+}
+
+.floating-tools__tutorial-btn:hover,
+.floating-tools__tutorial-btn:focus-visible {
+  outline: none;
+  opacity: 0.85;
+  background: color-mix(in srgb, var(--toggle-float-text) 8%, transparent);
+}
+
+.floating-tools__tutorial-btn:active {
+  opacity: 1;
+}
+
 @keyframes tools-items-in {
   from {
     opacity: 0;

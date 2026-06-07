@@ -6,6 +6,7 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { FileBadge2 } from 'lucide-react';
 import { Calculator } from '../components/Calculator';
+import { TutorialOverlay } from '../components/TutorialOverlay';
 import '../components/EmbalmingCertificateModule/EmbalmingCertificateModule.css';
 import { LanguageSelector } from '../components/LanguageSelector';
 import { ThemeToggle } from '../components/ThemeToggle';
@@ -23,6 +24,7 @@ const LazyCertificateModule = lazy(async () => {
 
 export function HomePage() {
   const [isCertificateModeOpen, setIsCertificateModeOpen] = useState(false);
+  const [isTutorialOpen, setIsTutorialOpen] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
   const toolsRef = useRef<HTMLDivElement | null>(null);
 
@@ -86,6 +88,14 @@ export function HomePage() {
                 <FileBadge2 size={16} strokeWidth={2.2} />
               </span>
             </button>
+            <button
+              className="floating-tools__tutorial-btn"
+              type="button"
+              onClick={() => { closeTools(); setIsTutorialOpen(true); }}
+              aria-label="Modo aprendizaje"
+            >
+              <span aria-hidden="true">🎓</span>
+            </button>
             <ThemeToggle />
           </div>
         )}
@@ -103,6 +113,10 @@ export function HomePage() {
       <Suspense fallback={null}>
         <LazyAudioPlayer />
       </Suspense>
+      <TutorialOverlay
+        isOpen={isTutorialOpen}
+        onClose={() => setIsTutorialOpen(false)}
+      />
     </>
   );
 }
