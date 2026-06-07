@@ -75,14 +75,28 @@ function buildShareSummary(
   return lines.join('\n');
 }
 
-function getShareUrl(): string {
-  const canonicalUrl = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.href;
-  const openGraphUrl = document.querySelector<HTMLMetaElement>('meta[property="og:url"]')?.content;
-  return canonicalUrl || openGraphUrl || window.location.href;
-}
-
 function buildShareMessage(summary: string, t: TranslationFn, url: string): string {
   return `${summary}\n\n${t('share.text.calculator')}${url}`;
+}
+
+const SHARE_TITLE = 'ESAMS · Formulador Arterial';
+
+function isAbortError(error: unknown): boolean {
+  return (error as { name?: string })?.name === 'AbortError';
+}
+
+function getTextShareCandidates(title: string, summary: string, message: string, url: string): ShareData[] {
+  return [
+    { title, text: summary, url },
+    { title, text: message },
+    { text: message },
+  ];
+}
+
+function debugShare(stage: string, details?: Record<string, unknown>): void {
+  if (import.meta.env.DEV) {
+    console.info(`[shareResult] ${stage}`, details ?? {});
+  }
 }
 
 async function copyTextToClipboard(text: string): Promise<void> {
@@ -491,6 +505,8 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const shareResult = useCallback(async () => {
+    setError('');
+
     if (!currentRecommendation || !currentRecommendation.ok) {
       setError(t('share.error'));
       return;
@@ -502,15 +518,105 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    const pageUrl = getShareUrl();
+    const pageUrl = window.location.href;
     const message = buildShareMessage(summary, t, pageUrl);
 
     try {
+      debugShare('start', {
+        hasNavigatorShare: typeof navigator.share === 'function',
+        hasNavigatorCanShare: typeof navigator.canShare === 'function',
+        isSecureContext: window.isSecureContext,
+        url: pageUrl,
+      });
+
+      if (typeof navigator.share === 'function') {
+        const candidates = getTextShareCandidates(SHARE_TITLE, summary, message, pageUrl);
+
+        for (const [index, candidate] of candidates.entries()) {
+          if (typeof navigator.canShare === 'function') {
+            let canShare = false;
+            try {
+              canShare = navigator.canShare(candidate);
+            } catch (canShareError) {
+              debugShare('candidate-error', {
+                index,
+                keys: Object.keys(candidate),
+                name: (canShareError as { name?: string })?.name,
+                message: (canShareError as { message?: string })?.message,
+              });
+              continue;
+            }
+
+            debugShare('candidate', {
+              index,
+              keys: Object.keys(candidate),
+              canShare,
+            });
+
+            if (!canShare) {
+              continue;
+            }
+          } else {
+            debugShare('candidate', {
+              index,
+              keys: Object.keys(candidate),
+              canShare: 'navigator.canShare unavailable',
+            });
+          }
+
+          try {
+            await navigator.share(candidate);
+            debugShare('native-opened', { index });
+            setShareFeedback(t('share.success'));
+            return;
+          } catch (nativeShareError) {
+            debugShare('native-error', {
+              index,
+              name: (nativeShareError as { name?: string })?.name,
+              message: (nativeShareError as { message?: string })?.message,
+            });
+
+            if (isAbortError(nativeShareError)) {
+              throw nativeShareError;
+            }
+
+            continue;
+          }
+        }
+      } else {
+        debugShare('native-unavailable');
+      }
+
       await copyTextToClipboard(message);
+      debugShare('fallback-copy');
+      if (!window.isSecureContext) {
+        setShareFeedback(t('share.https.note'));
+        return;
+      }
+
       setShareFeedback(t('share.copied'));
-    } catch {
-      window.prompt(t('share.prompt.manual'), message);
-      setShareFeedback(t('share.copied.manual'));
+    } catch (shareError) {
+      if (isAbortError(shareError)) {
+        debugShare('native-aborted');
+        return;
+      }
+
+      try {
+        await copyTextToClipboard(message);
+        debugShare('fallback-copy-after-error', {
+          name: (shareError as { name?: string })?.name,
+          message: (shareError as { message?: string })?.message,
+        });
+        if (!window.isSecureContext) {
+          setShareFeedback(t('share.https.note'));
+          return;
+        }
+
+        setShareFeedback(t('share.copied'));
+      } catch {
+        window.prompt(t('share.prompt.manual'), message);
+        setShareFeedback(t('share.copied.manual'));
+      }
     }
   }, [currentRecommendation, t]);
 
@@ -543,7 +649,7 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
     anchor.click();
     document.body.removeChild(anchor);
     URL.revokeObjectURL(url);
-    setShareFeedback(t('share.image.success'));
+    setShareFeedback(t('share.image.downloaded'));
   }, [currentRecommendation, shareImageFile, t]);
 
   // Este valor sólo cambia cuando cambia el formulario.

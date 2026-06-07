@@ -6,7 +6,7 @@ import '../styles/components/ShareActions.css';
 interface ShareActionsProps {
   shareFeedback: string;
   hasResult: boolean;
-  onShare: () => Promise<void>;
+  onShare: () => void;
   onShareAsImage: () => Promise<void>;
 }
 
@@ -60,9 +60,9 @@ export const ShareActions = memo(function ShareActions({ shareFeedback, hasResul
               className="share-menu__item"
               type="button"
               role="menuitem"
-              onClick={() => handleSelect(onShare)}
+              onClick={onShare}
             >
-              {t('share.button')}
+              {t('share.result')}
             </button>
             <button
               className="share-menu__item"

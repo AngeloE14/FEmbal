@@ -89,7 +89,7 @@ export const ResultsSection = memo(function ResultsSection() {
   const formulaConcentration = useMemo(() => renderFormulaRichText(currentRecommendation?.formulaConcentration), [currentRecommendation?.formulaConcentration]);
   const formulaFinal = useMemo(() => renderFormulaRichText(currentRecommendation?.formulaFinal), [currentRecommendation?.formulaFinal]);
 
-  const handleShare = useCallback(() => shareResult(), [shareResult]);
+  const handleShare = useCallback(() => void shareResult(), [shareResult]);
   const handleShareAsImage = useCallback(() => shareResultAsImage(), [shareResultAsImage]);
 
   return (
