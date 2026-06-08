@@ -69,11 +69,16 @@ export function HomePage() {
           {isToolsOpen ? (
             '✕'
           ) : (
-            <img
-              className="floating-tools__logo"
-              src={assetUrl('assets/images/logo-circular.png')}
-              alt="ESAMS"
-            />
+            <>
+              <img
+                className="floating-tools__logo"
+                src={assetUrl('assets/images/logo-circular.png')}
+                alt="ESAMS"
+              />
+              <span className="floating-tools__hand-box">
+                <span className="floating-tools__hand" aria-hidden="true">👋</span>
+              </span>
+            </>
           )}
         </button>
         {isToolsOpen && (

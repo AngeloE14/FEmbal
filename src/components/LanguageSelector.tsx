@@ -9,6 +9,12 @@ const FLAGS: Record<Locale, string> = {
   it: '🇮🇹',
 };
 
+const LOCALE_CODE: Record<Locale, string> = {
+  'es-MX': 'MX',
+  en: 'EN',
+  it: 'IT',
+};
+
 const OPTIONS: { value: Locale; labelKey: string }[] = [
   { value: 'es-MX', labelKey: 'locale.es-MX' },
   { value: 'en', labelKey: 'locale.en' },
@@ -49,6 +55,7 @@ export const LanguageSelector = memo(function LanguageSelector({ onClose }: { on
         onClick={handleToggle}
       >
         <span className="language-selector__flag">{FLAGS[locale]}</span>
+        <span className="language-selector__code">{LOCALE_CODE[locale]}</span>
       </button>
       {isOpen && (
         <div className="language-selector__menu" role="listbox" aria-label={t('locale.label')}>
@@ -62,6 +69,7 @@ export const LanguageSelector = memo(function LanguageSelector({ onClose }: { on
               onClick={() => handleSelect(opt.value)}
             >
               <span className="language-selector__option-flag">{FLAGS[opt.value]}</span>
+              <span className="language-selector__option-code">{LOCALE_CODE[opt.value]}</span>
               <span>{t(opt.labelKey)}</span>
             </button>
           ))}

@@ -1,6 +1,5 @@
 .hero {
   padding: 0.7rem 1.4rem 1rem;
-  background: linear-gradient(120deg, var(--hero-bg-a), var(--hero-bg-b));
   color: var(--hero-text);
 }
 

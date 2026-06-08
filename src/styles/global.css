@@ -18,8 +18,8 @@
   --box-border: rgba(21, 37, 49, 0.1);
   --shadow: 0 25px 45px rgba(14, 26, 36, 0.2);
 
-  --hero-bg-a: rgba(20, 32, 44, 0.95);
-  --hero-bg-b: rgba(43, 59, 72, 0.92);
+  --hero-bg-a: #14202c;
+  --hero-bg-b: #2b3b48;
   --hero-text: #fdfaf2;
   --hero-muted: rgba(253, 250, 242, 0.88);
 
@@ -93,6 +93,7 @@
   --toggle-float-border: rgba(29, 43, 55, 0.18);
   --toggle-float-text: #203241;
   --toggle-float-hover: #f2f6fa;
+  --toggle-glow: rgba(212, 175, 55, 0.85);
 
   --theme-switch-duration: 50ms;                           /* duración más rápida para sensación instantánea */
   --theme-switch-ease: cubic-bezier(0.4, 0, 0.2, 1);
@@ -114,8 +115,8 @@
   --box-border: rgba(149, 176, 194, 0.2);
   --shadow: 0 28px 55px rgba(0, 0, 0, 0.45);
 
-  --hero-bg-a: rgba(6, 10, 15, 0.96);
-  --hero-bg-b: rgba(16, 27, 38, 0.94);
+  --hero-bg-a: #060a0f;
+  --hero-bg-b: #101b26;
   --hero-text: #f4f7fb;
   --hero-muted: rgba(226, 236, 244, 0.84);
 
@@ -189,6 +190,7 @@
   --toggle-float-border: rgba(170, 200, 220, 0.3);
   --toggle-float-text: #e8f1f7;
   --toggle-float-hover: rgba(30, 45, 57, 0.95);
+  --toggle-glow: rgba(255, 215, 0, 0.9);
 
   --theme-overlay: rgba(2, 10, 16, 0.36);                  /* ligeramente más opaco → transición más tersa */
 }
@@ -284,6 +286,7 @@
     --toggle-float-border: rgba(170, 200, 220, 0.3);
     --toggle-float-text: #e8f1f7;
     --toggle-float-hover: rgba(30, 45, 57, 0.95);
+    --toggle-glow: rgba(255, 215, 0, 0.9);
 
     --theme-overlay: rgba(2, 10, 16, 0.28);
   }
@@ -322,9 +325,10 @@ body {
   position: relative;
   overflow-x: clip;
   overflow-y: auto;
+  overscroll-behavior: none;
   scroll-behavior: smooth;
   scroll-padding: max(1.5rem, env(safe-area-inset-top)) 0 max(4rem, env(safe-area-inset-bottom));
-  padding: max(1.25rem, env(safe-area-inset-top)) max(1.25rem, env(safe-area-inset-right)) max(1.25rem, env(safe-area-inset-bottom)) max(1.25rem, env(safe-area-inset-left));
+  padding: max(0.5rem, env(safe-area-inset-top)) max(0.5rem, env(safe-area-inset-right)) max(0.5rem, env(safe-area-inset-bottom)) max(0.5rem, env(safe-area-inset-left));
   transition: color var(--theme-switch-duration) var(--theme-switch-ease);
   -webkit-tap-highlight-color: transparent;
   -webkit-font-smoothing: antialiased;
@@ -335,13 +339,13 @@ body {
 /* Fondo ambiental sutil para profundidad sin sobrecargar móviles. */
 .fondo-ambiental {
   position: fixed;
-  inset: -18%;
+  inset: -50%;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.24;
+  opacity: 0.3;
   background:
-    radial-gradient(circle at 18% 22%, rgba(71, 162, 136, 0.18), transparent 44%),
-    radial-gradient(circle at 80% 70%, rgba(76, 129, 196, 0.16), transparent 47%);
+    radial-gradient(circle at 18% 22%, rgba(71, 162, 136, 0.2), transparent 70%),
+    radial-gradient(circle at 80% 70%, rgba(76, 129, 196, 0.18), transparent 70%);
   transform: translate3d(0, 0, 0) scale(1);
   will-change: transform, opacity;
   contain: layout paint style;
@@ -355,16 +359,16 @@ body {
 
 @keyframes ambiente-flotante {
   0% {
-    transform: translate3d(-1.2%, -0.8%, 0) scale(1);
-    opacity: 0.28;
+    transform: translate3d(-2%, -1.5%, 0) scale(1);
+    opacity: 0.32;
   }
   50% {
-    transform: translate3d(0.8%, 1.1%, 0) scale(1.02);
-    opacity: 0.34;
+    transform: translate3d(1.5%, 2%, 0) scale(1.03);
+    opacity: 0.4;
   }
   100% {
-    transform: translate3d(1.1%, -0.5%, 0) scale(1.01);
-    opacity: 0.3;
+    transform: translate3d(2%, -1%, 0) scale(1.02);
+    opacity: 0.36;
   }
 }
 
@@ -408,7 +412,7 @@ html.theme-switching body::before {
 .panel {
   position: relative;
   z-index: 1;
-  width: min(980px, 100%);
+  width: 100%;
   background: var(--panel-bg);
   border: 1px solid var(--panel-border);
   box-shadow: var(--shadow);
@@ -425,6 +429,7 @@ html.theme-switching body::before {
   border: 1px solid var(--box-border);
   padding: 1rem;
   contain: layout paint style;
+  isolation: isolate;
 }
 
 /* Base compartida de microinteracciones premium */
@@ -443,7 +448,23 @@ html.theme-switching body::before {
     box-shadow 0.18s cubic-bezier(0.25, 0.1, 0.25, 1),
     opacity 0.18s cubic-bezier(0.25, 0.1, 0.25, 1);
   touch-action: manipulation;
-  will-change: transform;
+}
+
+/* Solo en escritorio (pointer:fine) se crean capas GPU para hover,
+   evitando capas innecesarias en móviles que multiplican memoria. */
+@media (pointer: fine) {
+  .tarjeta-interactiva,
+  .panel-resultados,
+  .bloque-resultado,
+  .bloque-mezcla,
+  .tarjeta-dato,
+  .tarjeta-informativa,
+  .boton-principal,
+  .redes-sociales__enlace,
+  .theme-toggle,
+  .chip {
+    will-change: transform;
+  }
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -657,16 +678,15 @@ select option:hover {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.08);
+  /* splitter ultra fino: box-shadow 0.5px (más fino que border, sub-pixel real) */
+  box-shadow: 0 0.5px 0 rgba(128, 128, 128, 0.05);
+  border: 0;
   transition: background-color 0.15s ease;
   width: 100%;
   min-height: 2.8rem;
   text-align: left;
   font: inherit;
   background: transparent;
-  border-left: 0;
-  border-right: 0;
-  border-top: 0;
   appearance: none;
 }
 
@@ -676,7 +696,14 @@ select option:hover {
 }
 
 .select-items .select-item:last-child {
-  border-bottom: none;
+  box-shadow: none;
+}
+
+/* en móviles/touch el splitter sobra: la separación visual natural basta */
+@media (pointer: coarse), (max-width: 720px) {
+  .select-item {
+    box-shadow: none;
+  }
 }
 
 .select-item:hover,
@@ -823,7 +850,7 @@ input,
 /* Laptop compacta e iPad horizontal */
 @media (max-width: 1024px) {
   body {
-    padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+    padding: max(0.5rem, env(safe-area-inset-top)) max(0.5rem, env(safe-area-inset-right)) max(0.5rem, env(safe-area-inset-bottom)) max(0.5rem, env(safe-area-inset-left));
   }
 
   .panel {
@@ -854,6 +881,10 @@ input,
 
 /* Telefono grande */
 @media (max-width: 680px) {
+  body {
+    padding: max(0.25rem, env(safe-area-inset-top)) max(0.25rem, env(safe-area-inset-right)) max(0.25rem, env(safe-area-inset-bottom)) max(0.25rem, env(safe-area-inset-left));
+  }
+
   body::before {
     display: none;
   }
@@ -861,17 +892,15 @@ input,
   .panel {
     border-radius: 16px;
     box-shadow: 0 12px 24px rgba(10, 22, 32, 0.14);
-    margin-top: 3.35rem;
+    margin-top: 0;
   }
 
   .logo-head {
-    padding: 0.9rem 1rem 0.55rem;
-    background: linear-gradient(120deg, var(--hero-bg-a), var(--hero-bg-b));
+    padding: 0.5rem 1rem 0.55rem;
   }
 
   .hero {
     padding: 0.72rem 1rem 0.95rem;
-    background: linear-gradient(120deg, var(--hero-bg-a), var(--hero-bg-b));
   }
 
   .hero-top {
@@ -952,13 +981,13 @@ input,
 /* Telefono pequeno */
 @media (max-width: 520px) {
   body {
-    padding: max(0.75rem, env(safe-area-inset-top)) max(0.75rem, env(safe-area-inset-right)) max(0.75rem, env(safe-area-inset-bottom)) max(0.75rem, env(safe-area-inset-left));
+    padding: max(0.125rem, env(safe-area-inset-top)) max(0.125rem, env(safe-area-inset-right)) max(0.125rem, env(safe-area-inset-bottom)) max(0.125rem, env(safe-area-inset-left));
     scroll-behavior: auto;
     overscroll-behavior: contain;
   }
 
   .panel {
-    margin-top: 3.5rem;
+    margin-top: 0;
   }
 
   .layout {
@@ -1032,11 +1061,11 @@ input,
 /* Desktop amplio: más aire y lectura */
 @media (min-width: 1100px) {
   body {
-    padding: max(1.75rem, env(safe-area-inset-top)) max(1.75rem, env(safe-area-inset-right)) max(1.75rem, env(safe-area-inset-bottom)) max(1.75rem, env(safe-area-inset-left));
+    padding: max(0.75rem, env(safe-area-inset-top)) max(0.75rem, env(safe-area-inset-right)) max(0.75rem, env(safe-area-inset-bottom)) max(0.75rem, env(safe-area-inset-left));
   }
 
   .panel {
-    width: min(1140px, 100%);
+    width: min(95%, 1800px);
   }
 
   .layout {
@@ -1084,42 +1113,4 @@ input,
   }
 }
 
-@media (prefers-reduced-data: reduce) {
-  .fondo-ambiental,
-  .summer-sparkles,
-  .logo-season::before,
-  .logo-season::after,
-  .box-results::after {
-    display: none !important;
-  }
 
-  .logo-head img,
-  .box-results.is-updating .result-main,
-  .box-results.is-updating .mix-progress,
-  .box-results.is-updating .mini-grid .tile,
-  .panel-resultados.panel-resultados--actualizando .result-main,
-  .panel-resultados.panel-resultados--actualizando .mix-progress,
-  .panel-resultados.panel-resultados--actualizando .mini-grid .tile,
-  .mix-progress__bar {
-    animation: none !important;
-    transition: none !important;
-  }
-
-  .panel,
-  .box-results,
-  .redes-sociales__enlace {
-    box-shadow: none;
-  }
-}
-
-/* Accesibilidad para usuarios sensibles al movimiento */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}

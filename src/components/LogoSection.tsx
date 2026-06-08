@@ -16,6 +16,12 @@ export const LogoSection = memo(function LogoSection() {
           <span className="summer-sparkle summer-sparkle--4"></span>
           <span className="summer-sparkle summer-sparkle--5"></span>
           <span className="summer-sparkle summer-sparkle--6"></span>
+          <span className="summer-sparkle summer-sparkle--7"></span>
+          <span className="summer-sparkle summer-sparkle--8"></span>
+          <span className="summer-sparkle summer-sparkle--9"></span>
+          <span className="summer-sparkle summer-sparkle--10"></span>
+          <span className="summer-sparkle summer-sparkle--11"></span>
+          <span className="summer-sparkle summer-sparkle--12"></span>
         </div>
         <img
           src={logoSrc}
