@@ -13,7 +13,6 @@ interface ShareActionsProps {
 export const ShareActions = memo(function ShareActions({ shareFeedback, hasResult, onShare, onShareAsImage }: ShareActionsProps) {
   const { t } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
-  const [linkCopied, setLinkCopied] = useState(false);
   const rootRef = useRef<HTMLDivElement | null>(null);
 
   const handleToggle = useCallback(() => {
@@ -31,31 +30,6 @@ export const ShareActions = memo(function ShareActions({ shareFeedback, hasResul
     },
     [],
   );
-
-  const handleCopyLink = useCallback(async () => {
-    setIsOpen(false);
-    const url = window.location.href;
-    if (typeof navigator.share === 'function') {
-      try {
-        await navigator.share({ url });
-        return;
-      } catch {}
-    }
-    try {
-      await navigator.clipboard.writeText(url);
-      setLinkCopied(true);
-      setTimeout(() => setLinkCopied(false), 2000);
-    } catch {
-      const input = document.createElement('input');
-      input.value = url;
-      document.body.appendChild(input);
-      input.select();
-      document.execCommand('copy');
-      document.body.removeChild(input);
-      setLinkCopied(true);
-      setTimeout(() => setLinkCopied(false), 2000);
-    }
-  }, []);
 
   useEffect(() => {
     const handlePointerDown = (e: PointerEvent) => {
@@ -98,30 +72,16 @@ export const ShareActions = memo(function ShareActions({ shareFeedback, hasResul
             >
               {t('share.image.download')}
             </button>
-            <button
-              className="share-menu__item"
-              type="button"
-              role="menuitem"
-              onClick={handleCopyLink}
-            >
-              {t('share.link')}
-            </button>
           </div>
         )}
       </div>
-
-      {linkCopied && (
-        <p className="share-feedback share-feedback--link" role="status" aria-live="polite">
-          <span>✓ {t('share.copied')}</span>
-        </p>
-      )}
 
       <p
         className="share-feedback"
         id="shareFeedback"
         role="status"
         aria-live="polite"
-        style={{ display: shareFeedback && !linkCopied ? 'flex' : 'none' }}
+        style={{ display: shareFeedback ? 'flex' : 'none' }}
       >
         <img src={assetUrl('/assets/images/logo-circular.png')} alt="Logo ESAMS" width={24} height={24} loading="lazy" decoding="async" />
         <span id="shareFeedbackText">{shareFeedback}</span>
