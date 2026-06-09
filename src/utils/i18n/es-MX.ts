@@ -38,6 +38,7 @@ const translations: Record<string, string> = {
   'share.image.downloaded': 'Imagen descargada',
   'share.image.error': 'No se pudo generar la imagen',
   'share.image.download': '📷 Como imagen',
+  'share.link': '🔗 Copiar enlace',
   'share.prompt.manual': 'Copia manualmente este resultado:',
   'theme.light': 'Modo claro',
   'theme.dark': 'Modo oscuro',

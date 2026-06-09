@@ -28,6 +28,44 @@ export const FormSection = memo(function FormSection() {
   const selectedChemicalLabel = selectedChemical?.label ?? t('form.select.default');
   const objectiveValue = useMemo(() => parseInputNumber(inputs.objetivoManual), [inputs.objetivoManual]);
 
+  // Carga estado desde la URL al montar.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.hash.replace('#', ''));
+    const c = params.get('c');
+    const w = params.get('w');
+    const v = params.get('v');
+    const o = params.get('o');
+    const ch = params.get('ch');
+
+    if (!c && !w && !v && !o && !ch) return;
+
+    if (c) updateInput('concentrado', c);
+    if (w) updateInput('peso', w);
+    if (v) updateInput('volumenPrepararLitros', v);
+    if (o) updateInput('objetivoManual', o);
+    if (ch) {
+      const option = CHEMICAL_OPTIONS.find((opt) => opt.value === ch);
+      if (option) selectChemical(option);
+    }
+  }, []);
+
+  // Sincroniza el estado del formulario a la URL.
+  const { concentrado, peso, volumenPrepararLitros, objetivoManual } = inputs;
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (concentrado) params.set('c', concentrado);
+    if (peso) params.set('w', peso);
+    if (volumenPrepararLitros) params.set('v', volumenPrepararLitros);
+    if (objetivoManual) params.set('o', objetivoManual);
+    if (selectedChemical) params.set('ch', selectedChemical.value);
+
+    const qs = params.toString();
+    const newUrl = qs
+      ? `${window.location.pathname}${window.location.search}#${qs}`
+      : window.location.pathname + window.location.search;
+    history.replaceState(null, '', newUrl);
+  }, [concentrado, peso, volumenPrepararLitros, objetivoManual, selectedChemical]);
+
   // Cierra el combo cuando se pulsa fuera, para mantener UX táctil clara.
   useEffect(() => {
     const handleDocumentPointerDown = (event: globalThis.PointerEvent) => {

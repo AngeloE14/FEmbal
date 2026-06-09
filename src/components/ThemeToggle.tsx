@@ -17,9 +17,9 @@ export const ThemeToggle = memo(function ThemeToggle() {
       onClick={toggleTheme}
     >
       <span className="theme-toggle__icon" aria-hidden="true">
-        {theme === 'dark' ? '☀️' : '🌙'}
+        {theme === 'dark' ? '🌙' : '☀️'}
       </span>
-      <span className="theme-toggle__text">{theme === 'dark' ? t('theme.light') : t('theme.dark')}</span>
+      <span className="theme-toggle__text">{theme === 'dark' ? t('theme.dark') : t('theme.light')}</span>
     </button>
   );
 });
