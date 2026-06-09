@@ -44,7 +44,12 @@
   transition: opacity 0.25s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
   pointer-events: none;
   z-index: -1;
-  will-change: transform, opacity;
+}
+
+@media (pointer: fine) {
+  .box-results::after {
+    will-change: transform, opacity;
+  }
 }
 
 .box-results > * {

@@ -7,7 +7,6 @@ import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { FileBadge2 } from 'lucide-react';
 import { Calculator } from '../components/Calculator';
 import { TutorialOverlay } from '../components/TutorialOverlay';
-import '../components/EmbalmingCertificateModule/EmbalmingCertificateModule.css';
 import { LanguageSelector } from '../components/LanguageSelector';
 import { ThemeToggle } from '../components/ThemeToggle';
 import { assetUrl } from '../utils/paths';
@@ -57,7 +56,6 @@ export function HomePage() {
 
   return (
     <>
-      <div className="fondo-ambiental" aria-hidden="true"></div>
       <div className="floating-tools" ref={toolsRef}>
         <button
           className="floating-tools__toggle"
@@ -81,6 +79,13 @@ export function HomePage() {
             </>
           )}
         </button>
+        <span className="wc-badge" aria-hidden="true">
+          <span className="wc-badge__icon wc-badge__icon--cup">🏆</span>
+          <span className="wc-badge__icon wc-badge__icon--ball">⚽</span>
+          <span className="wc-badge__year wc-badge__year--2">2</span>
+          <span className="wc-badge__year wc-badge__year--0">0</span>
+          <span className="wc-badge__year wc-badge__year--26">26</span>
+        </span>
         {isToolsOpen && (
           <div className="floating-tools__items">
             <LanguageSelector onClose={closeTools} />

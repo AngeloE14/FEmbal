@@ -47,15 +47,15 @@
   <meta name="twitter:image" content="https://angeloe14.github.io/FEmbal/assets/images/logo-circular.png" />
   <meta name="twitter:image:alt" content="ESAMS — Logotipo Escuela de Artes Mortuorias del Sureste" />
 
-  <!-- Precarga del audio de bienvenida -->
-  <link rel="preload" href="/FEmbal/assets/audio/sonido.mp3" as="audio" type="audio/mpeg" crossorigin />
+  <!-- Precarga del logo (LCP) -->
+  <link rel="preload" href="/FEmbal/assets/images/logo-circular.png" as="image" fetchpriority="high" />
 
   <!-- Fuentes -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
 
-  <script src="/FEmbal/assets/js/theme-init.js"></script>
+  <script>(function(){try{var e=localStorage.getItem("formulador-theme");"light"===e||"dark"===e?document.documentElement.setAttribute("data-theme",e):document.documentElement.setAttribute("data-theme","dark")}catch(e){}}());</script>
 </head>
 <body>
   <div id="root"></div>

@@ -336,42 +336,6 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Fondo ambiental sutil para profundidad sin sobrecargar móviles. */
-.fondo-ambiental {
-  position: fixed;
-  inset: -50%;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.3;
-  background:
-    radial-gradient(circle at 18% 22%, rgba(71, 162, 136, 0.2), transparent 70%),
-    radial-gradient(circle at 80% 70%, rgba(76, 129, 196, 0.18), transparent 70%);
-  transform: translate3d(0, 0, 0) scale(1);
-  will-change: transform, opacity;
-  contain: layout paint style;
-}
-
-@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
-  .fondo-ambiental {
-    animation: ambiente-flotante 24s ease-in-out infinite alternate;
-  }
-}
-
-@keyframes ambiente-flotante {
-  0% {
-    transform: translate3d(-2%, -1.5%, 0) scale(1);
-    opacity: 0.32;
-  }
-  50% {
-    transform: translate3d(1.5%, 2%, 0) scale(1.03);
-    opacity: 0.4;
-  }
-  100% {
-    transform: translate3d(2%, -1%, 0) scale(1.02);
-    opacity: 0.36;
-  }
-}
-
 body::before {
   content: "";
   position: fixed;
@@ -750,6 +714,7 @@ input[readonly]:focus {
   font-size: 0.8rem;
   line-height: 1.5;
   color: var(--notes);
+  white-space: pre-line;
 }
 
 .notes b {
@@ -767,10 +732,6 @@ input[readonly]:focus {
 
 /* Seccion de redes modernizada: limpia, legible y touch-friendly. */
 @media (max-width: 768px) {
-  .fondo-ambiental {
-    opacity: 0.22;
-  }
-
   .titulo-principal {
     text-shadow: 0 5px 14px rgba(0, 0, 0, 0.28);
   }

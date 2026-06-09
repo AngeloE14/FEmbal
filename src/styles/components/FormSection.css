@@ -230,6 +230,22 @@ input[readonly]:focus {
   margin: 0.4rem 0 0.9rem;
 }
 
+@media (max-width: 520px) {
+  .presets {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.35rem;
+  }
+
+  .presets .chip {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.35rem;
+    min-height: 2.4rem;
+  }
+}
+
+
+
 .chip {
   border: 1px solid var(--chip-border);
   background: var(--chip-bg);
@@ -248,7 +264,6 @@ input[readonly]:focus {
     color 0.15s cubic-bezier(0.25, 0.1, 0.25, 1);
   position: relative;
   overflow: hidden;
-  will-change: transform;
 }
 
 .chip[data-preset="baja"] {

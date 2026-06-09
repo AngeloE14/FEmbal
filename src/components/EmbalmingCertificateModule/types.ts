@@ -33,7 +33,6 @@ export type ManualCertificateData = Omit<CertificateData, keyof ChemicalSolution
 export type ManualCertificateField = keyof ManualCertificateData;
 export type CertificateField = keyof CertificateData;
 
-export const embalmingTypes: EmbalmingType[] = ['Patológico', 'Caso Legal', 'Traslado'];
 
 // Esta lista controla cuándo el formulario está completo. Quitamos el folio
 // porque el equipo pidió eliminarlo del formulario y del documento final.
@@ -54,8 +53,6 @@ export const requiredManualCertificateFields: ManualCertificateField[] = [
   'signatureDataUrl',
 ];
 
-export const isCertificateDataComplete = (data: CertificateData | ManualCertificateData) =>
-  requiredManualCertificateFields.every((field) => String(data[field]).trim().length > 0);
 
 // Solo dejamos los químicos que deben verse. Los campos retirados se quitaron
 // aquí para que no se rendericen ni se exporten al PDF.

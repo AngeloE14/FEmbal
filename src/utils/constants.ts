@@ -16,7 +16,6 @@ export const SYSTEM_DARK_QUERY = '(prefers-color-scheme: dark)';
 export const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 export const COARSE_POINTER_QUERY = '(pointer: coarse)';
 
-export const DEFAULT_CHEMICAL_LABEL = 'Selecciona un químico🧪';
 
 export interface CaseData {
   concentrado: number | null;
