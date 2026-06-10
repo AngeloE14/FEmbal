@@ -1,6 +1,12 @@
 /**
  * Formulario principal controlado por React.
  * Origen: bloque de formulario del index.html original.
+ *
+ * NOTA: Se eliminó la sincronización del formulario con el hash de la URL
+ * (history.replaceState + lectura inicial desde window.location.hash)
+ * para evitar que la URL cambie al hacer cálculos.
+ * También se eliminó el atributo crossorigin de los assets del build
+ * para prevenir que Chrome en escritorio rechace la aplicación del CSS.
  */
 
 import { memo, useEffect, useMemo, useRef, useState } from 'react';
