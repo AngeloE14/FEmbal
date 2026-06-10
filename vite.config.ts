@@ -3,7 +3,15 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   base: '/FEmbal/',
-  plugins: [react()],
+  plugins: [
+    react(),
+    {
+      name: 'remove-crossorigin',
+      transformIndexHtml(html) {
+        return html.replace(/ crossorigin/g, '');
+      },
+    },
+  ],
   server: {
     host: true,
     port: 4173,
