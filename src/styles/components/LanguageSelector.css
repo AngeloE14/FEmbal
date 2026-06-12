@@ -39,7 +39,8 @@
   box-shadow:
     0 0 22px var(--toggle-glow),
     0 2px 8px rgba(0, 0, 0, 0.15);
-  animation: toggle-pulse 2.8s ease-in-out infinite;
+  animation: toggle-pulse 2.8s ease-in-out infinite,
+             mexico-border-cycle 4s ease-in-out infinite;
   transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
   /* contain: limita el área de pintado del botón para GPU */
   contain: layout style paint;
@@ -76,6 +77,22 @@
       0 0 32px var(--toggle-glow),
       0 2px 10px rgba(0, 0, 0, 0.18);
   }
+}
+
+@keyframes mexico-border-cycle {
+  0%, 100% { border-color: #2e8b57; }
+  33%      { border-color: rgba(255, 255, 255, 0.7); }
+  66%      { border-color: #d32f2f; }
+}
+
+:root[data-theme="dark"] .floating-tools__toggle {
+  animation-name: toggle-pulse, mexico-border-cycle-dark;
+}
+
+@keyframes mexico-border-cycle-dark {
+  0%, 100% { border-color: #4caf50; }
+  33%      { border-color: rgba(230, 230, 230, 0.75); }
+  66%      { border-color: #ef5350; }
 }
 
 .floating-tools__items {
