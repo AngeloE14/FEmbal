@@ -24,7 +24,7 @@
 
 .redes-sociales__lista {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.4rem;
 }
 
@@ -65,6 +65,11 @@
 .redes-sociales__enlace--tiktok {
   --social-accent: #37eaff;
   --social-accent-soft: rgba(55, 234, 255, 0.24);
+}
+
+.redes-sociales__enlace--youtube {
+  --social-accent: #ff0033;
+  --social-accent-soft: rgba(255, 0, 51, 0.24);
 }
 
 .redes-sociales__enlace--correo {
@@ -147,7 +152,7 @@
   transform: scale(0.99);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .redes-sociales__lista {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
