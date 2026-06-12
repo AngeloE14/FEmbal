@@ -40,6 +40,14 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Add cache-busting timestamp to built assets
+        run: |
+          # Append a cache-busting query param to CSS/JS asset references in dist/index.html
+          # Uses the workflow run id so every workflow run produces unique URLs
+          perl -0777 -i -pe 's{(\.(?:css|js))(\?[^\"]*)?(\")}{ $1 . (defined $2 ? $2 . "&cb=" . $ENV{TS} : "?cb=" . $ENV{TS}) . $3 }ge' dist/index.html
+        env:
+          TS: ${{ github.run_id }}
+
       - name: Configure git for deploy
         run: |
           git config --global user.name "github-actions[bot]"
