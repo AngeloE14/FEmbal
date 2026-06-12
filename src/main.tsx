@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import './styles/global.css';
+import { ErrorBoundary } from './components/ErrorBoundary';
 
 // `main.tsx` es el punto de entrada real de React.
 // Aquí conectamos React con el nodo `#root` del `index.html`.
@@ -14,6 +15,8 @@ if (!rootElement) {
 // `createRoot` activa el renderizado moderno de React.
 createRoot(rootElement).render(
   <StrictMode>
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </StrictMode>,
 );
