@@ -1,0 +1,63 @@
+name: Build and Deploy to GitHub Pages
+
+on:
+  push:
+    # Trigger on your working branch `v2-react` and on direct pushes to `main`
+    branches: [ v2-react ]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-pages-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    env:
+      # Opt into Node.js 24 for JavaScript actions to avoid deprecation issues
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Add cache-busting timestamp to built assets
+        run: |
+          # Append a cache-busting query param to CSS/JS asset references in dist/index.html
+          # Uses the workflow run id so every workflow run produces unique URLs
+          perl -0777 -i -pe 's{(\.(?:css|js))(\?[^\"]*)?(\")}{ $1 . (defined $2 ? $2 . "&cb=" . $ENV{TS} : "?cb=" . $ENV{TS}) . $3 }ge' dist/index.html
+        env:
+          TS: ${{ github.run_id }}
+
+      - name: Configure git for deploy
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Deploy to GitHub Pages (push to gh-pages branch)
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          force_orphan: true
+          allow_empty_commit: true
