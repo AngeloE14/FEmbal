@@ -8,12 +8,12 @@
   <meta name="theme-color" content="#edf2f8" media="(prefers-color-scheme: light)" />
 
   <!-- Favicon – mismo logo de la página -->
-  <link rel="icon" type="image/x-icon" href="/FEmbal/assets/images/favicon.ico?v=4" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/FEmbal/assets/images/logo-circular.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="/FEmbal/assets/images/logo-circular.png" />
-  <link rel="icon" type="image/png" sizes="512x512" href="/FEmbal/assets/images/logo-circular.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/FEmbal/assets/images/logo-circular.png" />
-  <link rel="mask-icon" href="/FEmbal/assets/images/logo-circular.png" color="#0f1720" />
+  <link rel="icon" type="image/x-icon" href="%BASE_URL%assets/images/favicon.ico?v=4" />
+  <link rel="icon" type="image/png" sizes="32x32" href="%BASE_URL%assets/images/logo-circular.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="%BASE_URL%assets/images/logo-circular.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="%BASE_URL%assets/images/logo-circular.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="%BASE_URL%assets/images/logo-circular.png" />
+  <link rel="mask-icon" href="%BASE_URL%assets/images/logo-circular.png" color="#0f1720" />
 
   <!-- iOS PWA -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -22,7 +22,7 @@
 
   <!-- Windows -->
   <meta name="msapplication-TileColor" content="#0f1720" />
-  <meta name="msapplication-TileImage" content="/FEmbal/assets/images/logo-circular.png" />
+  <meta name="msapplication-TileImage" content="%BASE_URL%assets/images/logo-circular.png" />
 
   <title>ESAMS | Formulador Arterial</title>
   <meta name="description" content="ESAMS — Calculadora profesional de solución arterial para embalsamamiento. Determina concentraciones, volúmenes y mezclas con precisión para formulación arterial en tanatopraxia." />
@@ -48,7 +48,7 @@
   <meta name="twitter:image:alt" content="ESAMS — Logotipo Escuela de Artes Mortuorias del Sureste" />
 
   <!-- Precarga del logo (LCP) -->
-  <link rel="preload" href="/FEmbal/assets/images/logo-circular.png" as="image" fetchpriority="high" />
+  <link rel="preload" href="%BASE_URL%assets/images/logo-circular.png" as="image" fetchpriority="high" />
 
   <!-- Fuentes -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -59,6 +59,6 @@
 </head>
 <body>
   <div id="root"></div>
-  <script type="module" src="/src/main.tsx"></script>
+  <script type="module" src="%BASE_URL%src/main.tsx"></script>
 </body>
 </html>

@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-export default defineConfig({
-  base: '/FEmbal/',
+export default defineConfig(({ command }) => ({
+  base: command === 'serve' ? '/' : '/FEmbal/',
   plugins: [
     react(),
     {
@@ -35,4 +35,4 @@ export default defineConfig({
       },
     },
   },
-})
+}))
