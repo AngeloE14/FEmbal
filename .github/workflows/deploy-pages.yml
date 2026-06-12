@@ -48,16 +48,10 @@ jobs:
         env:
           TS: ${{ github.run_id }}
 
-      - name: Configure git for deploy
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-      - name: Deploy to GitHub Pages (push to gh-pages branch)
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload built files for GitHub Pages
+        uses: actions/upload-pages-artifact@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          publish_branch: gh-pages
-          force_orphan: true
-          allow_empty_commit: true
+          path: ./dist
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
