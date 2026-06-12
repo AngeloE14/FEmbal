@@ -9,7 +9,14 @@ if (!rootElement) {
   throw new Error('No se encontró el contenedor root para montar React.');
 }
 
-createRoot(rootElement).render(
+createRoot(rootElement, {
+  onUncaughtError(error, errorInfo) {
+    console.error('React error (no recuperable):', error, errorInfo);
+  },
+  onCaughtError(error, errorInfo) {
+    console.error('React error (recuperado):', error, errorInfo);
+  },
+}).render(
   <ErrorBoundary>
     <App />
   </ErrorBoundary>,

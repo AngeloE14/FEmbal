@@ -3,23 +3,15 @@
  * Mantiene la estructura visual de página única del proyecto original.
  */
 
-import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { FileBadge2 } from 'lucide-react';
+import { AudioPlayer } from '../components/AudioPlayer';
+import { EmbalmingCertificateModule } from '../components/EmbalmingCertificateModule';
 import { Calculator } from '../components/Calculator';
 import { TutorialOverlay } from '../components/TutorialOverlay';
 import { LanguageSelector } from '../components/LanguageSelector';
 import { ThemeToggle } from '../components/ThemeToggle';
 import { assetUrl } from '../utils/paths';
-
-const LazyAudioPlayer = lazy(async () => {
-  const module = await import('../components/AudioPlayer');
-  return { default: module.AudioPlayer };
-});
-
-const LazyCertificateModule = lazy(async () => {
-  const module = await import('../components/EmbalmingCertificateModule');
-  return { default: module.EmbalmingCertificateModule };
-});
 
 export function HomePage() {
   const [isCertificateModeOpen, setIsCertificateModeOpen] = useState(false);
@@ -113,16 +105,11 @@ export function HomePage() {
       <main className="panel">
         <Calculator />
       </main>
-      <Suspense fallback={null}>
-        <LazyCertificateModule
-          isOpen={isCertificateModeOpen}
-          onClose={closeCertificateMode}
-        />
-      </Suspense>
-      {/* El audio no es crítico para el primer render; se carga en diferido. */}
-      <Suspense fallback={null}>
-        <LazyAudioPlayer />
-      </Suspense>
+      <EmbalmingCertificateModule
+        isOpen={isCertificateModeOpen}
+        onClose={closeCertificateMode}
+      />
+      <AudioPlayer />
       <TutorialOverlay
         isOpen={isTutorialOpen}
         onClose={() => setIsTutorialOpen(false)}

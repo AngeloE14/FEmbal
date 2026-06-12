@@ -34,6 +34,7 @@ export class ErrorBoundary extends Component<Props, State> {
           fontFamily: 'monospace',
           borderRadius: '12px',
           border: '2px solid #ff6b6b',
+          textAlign: 'center',
         }}>
           <h2>Error</h2>
           <pre style={{ whiteSpace: 'pre-wrap', color: '#eee' }}>
@@ -42,6 +43,21 @@ export class ErrorBoundary extends Component<Props, State> {
           <pre style={{ whiteSpace: 'pre-wrap', color: '#aaa', fontSize: '0.85em' }}>
             {this.state.error?.stack}
           </pre>
+          <button
+            onClick={() => this.setState({ hasError: false, error: null })}
+            style={{
+              marginTop: '1rem',
+              padding: '0.5rem 1.5rem',
+              background: '#ff6b6b',
+              color: '#1a1a2e',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontWeight: 'bold',
+            }}
+          >
+            Reintentar
+          </button>
         </div>
       );
     }
