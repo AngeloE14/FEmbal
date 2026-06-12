@@ -2,8 +2,13 @@ name: Build and Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    # Trigger on your working branch `v2-react` and on direct pushes to `main`
+    branches: [ v2-react, main ]
   workflow_dispatch:
+
+concurrency:
+  group: deploy-pages-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
