@@ -69,6 +69,7 @@
                wc-tricolor 5s ease-in-out 0.6s infinite;
     will-change: background-position, border-color, box-shadow, transform, opacity;
   }
+}
 
 @keyframes wc-tricolor {
   0%, 100% {
