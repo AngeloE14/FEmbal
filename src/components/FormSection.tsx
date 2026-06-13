@@ -9,9 +9,9 @@
  * para prevenir que Chrome en escritorio rechace la aplicación del CSS.
  */
 
-import { memo, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import '../styles/components/FormSection.css';
-import { useCalculatorForm } from '../hooks/useCalculator';
+import { useCalculatorForm, useCalculatorResults } from '../hooks/useCalculator';
 import { useI18n } from '../hooks/useI18n';
 import { parseInputNumber } from '../utils/formatters';
 import { CHEMICAL_OPTIONS, PRESET_BUTTONS } from '../utils/profiles';
@@ -27,9 +27,11 @@ export const FormSection = memo(function FormSection() {
     clearChemicalSelection,
     applyPreset,
   } = useCalculatorForm();
+  const { resetForm } = useCalculatorResults();
 
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const selectRootRef = useRef<HTMLDivElement | null>(null);
+  const formRef = useRef<HTMLDivElement | null>(null);
   const chemicalListId = 'comboConcentradoList';
   const selectedChemicalLabel = selectedChemical?.label ?? t('form.select.default');
   const objectiveValue = useMemo(() => parseInputNumber(inputs.objetivoManual), [inputs.objetivoManual]);
@@ -60,6 +62,17 @@ export const FormSection = memo(function FormSection() {
     return () => document.removeEventListener('keydown', handleEscapeKey);
   }, [isSelectOpen]);
 
+  // Escape en input vacío -> resetear formulario
+  const handleFormKeyDown = useCallback((event: React.KeyboardEvent) => {
+    if (
+      event.key === 'Escape' &&
+      event.target instanceof HTMLInputElement &&
+      event.target.value === ''
+    ) {
+      resetForm();
+    }
+  }, [resetForm]);
+
   const isPresetButtonActive = (min?: number, max?: number) => {
     if (objectiveValue === null) {
       return false;
@@ -74,7 +87,7 @@ export const FormSection = memo(function FormSection() {
   };
 
   return (
-    <article className="box tarjeta-interactiva">
+    <article className="box tarjeta-interactiva" ref={formRef} onKeyDown={handleFormKeyDown}>
       <div className="field">
         <label htmlFor="concentrado">{t('form.concentrado.label')}</label>
         <input

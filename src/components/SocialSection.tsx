@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { assetUrl } from '../utils/paths';
 import { useI18n } from '../hooks/useI18n';
 import '../styles/components/SocialSection.css';
 
@@ -23,7 +22,9 @@ export const SocialSection = memo(function SocialSection() {
           aria-label={t('social.instagram.aria')}
         >
           <span className="redes-sociales__icono" aria-hidden="true">
-            <img src={assetUrl('/assets/images/instagram.png')} alt="" width={26} height={26} loading="lazy" decoding="async" fetchPriority="low" />
+            <svg viewBox="0 0 24 24" width={24} height={24} focusable="false">
+              <path d="M12 9.52a2.48 2.48 0 1 0 0 4.96 2.48 2.48 0 0 0 0-4.96Zm7.37-2.7a2.97 2.97 0 0 0-2.19-2.19C15.8 4.13 12 4.13 12 4.13s-3.8 0-5.18.5a2.97 2.97 0 0 0-2.19 2.19C4.13 8.2 4.13 12 4.13 12s0 3.8.5 5.18a2.97 2.97 0 0 0 2.19 2.19c1.38.5 5.18.5 5.18.5s3.8 0 5.18-.5a2.97 2.97 0 0 0 2.19-2.19c.5-1.38.5-5.18.5-5.18s0-3.8-.5-5.18Zm-2.65 7.95a1.9 1.9 0 0 1-1.07 1.07c-.74.27-2.5.27-3.65.27s-2.91 0-3.65-.27a1.9 1.9 0 0 1-1.07-1.07c-.27-.74-.27-2.5-.27-3.65s0-2.91.27-3.65a1.9 1.9 0 0 1 1.07-1.07c.74-.27 2.5-.27 3.65-.27s2.91 0 3.65.27a1.9 1.9 0 0 1 1.07 1.07c.27.74.27 2.5.27 3.65s0 2.91-.27 3.65Z"/>
+            </svg>
           </span>
           <span className="redes-sociales__texto">
             <span className="redes-sociales__nombre">{t('social.instagram')}</span>

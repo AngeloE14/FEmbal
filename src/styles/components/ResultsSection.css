@@ -330,6 +330,30 @@
   line-height: 1.2;
 }
 
+.box-results .result-main {
+  text-align: left;
+}
+
+@media (max-width: 680px) {
+  .box-results .result-main {
+    text-align: center;
+    padding: 1rem 0.5rem;
+  }
+
+  .box-results .result-main .value {
+    font-size: clamp(1.6rem, 7.5vw, 2.4rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .box-results .result-main .sub {
+    font-size: 0.82rem;
+    margin-top: 0.35rem;
+    opacity: 0.8;
+  }
+}
+
 .sub {
   color: var(--muted);
   font-size: 0.86rem;
