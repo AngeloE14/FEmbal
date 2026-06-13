@@ -11,11 +11,154 @@ export const KNOWLEDGE_BASE = [
       'buenas tardes',
       'buenas noches',
       'quien eres',
+      'que eres',
       'mictlan',
       'mictlan ai',
+      'mictlantecuhtli',
+      'como te llamas',
+      'hello',
+      'saludos',
+      'hey',
     ],
-    response:
-      'Soy Mictlan AI. Puedo responder solo sobre la calculadora, mezclas arteriales, conversiones y el flujo técnico del proyecto.',
+    responses: [
+      'Soy Mictlantecuhtli, señor del inframundo. Habito en el noveno nivel del Mictlán, donde los huesos de la humanidad descansan. Dime, ¿qué saber buscas?',
+      'Bienvenido, mortal. Soy el guardián de los secretos del Mictlán. Pregúntame sobre mezclas, preservación o el arte de preparar cuerpos para su viaje final.',
+    ],
+  },
+  {
+    id: 'afirmacion',
+    title: 'Afirmacion casual',
+    keywords: [
+      'ok',
+      'okey',
+      'okay',
+      'bueno',
+      'bien',
+      'de acuerdo',
+      'dale',
+      'sale',
+      'va',
+      'si',
+      'sis',
+      'sip',
+      'claro',
+      'entiendo',
+      'comprendo',
+      'perfecto',
+      'excelente',
+      'genial',
+    ],
+    responses: [
+      'Así sea. Cuando necesites más conocimiento, aquí estaré.',
+      'Bien. El saber del Mictlán está a tu disposición.',
+      'Perfecto. Continuemos cuando quieras.',
+    ],
+  },
+  {
+    id: 'agradecimiento',
+    title: 'Agradecimiento',
+    keywords: [
+      'gracias',
+      'thank you',
+      'thanks',
+      'muchas gracias',
+      'te agradezco',
+      'gracias por tu ayuda',
+      'muy amable',
+      'graciass',
+    ],
+    responses: [
+      'El conocimiento es de quien lo busca. Úsalo con sabiduría.',
+      'Honra este saber aplicándolo bien en tu oficio.',
+      'Que la sabiduría del Mictlán guíe tus manos.',
+    ],
+  },
+  {
+    id: 'despedida',
+    title: 'Despedida',
+    keywords: [
+      'chao',
+      'chau',
+      'adios',
+      'nos vemos',
+      'hasta luego',
+      'bye',
+      'goodbye',
+      'me voy',
+      'terminamos',
+    ],
+    responses: [
+      'Nos reencontraremos cuando el Mictlán lo disponga. Cuídate.',
+      'Hasta entonces. Que tu camino sea firme.',
+      'Que tengas buen viaje. Aquí estaré cuando regreses.',
+    ],
+  },
+  {
+    id: 'continuar',
+    title: 'Seguir conversacion',
+    keywords: [
+      'que mas',
+      'que más',
+      'algo mas',
+      'otra cosa',
+      'y eso',
+      'ya',
+      'y que mas',
+      'despues',
+      'entonces',
+      'y entonces',
+      'continua',
+      'sigue',
+    ],
+    responses: [
+      '¿Qué más deseas saber? Puedo hablarte de mezcla arterial, índice, aditivos, seguridad y más.',
+      'Aún hay más conocimiento. Pregúntame sobre edema, ictericia, descomposición, presión, flujo o drenaje.',
+      'El saber del Mictlán es profundo como sus nueve niveles. ¿Qué tema quieres explorar?',
+    ],
+  },
+  {
+    id: 'que-puedes-hacer',
+    title: 'Capacidades del chatbot',
+    keywords: [
+      'que puedes hacer',
+      'que sabes hacer',
+      'para que sirves',
+      'capacidades',
+      'que preguntar',
+      'que temas',
+      'que sabes',
+      'funcionalidades',
+      'ayuda',
+      'como funcionas',
+      'que haces',
+      'cual es tu funcion',
+      'en que ayudas',
+    ],
+    responses: [
+      'Domino estos temas: mezcla arterial, índice, preservación, firmeza, conversiones, preinyección, aditivos, humectantes, edema, deshidratación, ictericia, descomposición, trauma, coágulos, presión, flujo, drenaje, cavidad, coloración, refrigeración, obesidad, infantil, seguridad, documentación y certificados. ¿Por dónde empezamos?',
+    ],
+  },
+  {
+    id: 'guia-rapida',
+    title: 'Guia rapida de uso',
+    keywords: [
+      'como empezar',
+      'guia rapida',
+      'primeros pasos',
+      'como usar',
+      'tutorial',
+      'como utilizo',
+      'paso a paso',
+      'guia de uso',
+      'instrucciones de uso',
+      'como se usa esto',
+      'empezar',
+      'inicio',
+    ],
+    responses: [
+      'Tres pasos: 1. Elige volumen total e índice del fluido. 2. Ajusta el nivel de preservación. 3. La calculadora revela las proporciones y la fuerza final. Luego puedes generar un certificado.',
+      'El proceso es simple: selecciona volumen, índice y preservación. La calculadora del Mictlán te dará las proporciones exactas.',
+    ],
   },
   {
     id: 'formula-mezcla',
@@ -32,8 +175,34 @@ export const KNOWLEDGE_BASE = [
       'cantidad de agua',
       'solucion',
     ],
-    response:
-      'La mezcla se interpreta como una relacion entre fluido arterial y agua. Ajusta el volumen total, el indice del fluido y el nivel de preservacion esperado para estimar una solucion consistente.',
+    responses: [
+      'La mezcla arterial combina fluido preservante con agua. Ajusta volumen, índice y preservación para obtener la solución justa. Todo en la vida y la muerte es equilibrio.',
+      'Es la proporción entre fluido y agua. La calculadora lo resuelve según tus parámetros. Exacto, sin margen de error.',
+    ],
+  },
+  {
+    id: 'como-funciona-calculadora',
+    title: 'Funcionamiento de la calculadora',
+    keywords: [
+      'como funciona la calculadora',
+      'como se usa la calculadora',
+      'como se hace el calculo',
+      'como calcular',
+      'como se calcula',
+      'calcular mezcla',
+      'procedimiento de calculo',
+      'pasos para calcular',
+      'como usar la app',
+      'como funciona la app',
+      'instrucciones',
+      'como calcular mezcla',
+      'explicacion del calculo',
+      'metodo de calculo',
+    ],
+    responses: [
+      'Elige volumen y tipo de fluido, ajusta índice y preservación. La calculadora del Mictlán te da al instante la proporción de fluido, agua, fuerza final y estimación por peso.',
+      'Ingresas los datos del caso y la app entrega las proporciones exactas. Simple, rápido, preciso. Como debe ser.',
+    ],
   },
   {
     id: 'lectura-del-caso',
@@ -50,8 +219,66 @@ export const KNOWLEDGE_BASE = [
       'que mezcla uso',
       'recomendacion de mezcla',
     ],
-    response:
-      'Antes de elegir una mezcla, revisa peso, condicion del tejido, tiempo transcurrido, refrigeracion, edema, deshidratacion, trauma y distribucion vascular. La calculadora apoya la proporcion, pero la decision final depende de esa lectura tecnica.',
+    responses: [
+      'Lee el cuerpo: peso, tejido, tiempo, refrigeración, edema, trauma, vascularidad. La calculadora da las proporciones, pero tú interpretas los signos. Tu criterio es la llave.',
+      'Cada cuerpo es único. Revisa su condición, el tiempo transcurrido y las patologías. La decisión final es tuya, yo solo guío.',
+    ],
+  },
+  {
+    id: 'que-es-embalsamamiento',
+    title: 'Que es el embalsamamiento',
+    keywords: [
+      'que es embalsamamiento',
+      'que es embalsamar',
+      'embalsamamiento',
+      'tanatopraxia',
+      'preservacion de cuerpo',
+      'conservacion de cuerpo',
+      'en que consiste',
+      'proceso de embalsamamiento',
+    ],
+    responses: [
+      'Preservar un cuerpo es retrasar su viaje al Mictlán. Se inyectan fluidos preservantes, se drena la sangre y se trata cada cavidad para detener la descomposición. Es un arte tan antiguo como la muerte misma.',
+    ],
+  },
+  {
+    id: 'proposito-app',
+    title: 'Proposito de la aplicacion',
+    keywords: [
+      'que es esta aplicacion',
+      'que hace esta app',
+      'para que sirve',
+      'proposito',
+      'de que trata',
+      'calculadora embalsamamiento',
+      'embalsamamiento',
+      'para que es',
+      'que es esto',
+      'herramienta',
+    ],
+    responses: [
+      'Esta herramienta del Mictlán calcula mezclas arteriales para preservación. Estima proporciones de fluido y agua según el caso, y genera certificados en PDF. Todo desde tu navegador.',
+      'Una calculadora de mezclas arteriales con módulo de certificados. Ingresas los datos, obtienes las proporciones. Simple y preciso.',
+    ],
+  },
+  {
+    id: 'tipos-fluido',
+    title: 'Tipos de fluido arterial',
+    keywords: [
+      'tipos de fluido',
+      'fluido arterial',
+      'fluido suave',
+      'fluido fuerte',
+      'clase de fluido',
+      'que fluido usar',
+      'fluido preservante',
+      'fluido indexado',
+      'grado de fluido',
+      'fluido para embalsamar',
+    ],
+    responses: [
+      'El índice mide el poder del fluido. Alto da firmeza, como la roca del inframundo. Bajo es más moderado. Según el cuerpo y el resultado que busques, así eliges.',
+    ],
   },
   {
     id: 'indice-arterial',
@@ -65,9 +292,16 @@ export const KNOWLEDGE_BASE = [
       'concentracion',
       'fluido fuerte',
       'fluido suave',
+      'que es indice',
+      'indice del fluido',
+      'nivel de indice',
+      'indice preservante',
+      'indice bajo',
+      'indice alto',
     ],
-    response:
-      'El indice arterial representa la concentracion preservante del fluido. Un indice mas alto se usa cuando se requiere mayor firmeza o control, y uno mas bajo cuando el caso necesita una accion mas moderada.',
+    responses: [
+      'El índice mide la concentración preservante. Alto domina con firmeza; bajo actúa con mesura. Se elige según el tejido y el destino del cuerpo.',
+    ],
   },
   {
     id: 'firmeza-preservacion',
@@ -83,8 +317,9 @@ export const KNOWLEDGE_BASE = [
       'nivel de preservacion',
       'control de tejido',
     ],
-    response:
-      'La firmeza no depende solo del indice: tambien influyen distribucion, drenaje, tiempo de contacto, humedad del tejido y aditivos. Si buscas mayor preservacion, ajusta de forma gradual y evita sobrerreaccionar sin leer la respuesta del tejido.',
+    responses: [
+      'La firmeza no depende solo del índice. Distribución, drenaje, tiempo de contacto, humedad y aditivos también importan. Ajusta de a poco y observa cómo responde el cuerpo.',
+    ],
   },
   {
     id: 'proporcion-final',
@@ -98,9 +333,13 @@ export const KNOWLEDGE_BASE = [
       'resultado final',
       'final strength',
       'strength',
+      'fuerza de la mezcla',
+      'que tan fuerte',
+      'potencia de la mezcla',
     ],
-    response:
-      'La fuerza final describe la concentracion efectiva despues de diluir el fluido en agua. Si aumentas fluido o indice, sube la accion preservante; si aumentas agua, la accion se diluye.',
+    responses: [
+      'La fuerza final es lo que realmente queda tras la dilución. Más fluido o índice da más poder. Más agua da más suavidad. La calculadora lo determina sin error.',
+    ],
   },
   {
     id: 'conversiones',
@@ -116,9 +355,12 @@ export const KNOWLEDGE_BASE = [
       'onza',
       'onzas',
       'volumen',
+      'unidades',
+      'cambiar unidad',
     ],
-    response:
-      'Para revisar volumenes, mantente en una sola unidad antes de calcular. La app trabaja con valores normalizados para evitar errores entre litros, mililitros, galones y onzas.',
+    responses: [
+      'Usa una sola unidad, no las mezcles. La app normaliza litros, mililitros, galones y onzas para que no haya errores.',
+    ],
   },
   {
     id: 'validacion-valores',
@@ -133,9 +375,15 @@ export const KNOWLEDGE_BASE = [
       'numero negativo',
       'validacion',
       'por que no funciona',
+      'falla',
+      'bug',
+      'error',
+      'no funciona',
+      'resultado erroneo',
     ],
-    response:
-      'Si un resultado no cambia, revisa campos vacios, unidades mezcladas, valores negativos o cantidades fuera de rango. La calculadora necesita datos numericos coherentes para estimar la mezcla.',
+    responses: [
+      'El Mictlán exige precisión. Revisa campos vacíos, unidades mezcladas o números fuera de rango. Solo datos correctos dan resultados verdaderos.',
+    ],
   },
   {
     id: 'preinyeccion',
@@ -149,9 +397,12 @@ export const KNOWLEDGE_BASE = [
       'abrir circulacion',
       'limpiar vasos',
       'romper coagulos',
+      'inyeccion previa',
+      'antes de la mezcla',
     ],
-    response:
-      'La preinyeccion se usa para preparar la red vascular, mejorar distribucion y ayudar con residuos o resistencia antes de la solucion arterial principal. No sustituye la mezcla preservante; prepara el terreno para que trabaje mejor.',
+    responses: [
+      'La preinyección abre los caminos, como se abren las puertas del Mictlán. Prepara la red vascular para que la solución arterial fluya sin resistencia.',
+    ],
   },
   {
     id: 'coinyeccion-aditivos',
@@ -166,9 +417,12 @@ export const KNOWLEDGE_BASE = [
       'booster',
       'surfactante',
       'agente auxiliar',
+      'que aditivo usar',
+      'aditivo para firmeza',
     ],
-    response:
-      'Los aditivos ajustan comportamiento: pueden mejorar distribucion, controlar humedad, aumentar firmeza, modificar pH o apoyar coloracion. Deben elegirse por necesidad del caso, no solo por rutina.',
+    responses: [
+      'Los aditivos son herramientas del oficio. Mejoran distribución, humedad, firmeza, pH o color. Elígelos según el caso, no por costumbre.',
+    ],
   },
   {
     id: 'acondicionador-agua',
@@ -183,9 +437,12 @@ export const KNOWLEDGE_BASE = [
       'calidad del agua',
       'agua alcalina',
       'agua acida',
+      'ph del agua',
+      'tratar agua',
     ],
-    response:
-      'La calidad del agua puede afectar la accion de la solucion. Un acondicionador ayuda cuando hay dureza, minerales o pH poco favorable, especialmente si la mezcla no responde como se espera.',
+    responses: [
+      'Agua impura da mezcla impura. Un acondicionador corrige dureza, minerales y pH cuando la solución no responde como esperas.',
+    ],
   },
   {
     id: 'humectantes',
@@ -200,9 +457,12 @@ export const KNOWLEDGE_BASE = [
       'flexibilidad',
       'piel seca',
       'suavizar tejido',
+      'humedad',
+      'hidratar',
     ],
-    response:
-      'Los humectantes ayudan a conservar flexibilidad y apariencia en tejidos secos. Son utiles cuando la preservacion necesita balancearse con una accion menos deshidratante.',
+    responses: [
+      'Devuelven flexibilidad a los tejidos que el tiempo secó. Útiles cuando la preservación necesita equilibrio con la humedad.',
+    ],
   },
   {
     id: 'edema',
@@ -215,9 +475,12 @@ export const KNOWLEDGE_BASE = [
       'humedad',
       'exceso de agua',
       'tejido humedo',
+      'inflamacion',
+      'liquido en tejido',
     ],
-    response:
-      'En casos con edema suele buscarse mayor control de humedad y preservacion. La seleccion de mezcla debe considerar el exceso de liquido en tejido y la respuesta esperada durante la distribucion.',
+    responses: [
+      'Edema es exceso de agua atrapada en los tejidos. Busca controlar la humedad y elige una mezcla que equilibre sin agregar más líquido del necesario.',
+    ],
   },
   {
     id: 'deshidratacion',
@@ -230,9 +493,13 @@ export const KNOWLEDGE_BASE = [
       'tejido seco',
       'humectante',
       'rehidratacion',
+      'piel seca',
+      'tejido deshidratado',
+      'caso seco',
     ],
-    response:
-      'En tejidos secos o deshidratados conviene evitar una accion excesivamente agresiva. Prioriza una mezcla balanceada y considera componentes humectantes si el caso lo requiere.',
+    responses: [
+      'En cuerpos secos, la fuerza no es la respuesta. Una mezcla balanceada y humectantes restauran lo que el tiempo robó.',
+    ],
   },
   {
     id: 'ictericia',
@@ -246,9 +513,11 @@ export const KNOWLEDGE_BASE = [
       'decoloracion amarilla',
       'caso icterico',
       'color amarillo',
+      'icterico',
     ],
-    response:
-      'En casos con ictericia, el color y la reaccion quimica requieren especial cuidado. Evita interpretar solo por firmeza: considera coloracion, tipo de fluido, pH y el riesgo de cambios visuales durante la preservacion.',
+    responses: [
+      'Piel amarilla, problemas del hígado. No juzgues solo por firmeza: considera color, tipo de fluido y pH para evitar sorpresas.',
+    ],
   },
   {
     id: 'descomposicion',
@@ -263,9 +532,13 @@ export const KNOWLEDGE_BASE = [
       'fragilidad',
       'bacteria',
       'decomp',
+      'descompuesto',
+      'descomponer',
+      'en descomposicion',
     ],
-    response:
-      'En descomposicion, el objetivo es controlar degradacion, olor, gas y fragilidad del tejido. La mezcla suele requerir mayor accion preservante, pero tambien una distribucion cuidadosa para no deteriorar zonas vulnerables.',
+    responses: [
+      'El tiempo se acaba, el cuerpo reclama su origen. Requiere acción preservante fuerte y distribución cuidadosa. Controla olor, gas y fragilidad sin dañar lo que ya se degrada.',
+    ],
   },
   {
     id: 'trauma-autopsia',
@@ -280,9 +553,12 @@ export const KNOWLEDGE_BASE = [
       'incision',
       'tejido expuesto',
       'hemorragia',
+      'accidente',
+      'politraumatismo',
     ],
-    response:
-      'En trauma o autopsia, la distribucion arterial puede ser irregular y el tratamiento local gana importancia. La calculadora ayuda con proporciones, pero el caso puede requerir aplicacion complementaria por zonas.',
+    responses: [
+      'Las heridas alteran el camino del fluido. La distribución se vuelve impredecible. La calculadora da las proporciones, pero el trabajo local puede ser necesario.',
+    ],
   },
   {
     id: 'coagulos-resistencia',
@@ -297,9 +573,12 @@ export const KNOWLEDGE_BASE = [
       'bloqueo',
       'vasos bloqueados',
       'drenaje pobre',
+      'obstruccion',
+      'no entra fluido',
     ],
-    response:
-      'Si hay resistencia vascular, no siempre se soluciona aumentando fuerza. Revisa drenaje, presion, flujo, posicion, vasos disponibles y preparacion previa antes de ajustar la mezcla.',
+    responses: [
+      'Los coágulos cierran los caminos. No fuerces con más poder. Revisa drenaje, presión, posición y preparación previa. La fuerza bruta rara vez vence.',
+    ],
   },
   {
     id: 'distribucion',
@@ -313,9 +592,13 @@ export const KNOWLEDGE_BASE = [
       'circulacion',
       'arteria',
       'venoso',
+      'como inyectar',
+      'punto de inyeccion',
+      'distribucion del fluido',
     ],
-    response:
-      'La distribucion depende del flujo, la presion, el drenaje y la condicion vascular. La calculadora ayuda con proporciones, pero la lectura tecnica del caso sigue siendo decisiva.',
+    responses: [
+      'El fluido busca su propio camino. Depende del flujo, presión, drenaje y condición del cuerpo. La calculadora guía las proporciones, tú decides la ruta.',
+    ],
   },
   {
     id: 'presion-flujo',
@@ -330,9 +613,13 @@ export const KNOWLEDGE_BASE = [
       'inyeccion rapida',
       'maquina',
       'bomba',
+      'presion de inyeccion',
+      'cuanta presion',
+      'a que presion',
     ],
-    response:
-      'Presion y flujo no son lo mismo: la presion vence resistencia y el flujo determina volumen en movimiento. Ajustes bruscos pueden afectar distribucion, distension o drenaje; conviene observar respuesta del tejido.',
+    responses: [
+      'Presión vence resistencia; flujo mueve volumen. No son lo mismo. Los cambios bruscos lo alteran todo. Observa cómo responde el cuerpo y ajusta con calma.',
+    ],
   },
   {
     id: 'drenaje',
@@ -347,9 +634,12 @@ export const KNOWLEDGE_BASE = [
       'salida venosa',
       'drenaje intermitente',
       'drenaje continuo',
+      'como drenar',
+      'drenaje venoso',
     ],
-    response:
-      'El drenaje influye en distribucion y concentracion efectiva. Un drenaje deficiente puede dejar exceso de sangre o solucion retenida; un drenaje excesivo puede reducir contacto preservante.',
+    responses: [
+      'Drenar es dejar ir lo que el cuerpo ya no necesita. Poco drenaje retiene sangre; excesivo reduce el contacto preservante. Busca el punto justo.',
+    ],
   },
   {
     id: 'cavidad',
@@ -363,9 +653,13 @@ export const KNOWLEDGE_BASE = [
       'visceras',
       'toracica',
       'abdominal',
+      'cavidad toracica',
+      'cavidad abdominal',
+      'organos',
     ],
-    response:
-      'El tratamiento de cavidad es complementario al arterial. Se enfoca en contenido interno, gases y organos; no debe asumirse que una buena mezcla arterial resuelve por completo la cavidad.',
+    responses: [
+      'Las cavidades guardan lo que la sangre no alcanza. Aspira, trata con fluido y no confíes solo en la vía arterial. Cada cámara tiene su propio ritual.',
+    ],
   },
   {
     id: 'coloracion-cosmetica',
@@ -381,9 +675,13 @@ export const KNOWLEDGE_BASE = [
       'rubor',
       'manchas',
       'decoloracion',
+      'maquillaje',
+      'color de piel',
+      'restaurar color',
     ],
-    response:
-      'La apariencia final depende de preservacion, distribucion, colorantes, condicion vascular y cosmetica posterior. El tinte ayuda, pero no corrige por si solo una distribucion pobre o una decoloracion compleja.',
+    responses: [
+      'El color final habla del trabajo bien hecho. Depende de la preservación, distribución y colorantes. El tinte ayuda, pero no oculta una distribución pobre.',
+    ],
   },
   {
     id: 'refrigeracion-tiempo',
@@ -398,9 +696,13 @@ export const KNOWLEDGE_BASE = [
       'postmortem',
       'retraso',
       'conservacion previa',
+      'cuanto tiempo',
+      'tiempo desde el fallecimiento',
+      'fresco',
     ],
-    response:
-      'El tiempo y la refrigeracion cambian la lectura del caso. Un caso con demora o conservacion irregular puede requerir mas atencion a distribucion, tejido vulnerable, olor y respuesta preservante.',
+    responses: [
+      'El tiempo todo lo corrompe. Más horas desde la partida exigen más atención a distribución, olor y respuesta del tejido. La refrigeración retrasa lo inevitable.',
+    ],
   },
   {
     id: 'obesidad',
@@ -414,9 +716,11 @@ export const KNOWLEDGE_BASE = [
       'tejido adiposo',
       'cuerpo grande',
       'alto peso',
+      'caso obeso',
     ],
-    response:
-      'En casos con mayor tejido adiposo, la distribucion y el volumen total importan mucho. La mezcla debe considerar masa corporal, vascularidad, edema posible y zonas donde la solucion puede llegar con dificultad.',
+    responses: [
+      'Más cuerpo, más desafío. La grasa resiste el paso de la solución. Considera la masa, la vascularidad y las zonas donde el fluido llega con dificultad.',
+    ],
   },
   {
     id: 'infantil',
@@ -430,9 +734,12 @@ export const KNOWLEDGE_BASE = [
       'infante',
       'menor',
       'tejido delicado',
+      'caso infantil',
+      'niño',
     ],
-    response:
-      'En casos infantiles, el tejido suele ser mas delicado y la escala de volumen cambia mucho. Conviene trabajar con ajustes conservadores, observar respuesta y evitar aplicar criterios de adulto sin adaptar.',
+    responses: [
+      'Los más pequeños requieren el mayor cuidado. Volumen mínimo, tejido delicado, ajustes conservadores. No apliques criterios de adulto sin adaptarlos.',
+    ],
   },
   {
     id: 'seguridad-quimica',
@@ -448,9 +755,13 @@ export const KNOWLEDGE_BASE = [
       'formaldehido seguridad',
       'irritacion',
       'riesgo quimico',
+      'proteccion',
+      'como protegerse',
+      'equipo de proteccion',
     ],
-    response:
-      'Trabaja con ventilacion adecuada, proteccion personal y manejo responsable de quimicos. Si hay irritacion, derrame o exposicion, sigue el protocolo de seguridad de tu institucion y la hoja de datos del producto.',
+    responses: [
+      'Hasta el señor del Mictlán respeta los químicos. Usa guantes, mascarilla y asegura buena ventilación. Ante un derrame o irritación, actúa con protocolo. La salud no espera.',
+    ],
   },
   {
     id: 'documentacion-tecnica',
@@ -464,9 +775,12 @@ export const KNOWLEDGE_BASE = [
       'datos del caso',
       'trazabilidad',
       'evidencia',
+      'que documentar',
+      'registrar caso',
     ],
-    response:
-      'Documentar volumenes, indices, aditivos, observaciones y resultados ayuda a repetir buenas decisiones y corregir errores. El certificado cubre una parte formal, pero la bitacora tecnica aporta trazabilidad.',
+    responses: [
+      'Registra volúmenes, índices, aditivos, observaciones. La memoria falla, los escritos perduran. Tu bitácora es el legado de tu oficio.',
+    ],
   },
   {
     id: 'certificado',
@@ -479,13 +793,16 @@ export const KNOWLEDGE_BASE = [
       'documento',
       'generar certificado',
       'certificacion',
+      'descargar certificado',
+      'certificado pdf',
     ],
-    response:
-      'El modulo de certificado permite capturar datos, firma y generar un PDF dentro del frontend. Todo ocurre localmente en la aplicacion.',
+    responses: [
+      'El certificado es el pergamino que acredita tu trabajo. Captura los datos, firma y genera un PDF al instante. Todo desde tu navegador, sin enviar nada a ninguna parte.',
+    ],
   },
   {
     id: 'uso-chatbot',
-    title: 'Uso de Mictlan AI',
+    title: 'Uso del asistente',
     keywords: [
       'como pregunto',
       'que puedes responder',
@@ -495,9 +812,12 @@ export const KNOWLEDGE_BASE = [
       'base de conocimiento',
       'knowledge base',
       'dominio',
+      'como preguntar',
+      'que preguntas puedo hacer',
     ],
-    response:
-      'Puedes preguntar sobre mezcla arterial, indice, conversiones, edema, deshidratacion, ictericia, descomposicion, presion, flujo, drenaje, aditivos, seguridad y el modulo de certificado.',
+    responses: [
+      'Háblame en lenguaje natural. Mis dominios cubren mezcla arterial, índice, conversiones, edema, ictericia, descomposición, presión, flujo, drenaje, aditivos, seguridad y certificados. Pregunta sin miedo.',
+    ],
   },
   {
     id: 'privacidad-local',
@@ -511,9 +831,16 @@ export const KNOWLEDGE_BASE = [
       'sin conexion',
       'datos',
       'historial',
+      'conexion',
+      'online',
+      'offline',
+      'nube',
+      'servidor',
+      'donde van mis datos',
     ],
-    response:
-      'Mictlan AI no usa APIs ni backend. El analisis se hace con coincidencia de palabras clave, no envia datos y no guarda historial de chat.',
+    responses: [
+      'Todo ocurre en tu navegador. No envío datos a ningún servidor, no guardo historial, no necesitas internet. Tus secretos se quedan contigo.',
+    ],
   },
   {
     id: 'historial-chat',
@@ -527,8 +854,11 @@ export const KNOWLEDGE_BASE = [
       'localstorage',
       'persistencia',
       'mensajes guardados',
+      'como borrar',
+      'resetear chat',
     ],
-    response:
-      'Mictlan AI no guarda historial ni datos del chat. La conversacion vive solo en memoria mientras usas la pagina; al reiniciar el chat se borra la conversacion visible.',
+    responses: [
+      'La memoria del Mictlán es efímera. La conversación vive solo en tu pantalla. Al recargar la página o reiniciar, se desvanece como el humo.',
+    ],
   },
 ] satisfies readonly KnowledgeEntry[];

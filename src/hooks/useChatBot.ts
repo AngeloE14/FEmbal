@@ -4,7 +4,7 @@ import type { ChatMessage, ChatRole } from '../types/chat';
 
 const LEGACY_CHAT_STORAGE_KEY = 'mictlan-ai.messages';
 const WELCOME_MESSAGE =
-  'Soy Mictlan AI. Mi conocimiento vive localmente en este proyecto, no guardo historial y respondo solo sobre el dominio de la calculadora.';
+  '¡Hola! Soy Mictlan, el asistente virtual de la calculadora. Preguntame sobre mezclas arteriales, índice, preservación, aditivos, casos especiales y más. Elegí una sugerencia o escribí lo que necesites.';
 
 interface UseChatBotResult {
   readonly messages: readonly ChatMessage[];
@@ -58,7 +58,7 @@ export function useChatBot(): UseChatBotResult {
       }
 
       const userMessage = createMessage('user', text);
-      const responseDelay = Math.min(1250, Math.max(650, text.length * 22));
+      const responseDelay = Math.min(600, Math.max(150, text.length * 12));
 
       clearPendingResponse();
       setMessages((currentMessages) => [...currentMessages, userMessage]);

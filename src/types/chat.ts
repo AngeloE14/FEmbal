@@ -11,7 +11,7 @@ export interface KnowledgeEntry {
   readonly id: string;
   readonly title: string;
   readonly keywords: readonly string[];
-  readonly response: string;
+  readonly responses: readonly string[];
 }
 
 export interface IntentMatch {

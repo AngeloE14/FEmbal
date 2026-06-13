@@ -18,14 +18,23 @@ export const ChatMessage = memo(function ChatMessage({ message }: ChatMessagePro
   return (
     <article
       className={`chat-message chat-message--${message.role}`}
-      aria-label={isUser ? 'Mensaje del usuario' : 'Mensaje de Mictlan AI'}
+      aria-label={isUser ? 'Mensaje del usuario' : 'Mensaje de Mictlan'}
     >
-      <span className="chat-message__avatar" aria-hidden="true">
-        {isUser ? 'T' : 'M'}
-      </span>
+      {isUser ? (
+        <span className="chat-message__avatar chat-message__avatar--user" aria-hidden="true">
+          👤
+        </span>
+      ) : (
+        <img
+          className="chat-message__avatar chat-message__avatar--bot"
+          src="/assets/images/mictlan-bot.png"
+          alt=""
+          aria-hidden="true"
+        />
+      )}
       <div className="chat-message__body">
         <div className="chat-message__meta">
-          <span>{isUser ? 'Tu' : 'Mictlan AI'}</span>
+          <span>{isUser ? 'Tú' : 'Mictlan'}</span>
           {timeLabel && <time dateTime={message.createdAt}>{timeLabel}</time>}
         </div>
         <p className="chat-message__bubble">{message.content}</p>

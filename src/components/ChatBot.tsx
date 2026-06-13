@@ -3,11 +3,13 @@ import type { ChangeEvent, FormEvent } from 'react';
 import '../styles/components/ChatBot.css';
 import { useChatBot } from '../hooks/useChatBot';
 import { ChatMessage } from './ChatMessage';
+import { SuggestedQuestions } from './SuggestedQuestions';
 
 export const ChatBot = memo(function ChatBot() {
   const { messages, isTyping, sendMessage, resetChat } = useChatBot();
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const hasUserMessage = messages.some((m) => m.role === 'user');
   const latestMessageRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -53,7 +55,7 @@ export const ChatBot = memo(function ChatBot() {
   };
 
   return (
-    <aside className="chatbot" aria-label="Mictlan AI">
+    <aside className="chatbot" aria-label="Asistente Mictlan">
       {isOpen && (
         <section
           className="chatbot__panel"
@@ -65,12 +67,15 @@ export const ChatBot = memo(function ChatBot() {
         >
           <header className="chatbot__header">
             <div className="chatbot__brand">
-              <span className="chatbot__brand-mark" aria-hidden="true">
-                M
-              </span>
+              <img
+                className="chatbot__brand-mark"
+                src="/assets/images/mictlan-bot.png"
+                alt=""
+                aria-hidden="true"
+              />
               <div className="chatbot__brand-copy">
-                <h2 id="mictlan-chatbot-title">Mictlan AI</h2>
-                <p>Dominio local</p>
+                <h2 id="mictlan-chatbot-title">Mictlan</h2>
+                <p>Asistente virtual</p>
               </div>
             </div>
             <div className="chatbot__actions">
@@ -85,7 +90,7 @@ export const ChatBot = memo(function ChatBot() {
               <button
                 className="chatbot__icon-button"
                 type="button"
-                aria-label="Cerrar Mictlan AI"
+                aria-label="Cerrar asistente"
                 onClick={handleToggle}
               >
                 <span aria-hidden="true">×</span>
@@ -94,8 +99,7 @@ export const ChatBot = memo(function ChatBot() {
           </header>
 
           <p className="chatbot__scope" id="mictlan-chatbot-scope">
-            Apoyo local sobre calculadora, mezclas y certificado. No guarda historial ni datos del chat; al
-            reiniciar borra la conversacion visible. Puede cometer errores y solo cubre este dominio.
+            Asistente virtual sobre mezclas arteriales, índice, preservación, conversiones, aditivos, casos especiales, seguridad y certificados. Puede cometer errores.
           </p>
 
           <div className="chatbot__messages" aria-live="polite">
@@ -103,11 +107,18 @@ export const ChatBot = memo(function ChatBot() {
               <ChatMessage key={message.id} message={message} />
             ))}
 
+            {!hasUserMessage && (
+              <SuggestedQuestions onSelect={sendMessage} />
+            )}
+
             {isTyping && (
-              <div className="chatbot__typing" role="status" aria-label="Mictlan AI esta escribiendo">
-                <span className="chatbot__typing-avatar" aria-hidden="true">
-                  M
-                </span>
+              <div className="chatbot__typing" role="status" aria-label="Mictlan esta escribiendo">
+                <img
+                  className="chatbot__typing-avatar"
+                  src="/assets/images/mictlan-bot.png"
+                  alt=""
+                  aria-hidden="true"
+                />
                 <span className="chatbot__typing-bubble" aria-hidden="true">
                   <span />
                   <span />
@@ -125,8 +136,8 @@ export const ChatBot = memo(function ChatBot() {
               className="chatbot__input"
               type="text"
               value={inputValue}
-              placeholder="Pregunta a Mictlan AI"
-              aria-label="Mensaje para Mictlan AI"
+              placeholder="Pregunta a Mictlan"
+              aria-label="Mensaje para Mictlan"
               autoComplete="off"
               maxLength={240}
               onChange={handleInputChange}
@@ -146,14 +157,17 @@ export const ChatBot = memo(function ChatBot() {
       <button
         className={`chatbot__fab${isOpen ? ' chatbot__fab--open' : ''}`}
         type="button"
-        aria-label={isOpen ? 'Cerrar Mictlan AI' : 'Abrir Mictlan AI'}
+        aria-label={isOpen ? 'Cerrar asistente' : 'Abrir asistente'}
         aria-expanded={isOpen}
         aria-controls="mictlan-chatbot-panel"
         onClick={handleToggle}
       >
-        <span className="chatbot__fab-mark" aria-hidden="true">
-          {isOpen ? '×' : 'M'}
-        </span>
+        <img
+          className="chatbot__fab-mark"
+          src="/assets/images/logo-circular.png"
+          alt=""
+          aria-hidden="true"
+        />
       </button>
     </aside>
   );

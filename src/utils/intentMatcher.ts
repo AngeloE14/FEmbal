@@ -1,7 +1,8 @@
 import { KNOWLEDGE_BASE } from '../data/knowledgeBase';
 import type { IntentMatch, KnowledgeEntry } from '../types/chat';
 
-export const UNKNOWN_DOMAIN_RESPONSE = 'Ese conocimiento no pertenece a este dominio';
+export const UNKNOWN_DOMAIN_RESPONSE =
+  'No tengo respuesta para eso. Probá preguntar sobre: mezcla, índice, preservación, aditivos, casos especiales (edema, ictericia, descomposición), seguridad o certificados.';
 
 const normalizeText = (value: string): string =>
   value
@@ -69,6 +70,10 @@ export function findMatchingIntent(
   return bestMatch;
 }
 
+const pickRandom = <T>(items: readonly T[]): T => items[Math.floor(Math.random() * items.length)];
+
 export function getLocalBotResponse(message: string): string {
-  return findMatchingIntent(message)?.entry.response ?? UNKNOWN_DOMAIN_RESPONSE;
+  const match = findMatchingIntent(message);
+  if (!match) return UNKNOWN_DOMAIN_RESPONSE;
+  return pickRandom(match.entry.responses);
 }
