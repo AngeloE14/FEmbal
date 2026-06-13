@@ -383,7 +383,6 @@ html.theme-switching body::before {
   border-radius: 20px;
   overflow: hidden;
   margin-inline: auto;
-  contain: layout paint style;
   isolation: isolate;
 }
 
@@ -719,15 +718,6 @@ input[readonly]:focus {
 
 .notes b {
   color: var(--notes-strong);
-}
-
-/* Contenido no crítico: se renderiza bajo demanda para mejorar rendimiento inicial */
-@supports (content-visibility: auto) {
-  .redes-sociales,
-  .footer {
-    content-visibility: auto;
-    contain-intrinsic-size: 1px 200px;
-  }
 }
 
 /* Seccion de redes modernizada: limpia, legible y touch-friendly. */

@@ -18,6 +18,7 @@ export function HomePage() {
   const [isCertificateModeOpen, setIsCertificateModeOpen] = useState(false);
   const [isTutorialOpen, setIsTutorialOpen] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const toolsRef = useRef<HTMLDivElement | null>(null);
 
   const openCertificateMode = useCallback(() => {
@@ -33,6 +34,11 @@ export function HomePage() {
   }, []);
 
   const closeTools = useCallback(() => {
+    setIsToolsOpen(false);
+  }, []);
+
+  const toggleChat = useCallback(() => {
+    setIsChatOpen((v) => !v);
     setIsToolsOpen(false);
   }, []);
 
@@ -99,6 +105,15 @@ export function HomePage() {
             >
               <span aria-hidden="true">🎓</span>
             </button>
+            <button
+              className={`chatbot-toggle${isChatOpen ? ' chatbot-toggle--open' : ''}`}
+              type="button"
+              onClick={toggleChat}
+              aria-label={isChatOpen ? 'Cerrar Mictlan' : 'Abrir Mictlan'}
+              aria-expanded={isChatOpen}
+            >
+              <span className="chatbot-toggle__icon" aria-hidden="true">🤖</span>
+            </button>
             <ThemeToggle />
           </div>
         )}
@@ -115,7 +130,7 @@ export function HomePage() {
         isOpen={isTutorialOpen}
         onClose={() => setIsTutorialOpen(false)}
       />
-      <ChatBot />
+      <ChatBot isOpen={isChatOpen} onToggle={toggleChat} />
     </>
   );
 }

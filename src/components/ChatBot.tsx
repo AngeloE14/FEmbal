@@ -4,10 +4,15 @@ import '../styles/components/ChatBot.css';
 import { useChatBot } from '../hooks/useChatBot';
 import { ChatMessage } from './ChatMessage';
 import { SuggestedQuestions } from './SuggestedQuestions';
+import { assetUrl } from '../utils/paths';
 
-export const ChatBot = memo(function ChatBot() {
+interface ChatBotProps {
+  readonly isOpen: boolean;
+  readonly onToggle: () => void;
+}
+
+export const ChatBot = memo(function ChatBot({ isOpen, onToggle }: ChatBotProps) {
   const { messages, isTyping, sendMessage, resetChat } = useChatBot();
-  const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const hasUserMessage = messages.some((m) => m.role === 'user');
   const latestMessageRef = useRef<HTMLDivElement | null>(null);
@@ -33,10 +38,6 @@ export const ChatBot = memo(function ChatBot() {
     return () => window.clearTimeout(focusTimer);
   }, [isOpen]);
 
-  const handleToggle = () => {
-    setIsOpen((currentValue) => !currentValue);
-  };
-
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
@@ -55,7 +56,7 @@ export const ChatBot = memo(function ChatBot() {
   };
 
   return (
-    <aside className="chatbot" aria-label="Asistente Mictlan">
+    <aside className={`chatbot${isOpen ? ' chatbot--open' : ''}`} aria-label="Asistente Mictlan">
       {isOpen && (
         <section
           className="chatbot__panel"
@@ -69,13 +70,15 @@ export const ChatBot = memo(function ChatBot() {
             <div className="chatbot__brand">
               <img
                 className="chatbot__brand-mark"
-                src="/assets/images/mictlan-bot.png"
+                src={assetUrl('/assets/images/mictlan-bot.png')}
                 alt=""
                 aria-hidden="true"
+                loading="lazy"
+                decoding="async"
               />
               <div className="chatbot__brand-copy">
                 <h2 id="mictlan-chatbot-title">Mictlan</h2>
-                <p>Asistente virtual</p>
+                <p>Señor del inframundo</p>
               </div>
             </div>
             <div className="chatbot__actions">
@@ -91,7 +94,7 @@ export const ChatBot = memo(function ChatBot() {
                 className="chatbot__icon-button"
                 type="button"
                 aria-label="Cerrar asistente"
-                onClick={handleToggle}
+                onClick={onToggle}
               >
                 <span aria-hidden="true">×</span>
               </button>
@@ -99,7 +102,7 @@ export const ChatBot = memo(function ChatBot() {
           </header>
 
           <p className="chatbot__scope" id="mictlan-chatbot-scope">
-            Asistente virtual sobre mezclas arteriales, índice, preservación, conversiones, aditivos, casos especiales, seguridad y certificados. Puede cometer errores.
+            Señor del Mictlán. Mi conocimiento abarca mezclas arteriales, índice, preservación, conversiones, aditivos, casos especiales (edema, ictericia, descomposición), seguridad y certificados. Puedo cometer errores, como todo mortal.
           </p>
 
           <div className="chatbot__messages" aria-live="polite">
@@ -115,9 +118,11 @@ export const ChatBot = memo(function ChatBot() {
               <div className="chatbot__typing" role="status" aria-label="Mictlan esta escribiendo">
                 <img
                   className="chatbot__typing-avatar"
-                  src="/assets/images/mictlan-bot.png"
+                  src={assetUrl('/assets/images/mictlan-bot.png')}
                   alt=""
                   aria-hidden="true"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <span className="chatbot__typing-bubble" aria-hidden="true">
                   <span />
@@ -136,7 +141,7 @@ export const ChatBot = memo(function ChatBot() {
               className="chatbot__input"
               type="text"
               value={inputValue}
-              placeholder="Pregunta a Mictlan"
+              placeholder="Pregunta al señor del Mictlán"
               aria-label="Mensaje para Mictlan"
               autoComplete="off"
               maxLength={240}
@@ -153,22 +158,6 @@ export const ChatBot = memo(function ChatBot() {
           </form>
         </section>
       )}
-
-      <button
-        className={`chatbot__fab${isOpen ? ' chatbot__fab--open' : ''}`}
-        type="button"
-        aria-label={isOpen ? 'Cerrar asistente' : 'Abrir asistente'}
-        aria-expanded={isOpen}
-        aria-controls="mictlan-chatbot-panel"
-        onClick={handleToggle}
-      >
-        <img
-          className="chatbot__fab-mark"
-          src="/assets/images/logo-circular.png"
-          alt=""
-          aria-hidden="true"
-        />
-      </button>
     </aside>
   );
 });

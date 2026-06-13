@@ -2,7 +2,7 @@ import { KNOWLEDGE_BASE } from '../data/knowledgeBase';
 import type { IntentMatch, KnowledgeEntry } from '../types/chat';
 
 export const UNKNOWN_DOMAIN_RESPONSE =
-  'No tengo respuesta para eso. Probá preguntar sobre: mezcla, índice, preservación, aditivos, casos especiales (edema, ictericia, descomposición), seguridad o certificados.';
+  'Eso no está en mis dominios. Proba preguntar sobre: mezcla, índice, preservación, aditivos, casos especiales (edema, ictericia, descomposición), seguridad o certificados.';
 
 const normalizeText = (value: string): string =>
   value

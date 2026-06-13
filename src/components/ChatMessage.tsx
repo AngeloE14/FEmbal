@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import type { ChatMessage as ChatMessageModel } from '../types/chat';
+import { assetUrl } from '../utils/paths';
 
 interface ChatMessageProps {
   readonly message: ChatMessageModel;
@@ -27,9 +28,11 @@ export const ChatMessage = memo(function ChatMessage({ message }: ChatMessagePro
       ) : (
         <img
           className="chat-message__avatar chat-message__avatar--bot"
-          src="/assets/images/mictlan-bot.png"
+          src={assetUrl('/assets/images/mictlan-bot.png')}
           alt=""
           aria-hidden="true"
+          loading="lazy"
+          decoding="async"
         />
       )}
       <div className="chat-message__body">

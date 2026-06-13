@@ -99,7 +99,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.5rem;
   padding: 0.45rem 0.6rem;
   animation: tools-items-in 0.15s ease both;
   transform-origin: right center;
@@ -186,6 +186,49 @@
 
 .floating-tools__tutorial-btn:active {
   opacity: 1;
+}
+
+.chatbot-toggle {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--toggle-float-text) 10%, transparent);
+  color: var(--toggle-float-text);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background-color 0.12s ease, transform 0.12s ease;
+  animation: chatbot-toggle-breathe 3s ease-in-out infinite;
+}
+
+.chatbot-toggle__icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.chatbot-toggle:hover,
+.chatbot-toggle:focus-visible {
+  outline: none;
+  background: color-mix(in srgb, var(--toggle-float-text) 20%, transparent);
+  transform: scale(1.1);
+  animation: none;
+}
+
+.chatbot-toggle--open {
+  background: color-mix(in srgb, var(--toggle-float-text) 25%, transparent);
+  animation: none;
+}
+
+@keyframes chatbot-toggle-breathe {
+  0%, 100% {
+    background: color-mix(in srgb, var(--toggle-float-text) 10%, transparent);
+  }
+  50% {
+    background: color-mix(in srgb, var(--toggle-float-text) 18%, transparent);
+  }
 }
 
 @keyframes tools-items-in {
@@ -319,11 +362,94 @@
     width: 1.7rem;
     height: 1.7rem;
   }
+
+  .floating-tools__items > button,
+  .floating-tools__items .language-selector__toggle,
+  .floating-tools__tutorial-btn,
+  .chatbot-toggle {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .floating-tools__items .language-selector__toggle {
+    min-width: 2.25rem;
+  }
+
+  .chatbot-toggle__icon {
+    font-size: 1.2rem;
+  }
+
+  .floating-tools__tutorial-btn {
+    font-size: 1.25rem;
+  }
+
+  .floating-tools__items .certificate-mode-toggle__icon svg {
+    width: 22px;
+    height: 22px;
+  }
 }
 
 @media (max-width: 520px) {
   .language-selector__flag {
     font-size: 1.3rem;
+  }
+
+  .floating-tools__items {
+    padding: 0.35rem 0.4rem;
+    gap: 0.35rem;
+  }
+
+  .floating-tools__items > button,
+  .floating-tools__items .language-selector__toggle,
+  .floating-tools__tutorial-btn,
+  .chatbot-toggle {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .floating-tools__items .language-selector__toggle {
+    min-width: 2rem;
+  }
+
+  .chatbot-toggle__icon {
+    font-size: 1.1rem;
+  }
+
+  .floating-tools__tutorial-btn {
+    font-size: 1.15rem;
+  }
+
+  .floating-tools__items .certificate-mode-toggle__icon svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .floating-tools__items > button:hover,
+  .floating-tools__items .language-selector__toggle:hover,
+  .floating-tools__tutorial-btn:hover,
+  .chatbot-toggle:hover {
+    opacity: inherit;
+    background: none;
+  }
+
+  .floating-tools__tutorial-btn:hover {
+    opacity: inherit;
+    background: transparent;
+  }
+
+  .chatbot-toggle {
+    animation: none;
+  }
+
+  .chatbot-toggle:hover {
+    background: color-mix(in srgb, var(--toggle-float-text) 10%, transparent);
+    transform: none;
+  }
+
+  .chatbot-toggle--open {
+    background: color-mix(in srgb, var(--toggle-float-text) 25%, transparent);
   }
 }
 
@@ -365,6 +491,15 @@
   .floating-tools__hand-box,
   .floating-tools__hand {
     will-change: transform, opacity;
+  }
+  .chatbot-toggle {
+    will-change: background-color;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chatbot-toggle {
+    animation: none;
   }
 }
 

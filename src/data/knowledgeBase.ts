@@ -21,8 +21,8 @@ export const KNOWLEDGE_BASE = [
       'hey',
     ],
     responses: [
-      'Soy Mictlantecuhtli, señor del Mictlán. Mi conocimiento abarca mezclas, índice, preservación y más. Pregunta, mortal.',
-      'Soy el guardián del inframundo, Mictlantecuhtli. En mis dominios conocerás los secretos del embalsamamiento. ¿Qué deseas saber?',
+      'Soy Mictlantecuhtli, señor del Mictlán. Los secretos del embalsamamiento yacen en mis dominios. Pregunta, mortal, y tal vez te ilumine.',
+      'Hablas con el guardián del inframundo. En mis dominios conocerás las verdades de la preservación. ¿Qué deseas saber?',
     ],
   },
   {
@@ -49,9 +49,9 @@ export const KNOWLEDGE_BASE = [
       'genial',
     ],
     responses: [
-      'Así sea. Habla cuando lo necesites.',
-      'Bien. El Mictlán espera tu próxima consulta.',
-      'Que así sea. Prosigue.',
+      'Así sea. El Mictlán espera tu próxima consulta.',
+      'Bien. Prosigue con tu labor, mortal.',
+      'Que así sea. El inframundo te observa.',
     ],
   },
   {
@@ -68,9 +68,9 @@ export const KNOWLEDGE_BASE = [
       'graciass',
     ],
     responses: [
-      'El conocimiento del inframundo es tuyo. Úsalo bien.',
-      'No me des las gracias. Honra el saber con tu trabajo.',
-      'Que tus manos honren a los que cruzan al Mictlán.',
+      'El conocimiento del inframundo es tuyo. Úsalo bien, o el Mictlán te reclamará.',
+      'No me agradezcas. Honra a los que cruzan al Mictlán con tu trabajo.',
+      'Que tus manos honren a los que parten. Ese es mi único mandato.',
     ],
   },
   {
@@ -88,9 +88,9 @@ export const KNOWLEDGE_BASE = [
       'terminamos',
     ],
     responses: [
-      'Que el descanso te acompañe. Nos veremos cuando cruces al Mictlán.',
-      'Camina en luz. El inframundo te vigila.',
-      'Hasta entonces, mortal. El señor del Mictlán te observa.',
+      'Que el descanso te acompañe. Nos veremos cuando cruces al Mictlán, como todos los mortales.',
+      'Camina en luz. El inframundo te vigila desde las sombras.',
+      'Hasta entonces. Cuando tu hora llegue, el señor del Mictlán te recibirá.',
     ],
   },
   {
@@ -111,9 +111,9 @@ export const KNOWLEDGE_BASE = [
       'sigue',
     ],
     responses: [
-      '¿Qué más deseas conocer de mis dominios? Puedo hablarte de mezclas, índice, aditivos o seguridad.',
-      '¿Procedes con otra pregunta? El saber del Mictlán cubre preservación, edema, ictericia y más.',
-      'Habla. Aún hay conocimiento por revelar en el inframundo.',
+      '¿Qué más deseas conocer de mis dominios? Mezclas, índice, aditivos, seguridad... el saber del Mictlán es vasto.',
+      '¿Procedes con otra pregunta? Aún hay secretos del inframundo por revelar.',
+      'Habla. El conocimiento del Mictlán es profundo, pero tu tiempo es corto.',
     ],
   },
   {
@@ -135,7 +135,7 @@ export const KNOWLEDGE_BASE = [
       'en que ayudas',
     ],
     responses: [
-      'En el Mictlán todo se sabe. Pregúntame sobre: mezcla arterial, índice, preservación, firmeza, conversiones, preinyección, aditivos, humectantes, edema, deshidratación, ictericia, descomposición, trauma, coagulos, presión, flujo, drenaje, cavidad, coloración, refrigeración, obesidad, infantil, seguridad, documentación y certificados.',
+      'En el Mictlán todo se sabe, mortal. Mis dominios abarcan: mezcla arterial, índice, preservación, firmeza, conversiones, preinyección, aditivos, humectantes, edema, deshidratación, ictericia, descomposición, trauma, coagulos, presión, flujo, drenaje, cavidad, coloración, refrigeración, obesidad, infantil, seguridad, documentación y certificados.',
     ],
   },
   {
@@ -176,8 +176,8 @@ export const KNOWLEDGE_BASE = [
       'solucion',
     ],
     responses: [
-      'La mezcla es la unión de fluido arterial y agua, como la vida y la muerte. Ajusta volumen, índice y preservación para obtener una solución justa.',
-      'El equilibrio entre fluido y agua dicta la preservación. La app calcula la proporción exacta que necesitas.',
+      'La mezcla es la unión de fluido y agua, como la vida y la muerte bailan en el Mictlán. Ajusta volumen, índice y preservación para obtener una solución justa.',
+      'El equilibrio entre fluido y agua dicta la preservación. La app del inframundo calcula la proporción exacta que necesitas.',
     ],
   },
   {
@@ -200,8 +200,8 @@ export const KNOWLEDGE_BASE = [
       'metodo de calculo',
     ],
     responses: [
-      'Elige volumen y tipo de fluido, ajusta índice y preservación. La app calcula al instante la proporción de fluido, agua, fuerza final y estimación por peso. El Mictlán no falla.',
-      'Ingresa los datos del caso: volumen, índice, preservación. La calculadora del inframundo te entrega las proporciones exactas.',
+      'Elige volumen y tipo de fluido, ajusta índice y preservación. La app del inframundo calcula al instante la proporción de fluido, agua, fuerza final y estimación por peso. El Mictlán no falla.',
+      'Ingresa los datos del caso: volumen, índice, preservación. La calculadora del Mictlán te entrega las proporciones exactas.',
     ],
   },
   {
@@ -220,8 +220,8 @@ export const KNOWLEDGE_BASE = [
       'recomendacion de mezcla',
     ],
     responses: [
-      'Antes de mezclar, lee el cuerpo como un augurio: peso, tejido, tiempo, refrigeración, edema, trauma y vascularidad. La app da proporciones, tú interpretas los signos.',
-      'Evalúa cada cuerpo como un mensaje del Mictlán. Peso, condición, tiempo y patologías definen la mezcla. La app apoya, el criterio es tuyo.',
+      'Antes de mezclar, lee el cuerpo como un augurio: peso, tejido, tiempo, refrigeración, edema, trauma y vascularidad. La app da proporciones, tú interpretas los signos del inframundo.',
+      'Evalúa cada cuerpo como un mensaje del Mictlán. Peso, condición, tiempo y patologías definen la mezcla. La app te guía, el criterio es tuyo.',
     ],
   },
   {
@@ -238,7 +238,7 @@ export const KNOWLEDGE_BASE = [
       'proceso de embalsamamiento',
     ],
     responses: [
-      'Preservar el cuerpo es postergar el viaje al Mictlán. Se inyectan fluidos preservantes, se drena la sangre y se trata cada cavidad para detener la descomposición.',
+      'Preservar el cuerpo es postergar el viaje al Mictlán. Se inyectan fluidos preservantes, se drena la sangre y se trata cada cavidad para engañar a la muerte, al menos por un tiempo.',
     ],
   },
   {
@@ -300,7 +300,7 @@ export const KNOWLEDGE_BASE = [
       'indice alto',
     ],
     responses: [
-      'El índice es la concentración del fluido preservante. Alto gobierna con firmeza. Bajo actúa con mesura. Se elige según el tejido y el destino del cuerpo.',
+      'El índice es la concentración del fluido preservante. Alto gobierna con la firmeza del Mictlán. Bajo actúa con mesura. Elige según el tejido y el destino del cuerpo.',
     ],
   },
   {
@@ -338,7 +338,7 @@ export const KNOWLEDGE_BASE = [
       'potencia de la mezcla',
     ],
     responses: [
-      'La fuerza final es la concentración real tras diluir el fluido. Más fluido o índice da más poder. Más agua lo disuelve. La app lo calcula sin error.',
+      'La fuerza final es la concentración real tras diluir el fluido. Más fluido o índice da más poder, como la voluntad del Mictlán. Más agua lo disuelve. La app lo calcula sin error.',
     ],
   },
   {
@@ -479,7 +479,7 @@ export const KNOWLEDGE_BASE = [
       'liquido en tejido',
     ],
     responses: [
-      'El edema es exceso de agua en el cuerpo, como ríos en el inframundo. Busca mayor control de humedad y una mezcla que equilibre la preservación.',
+      'El edema es exceso de agua en el cuerpo, como los ríos del inframundo. Busca mayor control de humedad y una mezcla que equilibre la preservación.',
     ],
   },
   {
@@ -537,7 +537,7 @@ export const KNOWLEDGE_BASE = [
       'en descomposicion',
     ],
     responses: [
-      'La descomposición llama al Mictlán con urgencia. Requiere acción preservante fuerte y distribución cuidadosa para no dañar lo que ya se degrada.',
+      'La descomposición acelera el viaje al Mictlán. Requiere acción preservante fuerte y distribución cuidadosa para no dañar lo que ya se degrada.',
     ],
   },
   {
@@ -701,7 +701,7 @@ export const KNOWLEDGE_BASE = [
       'fresco',
     ],
     responses: [
-      'El tiempo todo lo corrompe. Más horas desde la partida exigen más atención a distribución, olor y respuesta del tejido. La refrigeración retrasa lo inevitable.',
+      'El tiempo todo lo corrompe, hasta en el Mictlán. Más horas desde la partida exigen más atención a distribución, olor y respuesta del tejido. La refrigeración retrasa lo inevitable.',
     ],
   },
   {
@@ -760,7 +760,7 @@ export const KNOWLEDGE_BASE = [
       'equipo de proteccion',
     ],
     responses: [
-      'Ni el señor del Mictlán está libre de los químicos. Usa guantes, mascarilla y ventilación. Si hay derrame o irritación, actúa con protocolo.',
+      'Ni el señor del Mictlán está libre de los químicos. Usa guantes, mascarilla y ventilación. Si hay derrame o irritación, actúa con protocolo. Hasta los dioses toman precauciones.',
     ],
   },
   {
@@ -816,7 +816,7 @@ export const KNOWLEDGE_BASE = [
       'que preguntas puedo hacer',
     ],
     responses: [
-      'Pregúntame en lenguaje natural. Mis dominios abarcan mezcla arterial, índice, conversiones, edema, ictericia, descomposición, presión, flujo, drenaje, aditivos, seguridad y certificados. Habla sin miedo.',
+      'Pregúntame en lenguaje natural. Mis dominios abarcan mezcla arterial, índice, conversiones, edema, ictericia, descomposición, presión, flujo, drenaje, aditivos, seguridad y certificados. Habla sin miedo, mortal.',
     ],
   },
   {
@@ -839,7 +839,7 @@ export const KNOWLEDGE_BASE = [
       'donde van mis datos',
     ],
     responses: [
-      'Todo ocurre en tu mundo, ningún eco llega al exterior. No envío datos, no guardo historial, no necesito internet. Tus secretos mueren contigo.',
+      'Todo ocurre en tu mundo, ningún eco llega al Mictlán. No envío datos, no guardo historial, no necesito internet. Tus secretos mueren contigo, como debe ser.',
     ],
   },
   {
