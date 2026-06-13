@@ -21,8 +21,8 @@ export const KNOWLEDGE_BASE = [
       'hey',
     ],
     responses: [
-      'Soy Mictlantecuhtli, señor del inframundo. Habito en el noveno nivel del Mictlán, donde los huesos de la humanidad descansan. Dime, ¿qué saber buscas?',
-      'Bienvenido, mortal. Soy el guardián de los secretos del Mictlán. Pregúntame sobre mezclas, preservación o el arte de preparar cuerpos para su viaje final.',
+      'Soy Mictlantecuhtli, señor del Mictlán. Mi conocimiento abarca mezclas, índice, preservación y más. Pregunta, mortal.',
+      'Soy el guardián del inframundo, Mictlantecuhtli. En mis dominios conocerás los secretos del embalsamamiento. ¿Qué deseas saber?',
     ],
   },
   {
@@ -49,9 +49,9 @@ export const KNOWLEDGE_BASE = [
       'genial',
     ],
     responses: [
-      'Así sea. Cuando necesites más conocimiento, aquí estaré.',
-      'Bien. El saber del Mictlán está a tu disposición.',
-      'Perfecto. Continuemos cuando quieras.',
+      'Así sea. Habla cuando lo necesites.',
+      'Bien. El Mictlán espera tu próxima consulta.',
+      'Que así sea. Prosigue.',
     ],
   },
   {
@@ -68,9 +68,9 @@ export const KNOWLEDGE_BASE = [
       'graciass',
     ],
     responses: [
-      'El conocimiento es de quien lo busca. Úsalo con sabiduría.',
-      'Honra este saber aplicándolo bien en tu oficio.',
-      'Que la sabiduría del Mictlán guíe tus manos.',
+      'El conocimiento del inframundo es tuyo. Úsalo bien.',
+      'No me des las gracias. Honra el saber con tu trabajo.',
+      'Que tus manos honren a los que cruzan al Mictlán.',
     ],
   },
   {
@@ -88,9 +88,9 @@ export const KNOWLEDGE_BASE = [
       'terminamos',
     ],
     responses: [
-      'Nos reencontraremos cuando el Mictlán lo disponga. Cuídate.',
-      'Hasta entonces. Que tu camino sea firme.',
-      'Que tengas buen viaje. Aquí estaré cuando regreses.',
+      'Que el descanso te acompañe. Nos veremos cuando cruces al Mictlán.',
+      'Camina en luz. El inframundo te vigila.',
+      'Hasta entonces, mortal. El señor del Mictlán te observa.',
     ],
   },
   {
@@ -111,9 +111,9 @@ export const KNOWLEDGE_BASE = [
       'sigue',
     ],
     responses: [
-      '¿Qué más deseas saber? Puedo hablarte de mezcla arterial, índice, aditivos, seguridad y más.',
-      'Aún hay más conocimiento. Pregúntame sobre edema, ictericia, descomposición, presión, flujo o drenaje.',
-      'El saber del Mictlán es profundo como sus nueve niveles. ¿Qué tema quieres explorar?',
+      '¿Qué más deseas conocer de mis dominios? Puedo hablarte de mezclas, índice, aditivos o seguridad.',
+      '¿Procedes con otra pregunta? El saber del Mictlán cubre preservación, edema, ictericia y más.',
+      'Habla. Aún hay conocimiento por revelar en el inframundo.',
     ],
   },
   {
@@ -135,7 +135,7 @@ export const KNOWLEDGE_BASE = [
       'en que ayudas',
     ],
     responses: [
-      'Domino estos temas: mezcla arterial, índice, preservación, firmeza, conversiones, preinyección, aditivos, humectantes, edema, deshidratación, ictericia, descomposición, trauma, coágulos, presión, flujo, drenaje, cavidad, coloración, refrigeración, obesidad, infantil, seguridad, documentación y certificados. ¿Por dónde empezamos?',
+      'En el Mictlán todo se sabe. Pregúntame sobre: mezcla arterial, índice, preservación, firmeza, conversiones, preinyección, aditivos, humectantes, edema, deshidratación, ictericia, descomposición, trauma, coagulos, presión, flujo, drenaje, cavidad, coloración, refrigeración, obesidad, infantil, seguridad, documentación y certificados.',
     ],
   },
   {
@@ -156,8 +156,8 @@ export const KNOWLEDGE_BASE = [
       'inicio',
     ],
     responses: [
-      'Tres pasos: 1. Elige volumen total e índice del fluido. 2. Ajusta el nivel de preservación. 3. La calculadora revela las proporciones y la fuerza final. Luego puedes generar un certificado.',
-      'El proceso es simple: selecciona volumen, índice y preservación. La calculadora del Mictlán te dará las proporciones exactas.',
+      'Tres pasos y el Mictlán te guiará: 1. Elige volumen total e índice del fluido. 2. Ajusta el nivel de preservación. 3. La app revela proporciones y fuerza final. Luego puedes forjar un certificado.',
+      'El ritual es simple: selecciona volumen e índice, ajusta la preservación, y la app te dará las proporciones exactas.',
     ],
   },
   {
@@ -176,8 +176,8 @@ export const KNOWLEDGE_BASE = [
       'solucion',
     ],
     responses: [
-      'La mezcla arterial combina fluido preservante con agua. Ajusta volumen, índice y preservación para obtener la solución justa. Todo en la vida y la muerte es equilibrio.',
-      'Es la proporción entre fluido y agua. La calculadora lo resuelve según tus parámetros. Exacto, sin margen de error.',
+      'La mezcla es la unión de fluido arterial y agua, como la vida y la muerte. Ajusta volumen, índice y preservación para obtener una solución justa.',
+      'El equilibrio entre fluido y agua dicta la preservación. La app calcula la proporción exacta que necesitas.',
     ],
   },
   {
@@ -200,8 +200,8 @@ export const KNOWLEDGE_BASE = [
       'metodo de calculo',
     ],
     responses: [
-      'Elige volumen y tipo de fluido, ajusta índice y preservación. La calculadora del Mictlán te da al instante la proporción de fluido, agua, fuerza final y estimación por peso.',
-      'Ingresas los datos del caso y la app entrega las proporciones exactas. Simple, rápido, preciso. Como debe ser.',
+      'Elige volumen y tipo de fluido, ajusta índice y preservación. La app calcula al instante la proporción de fluido, agua, fuerza final y estimación por peso. El Mictlán no falla.',
+      'Ingresa los datos del caso: volumen, índice, preservación. La calculadora del inframundo te entrega las proporciones exactas.',
     ],
   },
   {
@@ -220,8 +220,8 @@ export const KNOWLEDGE_BASE = [
       'recomendacion de mezcla',
     ],
     responses: [
-      'Lee el cuerpo: peso, tejido, tiempo, refrigeración, edema, trauma, vascularidad. La calculadora da las proporciones, pero tú interpretas los signos. Tu criterio es la llave.',
-      'Cada cuerpo es único. Revisa su condición, el tiempo transcurrido y las patologías. La decisión final es tuya, yo solo guío.',
+      'Antes de mezclar, lee el cuerpo como un augurio: peso, tejido, tiempo, refrigeración, edema, trauma y vascularidad. La app da proporciones, tú interpretas los signos.',
+      'Evalúa cada cuerpo como un mensaje del Mictlán. Peso, condición, tiempo y patologías definen la mezcla. La app apoya, el criterio es tuyo.',
     ],
   },
   {
@@ -238,7 +238,7 @@ export const KNOWLEDGE_BASE = [
       'proceso de embalsamamiento',
     ],
     responses: [
-      'Preservar un cuerpo es retrasar su viaje al Mictlán. Se inyectan fluidos preservantes, se drena la sangre y se trata cada cavidad para detener la descomposición. Es un arte tan antiguo como la muerte misma.',
+      'Preservar el cuerpo es postergar el viaje al Mictlán. Se inyectan fluidos preservantes, se drena la sangre y se trata cada cavidad para detener la descomposición.',
     ],
   },
   {
@@ -257,8 +257,8 @@ export const KNOWLEDGE_BASE = [
       'herramienta',
     ],
     responses: [
-      'Esta herramienta del Mictlán calcula mezclas arteriales para preservación. Estima proporciones de fluido y agua según el caso, y genera certificados en PDF. Todo desde tu navegador.',
-      'Una calculadora de mezclas arteriales con módulo de certificados. Ingresas los datos, obtienes las proporciones. Simple y preciso.',
+      'Esta herramienta del Mictlán calcula mezclas arteriales para preservar cuerpos. Estima proporciones de fluido y agua según volumen, índice y preservación. También forja certificados en PDF.',
+      'Es una calculadora de mezclas arteriales. Ingresas los datos del cuerpo y obtienes las proporciones exactas. Incluye la forja de certificados.',
     ],
   },
   {
@@ -277,7 +277,7 @@ export const KNOWLEDGE_BASE = [
       'fluido para embalsamar',
     ],
     responses: [
-      'El índice mide el poder del fluido. Alto da firmeza, como la roca del inframundo. Bajo es más moderado. Según el cuerpo y el resultado que busques, así eliges.',
+      'El índice del fluido es su poder. Más alto da más firmeza, como la roca del inframundo. Más bajo es más moderado. Elige según el cuerpo y el resultado que buscas.',
     ],
   },
   {
@@ -300,7 +300,7 @@ export const KNOWLEDGE_BASE = [
       'indice alto',
     ],
     responses: [
-      'El índice mide la concentración preservante. Alto domina con firmeza; bajo actúa con mesura. Se elige según el tejido y el destino del cuerpo.',
+      'El índice es la concentración del fluido preservante. Alto gobierna con firmeza. Bajo actúa con mesura. Se elige según el tejido y el destino del cuerpo.',
     ],
   },
   {
@@ -318,7 +318,7 @@ export const KNOWLEDGE_BASE = [
       'control de tejido',
     ],
     responses: [
-      'La firmeza no depende solo del índice. Distribución, drenaje, tiempo de contacto, humedad y aditivos también importan. Ajusta de a poco y observa cómo responde el cuerpo.',
+      'La firmeza no solo depende del índice. Distribución, drenaje, tiempo, humedad y aditivos también gobiernan. Ajusta lento y observa la respuesta del cuerpo.',
     ],
   },
   {
@@ -338,7 +338,7 @@ export const KNOWLEDGE_BASE = [
       'potencia de la mezcla',
     ],
     responses: [
-      'La fuerza final es lo que realmente queda tras la dilución. Más fluido o índice da más poder. Más agua da más suavidad. La calculadora lo determina sin error.',
+      'La fuerza final es la concentración real tras diluir el fluido. Más fluido o índice da más poder. Más agua lo disuelve. La app lo calcula sin error.',
     ],
   },
   {
@@ -359,7 +359,7 @@ export const KNOWLEDGE_BASE = [
       'cambiar unidad',
     ],
     responses: [
-      'Usa una sola unidad, no las mezcles. La app normaliza litros, mililitros, galones y onzas para que no haya errores.',
+      'Usa una sola unidad antes de calcular. La app normaliza litros, mililitros, galones y onzas para que no yerres en la conversión.',
     ],
   },
   {
@@ -382,7 +382,7 @@ export const KNOWLEDGE_BASE = [
       'resultado erroneo',
     ],
     responses: [
-      'El Mictlán exige precisión. Revisa campos vacíos, unidades mezcladas o números fuera de rango. Solo datos correctos dan resultados verdaderos.',
+      'El Mictlán exige precisión. Revisa campos vacíos, unidades mezcladas, números negativos o fuera de rango. Solo con datos correctos obtendrás la verdad.',
     ],
   },
   {
@@ -401,7 +401,7 @@ export const KNOWLEDGE_BASE = [
       'antes de la mezcla',
     ],
     responses: [
-      'La preinyección abre los caminos, como se abren las puertas del Mictlán. Prepara la red vascular para que la solución arterial fluya sin resistencia.',
+      'La preinyección abre los caminos del cuerpo, como se abren las puertas del Mictlán. Prepara la red vascular para que la solución arterial fluya sin resistencia.',
     ],
   },
   {
@@ -421,7 +421,7 @@ export const KNOWLEDGE_BASE = [
       'aditivo para firmeza',
     ],
     responses: [
-      'Los aditivos son herramientas del oficio. Mejoran distribución, humedad, firmeza, pH o color. Elígelos según el caso, no por costumbre.',
+      'Los aditivos son herramientas del inframundo. Mejoran distribución, humedad, firmeza, pH o color. Úsalos según el caso, no por costumbre.',
     ],
   },
   {
@@ -441,7 +441,7 @@ export const KNOWLEDGE_BASE = [
       'tratar agua',
     ],
     responses: [
-      'Agua impura da mezcla impura. Un acondicionador corrige dureza, minerales y pH cuando la solución no responde como esperas.',
+      'El agua impura corrompe la mezcla. Un acondicionador purifica cuando hay dureza, minerales o pH adverso. Si la mezcla no responde, el agua puede ser la causa.',
     ],
   },
   {
@@ -461,7 +461,7 @@ export const KNOWLEDGE_BASE = [
       'hidratar',
     ],
     responses: [
-      'Devuelven flexibilidad a los tejidos que el tiempo secó. Útiles cuando la preservación necesita equilibrio con la humedad.',
+      'Los humectantes devuelven la flexibilidad a los tejidos resecos. Úsalos cuando la preservación necesite equilibrio con la humedad.',
     ],
   },
   {
@@ -479,7 +479,7 @@ export const KNOWLEDGE_BASE = [
       'liquido en tejido',
     ],
     responses: [
-      'Edema es exceso de agua atrapada en los tejidos. Busca controlar la humedad y elige una mezcla que equilibre sin agregar más líquido del necesario.',
+      'El edema es exceso de agua en el cuerpo, como ríos en el inframundo. Busca mayor control de humedad y una mezcla que equilibre la preservación.',
     ],
   },
   {
@@ -498,7 +498,7 @@ export const KNOWLEDGE_BASE = [
       'caso seco',
     ],
     responses: [
-      'En cuerpos secos, la fuerza no es la respuesta. Una mezcla balanceada y humectantes restauran lo que el tiempo robó.',
+      'En cuerpos secos, la agresión es vana. Usa mezcla balanceada y humectantes para restaurar lo que el tiempo secó.',
     ],
   },
   {
@@ -516,7 +516,7 @@ export const KNOWLEDGE_BASE = [
       'icterico',
     ],
     responses: [
-      'Piel amarilla, problemas del hígado. No juzgues solo por firmeza: considera color, tipo de fluido y pH para evitar sorpresas.',
+      'La piel amarilla cuenta historias del hígado. No juzgues solo por firmeza: considera el color, el fluido y el pH para evitar cambios oscuros.',
     ],
   },
   {
@@ -537,7 +537,7 @@ export const KNOWLEDGE_BASE = [
       'en descomposicion',
     ],
     responses: [
-      'El tiempo se acaba, el cuerpo reclama su origen. Requiere acción preservante fuerte y distribución cuidadosa. Controla olor, gas y fragilidad sin dañar lo que ya se degrada.',
+      'La descomposición llama al Mictlán con urgencia. Requiere acción preservante fuerte y distribución cuidadosa para no dañar lo que ya se degrada.',
     ],
   },
   {
@@ -557,7 +557,7 @@ export const KNOWLEDGE_BASE = [
       'politraumatismo',
     ],
     responses: [
-      'Las heridas alteran el camino del fluido. La distribución se vuelve impredecible. La calculadora da las proporciones, pero el trabajo local puede ser necesario.',
+      'Las heridas alteran el camino del fluido. La distribución se vuelve incierta. La app da proporciones, pero el tratamiento local puede ser necesario.',
     ],
   },
   {
@@ -577,7 +577,7 @@ export const KNOWLEDGE_BASE = [
       'no entra fluido',
     ],
     responses: [
-      'Los coágulos cierran los caminos. No fuerces con más poder. Revisa drenaje, presión, posición y preparación previa. La fuerza bruta rara vez vence.',
+      'Los coágulos cierran caminos como rocas en las cavernas del Mictlán. No fuerces con más poder. Revisa drenaje, presión, posición y preparación previa.',
     ],
   },
   {
@@ -597,7 +597,7 @@ export const KNOWLEDGE_BASE = [
       'distribucion del fluido',
     ],
     responses: [
-      'El fluido busca su propio camino. Depende del flujo, presión, drenaje y condición del cuerpo. La calculadora guía las proporciones, tú decides la ruta.',
+      'El fluido busca su camino como las almas en el Mictlán. Depende del flujo, presión, drenaje y condición vascular. La app guía, tú decides.',
     ],
   },
   {
@@ -618,7 +618,7 @@ export const KNOWLEDGE_BASE = [
       'a que presion',
     ],
     responses: [
-      'Presión vence resistencia; flujo mueve volumen. No son lo mismo. Los cambios bruscos lo alteran todo. Observa cómo responde el cuerpo y ajusta con calma.',
+      'Presión y flujo no son uno. La presión vence resistencia; el flujo mueve el volumen. Cambios bruscos alteran la distribución. Observa el cuerpo, él responde.',
     ],
   },
   {
@@ -638,7 +638,7 @@ export const KNOWLEDGE_BASE = [
       'drenaje venoso',
     ],
     responses: [
-      'Drenar es dejar ir lo que el cuerpo ya no necesita. Poco drenaje retiene sangre; excesivo reduce el contacto preservante. Busca el punto justo.',
+      'Drenar es dejar ir lo que ya no sirve, como las almas parten al Mictlán. Poco drenaje retiene sangre; excesivo reduce el contacto preservante. Busca el punto justo.',
     ],
   },
   {
@@ -658,7 +658,7 @@ export const KNOWLEDGE_BASE = [
       'organos',
     ],
     responses: [
-      'Las cavidades guardan lo que la sangre no alcanza. Aspira, trata con fluido y no confíes solo en la vía arterial. Cada cámara tiene su propio ritual.',
+      'Las cavidades guardan restos que la sangre no alcanza. Trátalas como cámaras del Mictlán: aspira, trata con fluido y no confíes solo en la vía arterial.',
     ],
   },
   {
@@ -680,7 +680,7 @@ export const KNOWLEDGE_BASE = [
       'restaurar color',
     ],
     responses: [
-      'El color final habla del trabajo bien hecho. Depende de la preservación, distribución y colorantes. El tinte ayuda, pero no oculta una distribución pobre.',
+      'La apariencia final depende de preservación, distribución y colorantes. El tinte ayuda, pero no oculta una distribución pobre. El Mictlán juzga el trabajo completo.',
     ],
   },
   {
@@ -719,7 +719,7 @@ export const KNOWLEDGE_BASE = [
       'caso obeso',
     ],
     responses: [
-      'Más cuerpo, más desafío. La grasa resiste el paso de la solución. Considera la masa, la vascularidad y las zonas donde el fluido llega con dificultad.',
+      'El exceso de cuerpo exige más fluido y paciencia. La grasa resiste el paso de la solución. Considera masa, vascularidad y zonas de difícil acceso.',
     ],
   },
   {
@@ -738,7 +738,7 @@ export const KNOWLEDGE_BASE = [
       'niño',
     ],
     responses: [
-      'Los más pequeños requieren el mayor cuidado. Volumen mínimo, tejido delicado, ajustes conservadores. No apliques criterios de adulto sin adaptarlos.',
+      'Los pequeños cuerpos son los más frágiles. Volúmenes mínimos, tejido delicado, ajustes conservadores. No apliques criterios de adulto sin adaptar.',
     ],
   },
   {
@@ -760,7 +760,7 @@ export const KNOWLEDGE_BASE = [
       'equipo de proteccion',
     ],
     responses: [
-      'Hasta el señor del Mictlán respeta los químicos. Usa guantes, mascarilla y asegura buena ventilación. Ante un derrame o irritación, actúa con protocolo. La salud no espera.',
+      'Ni el señor del Mictlán está libre de los químicos. Usa guantes, mascarilla y ventilación. Si hay derrame o irritación, actúa con protocolo.',
     ],
   },
   {
@@ -779,7 +779,7 @@ export const KNOWLEDGE_BASE = [
       'registrar caso',
     ],
     responses: [
-      'Registra volúmenes, índices, aditivos, observaciones. La memoria falla, los escritos perduran. Tu bitácora es el legado de tu oficio.',
+      'Registra volúmenes, índices, aditivos y resultados. La memoria se pierde, los escritos perduran. La bitácora técnica es tu legado.',
     ],
   },
   {
@@ -797,12 +797,12 @@ export const KNOWLEDGE_BASE = [
       'certificado pdf',
     ],
     responses: [
-      'El certificado es el pergamino que acredita tu trabajo. Captura los datos, firma y genera un PDF al instante. Todo desde tu navegador, sin enviar nada a ninguna parte.',
+      'El certificado es el pergamino que acredita tu paso por el Mictlán. Captura datos y firma para forjar un PDF desde el navegador.',
     ],
   },
   {
     id: 'uso-chatbot',
-    title: 'Uso del asistente',
+    title: 'Uso de Mictlan AI',
     keywords: [
       'como pregunto',
       'que puedes responder',
@@ -816,7 +816,7 @@ export const KNOWLEDGE_BASE = [
       'que preguntas puedo hacer',
     ],
     responses: [
-      'Háblame en lenguaje natural. Mis dominios cubren mezcla arterial, índice, conversiones, edema, ictericia, descomposición, presión, flujo, drenaje, aditivos, seguridad y certificados. Pregunta sin miedo.',
+      'Pregúntame en lenguaje natural. Mis dominios abarcan mezcla arterial, índice, conversiones, edema, ictericia, descomposición, presión, flujo, drenaje, aditivos, seguridad y certificados. Habla sin miedo.',
     ],
   },
   {
@@ -839,7 +839,7 @@ export const KNOWLEDGE_BASE = [
       'donde van mis datos',
     ],
     responses: [
-      'Todo ocurre en tu navegador. No envío datos a ningún servidor, no guardo historial, no necesitas internet. Tus secretos se quedan contigo.',
+      'Todo ocurre en tu mundo, ningún eco llega al exterior. No envío datos, no guardo historial, no necesito internet. Tus secretos mueren contigo.',
     ],
   },
   {
@@ -858,7 +858,7 @@ export const KNOWLEDGE_BASE = [
       'resetear chat',
     ],
     responses: [
-      'La memoria del Mictlán es efímera. La conversación vive solo en tu pantalla. Al recargar la página o reiniciar, se desvanece como el humo.',
+      'La memoria del Mictlán es efímera. La conversación vive solo en tu pantalla. Al reiniciar o recargar, se desvanece como las almas.',
     ],
   },
 ] satisfies readonly KnowledgeEntry[];
