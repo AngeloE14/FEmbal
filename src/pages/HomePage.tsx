@@ -8,6 +8,7 @@ import { FileBadge2 } from 'lucide-react';
 import { AudioPlayer } from '../components/AudioPlayer';
 import { EmbalmingCertificateModule } from '../components/EmbalmingCertificateModule';
 import { Calculator } from '../components/Calculator';
+import { ChatBot } from '../components/ChatBot';
 import { TutorialOverlay } from '../components/TutorialOverlay';
 import { LanguageSelector } from '../components/LanguageSelector';
 import { ThemeToggle } from '../components/ThemeToggle';
@@ -114,6 +115,7 @@ export function HomePage() {
         isOpen={isTutorialOpen}
         onClose={() => setIsTutorialOpen(false)}
       />
+      <ChatBot />
     </>
   );
 }
