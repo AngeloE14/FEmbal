@@ -4,7 +4,7 @@ import type { ChatMessage, ChatRole } from '../types/chat';
 
 const LEGACY_CHAT_STORAGE_KEY = 'mictlan-ai.messages';
 const WELCOME_MESSAGE =
-  'Soy Mictlantecuhtli, señor del Mictlán, guardián de los secretos del embalsamamiento. Mi conocimiento abarca mezclas arteriales, índice, preservación, aditivos y casos especiales. Pregunta, mortal, o elige una sugerencia.';
+  'Soy Mictlan, asistente técnico especializado en formulación arterial. Mi conocimiento abarca mezclas arteriales, índice, preservación, aditivos, casos especiales y más. ¿En qué puedo ayudarte?';
 
 interface UseChatBotResult {
   readonly messages: readonly ChatMessage[];

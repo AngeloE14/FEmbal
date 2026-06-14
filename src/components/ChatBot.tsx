@@ -56,7 +56,7 @@ export const ChatBot = memo(function ChatBot({ isOpen, onToggle }: ChatBotProps)
   };
 
   return (
-    <aside className={`chatbot${isOpen ? ' chatbot--open' : ''}`} aria-label="Asistente Mictlan">
+    <aside className={`chatbot${isOpen ? ' chatbot--open' : ''}`} aria-label="Asistente virtual">
       {isOpen && (
         <section
           className="chatbot__panel"
@@ -78,7 +78,7 @@ export const ChatBot = memo(function ChatBot({ isOpen, onToggle }: ChatBotProps)
               />
               <div className="chatbot__brand-copy">
                 <h2 id="mictlan-chatbot-title">Mictlan</h2>
-                <p>Señor del inframundo</p>
+                <p>Asistente técnico</p>
               </div>
             </div>
             <div className="chatbot__actions">
@@ -102,7 +102,7 @@ export const ChatBot = memo(function ChatBot({ isOpen, onToggle }: ChatBotProps)
           </header>
 
           <p className="chatbot__scope" id="mictlan-chatbot-scope">
-            Señor del Mictlán. Mi conocimiento abarca mezclas arteriales, índice, preservación, conversiones, aditivos, casos especiales (edema, ictericia, descomposición), seguridad y certificados. Puedo cometer errores, como todo mortal.
+            Asistente técnico especializado en formulación arterial. Mi conocimiento abarca mezclas arteriales, índice, preservación, conversiones, aditivos, casos especiales (edema, ictericia, descomposición), seguridad y certificados.
           </p>
 
           <div className="chatbot__messages" aria-live="polite">
@@ -115,7 +115,7 @@ export const ChatBot = memo(function ChatBot({ isOpen, onToggle }: ChatBotProps)
             )}
 
             {isTyping && (
-              <div className="chatbot__typing" role="status" aria-label="Mictlan esta escribiendo">
+              <div className="chatbot__typing" role="status" aria-label="El asistente esta escribiendo">
                 <img
                   className="chatbot__typing-avatar"
                   src={assetUrl('/assets/images/mictlan-bot.png')}
@@ -141,8 +141,8 @@ export const ChatBot = memo(function ChatBot({ isOpen, onToggle }: ChatBotProps)
               className="chatbot__input"
               type="text"
               value={inputValue}
-              placeholder="Pregunta al señor del Mictlán"
-              aria-label="Mensaje para Mictlan"
+              placeholder="Escribe tu consulta técnica"
+              aria-label="Mensaje para el asistente"
               autoComplete="off"
               maxLength={240}
               onChange={handleInputChange}

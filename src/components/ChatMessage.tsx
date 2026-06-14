@@ -19,7 +19,7 @@ export const ChatMessage = memo(function ChatMessage({ message }: ChatMessagePro
   return (
     <article
       className={`chat-message chat-message--${message.role}`}
-      aria-label={isUser ? 'Mensaje del usuario' : 'Mensaje de Mictlan'}
+      aria-label={isUser ? 'Mensaje del usuario' : 'Mensaje del asistente'}
     >
       {isUser ? (
         <span className="chat-message__avatar chat-message__avatar--user" aria-hidden="true">

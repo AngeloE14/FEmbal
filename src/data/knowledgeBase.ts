@@ -21,8 +21,8 @@ export const KNOWLEDGE_BASE = [
       'hey',
     ],
     responses: [
-      'Soy Mictlantecuhtli, señor del Mictlán. Los secretos del embalsamamiento yacen en mis dominios. Pregunta, mortal, y tal vez te ilumine.',
-      'Hablas con el guardián del inframundo. En mis dominios conocerás las verdades de la preservación. ¿Qué deseas saber?',
+      'Soy Mictlan, asistente técnico especializado en formulación arterial. Estoy aquí para resolver tus dudas sobre mezclas, índices, preservación y casos especiales. ¿En qué puedo ayudarte?',
+      'Bienvenido. Soy Mictlan, tu asistente de formulación arterial. Puedo orientarte sobre mezclas, índices de fluido, preservación, aditivos y procedimientos técnicos.',
     ],
   },
   {
@@ -49,9 +49,8 @@ export const KNOWLEDGE_BASE = [
       'genial',
     ],
     responses: [
-      'Así sea. El Mictlán espera tu próxima consulta.',
-      'Bien. Prosigue con tu labor, mortal.',
-      'Que así sea. El inframundo te observa.',
+      'Entendido. Quedo atento a tu siguiente consulta.',
+      'De acuerdo. Continúa cuando lo requieras.',
     ],
   },
   {
@@ -68,9 +67,8 @@ export const KNOWLEDGE_BASE = [
       'graciass',
     ],
     responses: [
-      'El conocimiento del inframundo es tuyo. Úsalo bien, o el Mictlán te reclamará.',
-      'No me agradezcas. Honra a los que cruzan al Mictlán con tu trabajo.',
-      'Que tus manos honren a los que parten. Ese es mi único mandato.',
+      'Estoy para servirte. Si necesitas más información, no dudes en consultarme.',
+      'A tu disposición. Recuerda que la precisión técnica es fundamental en cada procedimiento.',
     ],
   },
   {
@@ -88,9 +86,8 @@ export const KNOWLEDGE_BASE = [
       'terminamos',
     ],
     responses: [
-      'Que el descanso te acompañe. Nos veremos cuando cruces al Mictlán, como todos los mortales.',
-      'Camina en luz. El inframundo te vigila desde las sombras.',
-      'Hasta entonces. Cuando tu hora llegue, el señor del Mictlán te recibirá.',
+      'Quedo a tu disposición para cuando requieras asistencia técnica. Hasta luego.',
+      'Fue un placer asistirte. Si en el futuro necesitas apoyo técnico, aquí estaré.',
     ],
   },
   {
@@ -111,9 +108,8 @@ export const KNOWLEDGE_BASE = [
       'sigue',
     ],
     responses: [
-      '¿Qué más deseas conocer de mis dominios? Mezclas, índice, aditivos, seguridad... el saber del Mictlán es vasto.',
-      '¿Procedes con otra pregunta? Aún hay secretos del inframundo por revelar.',
-      'Habla. El conocimiento del Mictlán es profundo, pero tu tiempo es corto.',
+      '¿Deseas consultar otro tema? Puedo ayudarte con mezclas, índices, aditivos, seguridad, o casos especiales como edema, ictericia o descomposición.',
+      '¿Hay algo más en lo que pueda orientarte?',
     ],
   },
   {
@@ -135,7 +131,8 @@ export const KNOWLEDGE_BASE = [
       'en que ayudas',
     ],
     responses: [
-      'En el Mictlán todo se sabe, mortal. Mis dominios abarcan: mezcla arterial, índice, preservación, firmeza, conversiones, preinyección, aditivos, humectantes, edema, deshidratación, ictericia, descomposición, trauma, coagulos, presión, flujo, drenaje, cavidad, coloración, refrigeración, obesidad, infantil, seguridad, documentación y certificados.',
+      'Puedo asistirte en los siguientes temas: cálculo de mezcla arterial, índice y fuerza final, selección de fluidos, aditivos y coinyección, casos especiales (edema, deshidratación, ictericia, descomposición, trauma, obesidad, infantil), presión, flujo y drenaje, tratamiento de cavidad, coloración cosmética, refrigeración, seguridad química, documentación técnica y generación de certificados.',
+      'Mi base de conocimiento cubre: formulación de mezcla arterial, selección de índice de fluido, cálculo de fuerza final, uso de aditivos y coadyuvantes, manejo de casos especiales, procedimientos de inyección y drenaje, tratamiento de cavidad, restauración estética, seguridad en la manipulación de químicos y generación de documentación técnica.',
     ],
   },
   {
@@ -156,8 +153,8 @@ export const KNOWLEDGE_BASE = [
       'inicio',
     ],
     responses: [
-      'Tres pasos y el Mictlán te guiará: 1. Elige volumen total e índice del fluido. 2. Ajusta el nivel de preservación. 3. La app revela proporciones y fuerza final. Luego puedes forjar un certificado.',
-      'El ritual es simple: selecciona volumen e índice, ajusta la preservación, y la app te dará las proporciones exactas.',
+      'Para utilizar la calculadora: 1. Selecciona el volumen total y el índice del fluido arterial. 2. Ajusta el nivel de preservación deseado. 3. La aplicación mostrará las proporciones exactas de fluido, agua y la fuerza final. Puedes generar un certificado en PDF con los resultados.',
+      'El procedimiento es simple: ingresa el volumen total, selecciona el índice del fluido y ajusta la preservación. La calculadora entrega las proporciones precisas de la mezcla.',
     ],
   },
   {
@@ -176,8 +173,8 @@ export const KNOWLEDGE_BASE = [
       'solucion',
     ],
     responses: [
-      'La mezcla es la unión de fluido y agua, como la vida y la muerte bailan en el Mictlán. Ajusta volumen, índice y preservación para obtener una solución justa.',
-      'El equilibrio entre fluido y agua dicta la preservación. La app del inframundo calcula la proporción exacta que necesitas.',
+      'La mezcla arterial es la combinación de fluido preservante y agua en proporciones específicas. La calculadora determina las cantidades exactas según el volumen total, el índice del fluido y el nivel de preservación requerido.',
+      'El equilibrio entre fluido y agua determina la concentración final de la solución. La aplicación calcula la proporción precisa necesaria para cada caso.',
     ],
   },
   {
@@ -200,8 +197,8 @@ export const KNOWLEDGE_BASE = [
       'metodo de calculo',
     ],
     responses: [
-      'Elige volumen y tipo de fluido, ajusta índice y preservación. La app del inframundo calcula al instante la proporción de fluido, agua, fuerza final y estimación por peso. El Mictlán no falla.',
-      'Ingresa los datos del caso: volumen, índice, preservación. La calculadora del Mictlán te entrega las proporciones exactas.',
+      'La calculadora toma tres parámetros principales: volumen total de solución, índice del fluido arterial (concentración de formaldehído) y nivel de preservación deseado. Con estos datos calcula automáticamente las proporciones de fluido y agua, la fuerza final de la solución y una estimación por peso del cuerpo.',
+      'Ingresa los datos del caso: volumen total, índice del fluido y nivel de preservación. La calculadora te entrega las proporciones exactas de la mezcla.',
     ],
   },
   {
@@ -220,8 +217,8 @@ export const KNOWLEDGE_BASE = [
       'recomendacion de mezcla',
     ],
     responses: [
-      'Antes de mezclar, lee el cuerpo como un augurio: peso, tejido, tiempo, refrigeración, edema, trauma y vascularidad. La app da proporciones, tú interpretas los signos del inframundo.',
-      'Evalúa cada cuerpo como un mensaje del Mictlán. Peso, condición, tiempo y patologías definen la mezcla. La app te guía, el criterio es tuyo.',
+      'Antes de formular la mezcla, evalúa los siguientes factores del caso: peso del cuerpo, condición del tejido, tiempo postmortem, refrigeración previa, presencia de edema, trauma, ictericia o descomposición, y condición vascular. La calculadora proporciona las proporciones base; el criterio profesional define los ajustes.',
+      'Evalúa cada caso considerando peso, condición tisular, tiempo transcurrido y patologías presentes. La aplicación te guía en las proporciones, pero el criterio técnico es responsabilidad del profesional.',
     ],
   },
   {
@@ -238,7 +235,7 @@ export const KNOWLEDGE_BASE = [
       'proceso de embalsamamiento',
     ],
     responses: [
-      'Preservar el cuerpo es postergar el viaje al Mictlán. Se inyectan fluidos preservantes, se drena la sangre y se trata cada cavidad para engañar a la muerte, al menos por un tiempo.',
+      'El embalsamamiento es el proceso de preservación temporal del cuerpo mediante la inyección de fluidos preservantes en el sistema arterial, complementado con el drenaje de fluidos corporales y el tratamiento de cavidades. Su objetivo es retardar la descomposición y preparar el cuerpo para su presentación.',
     ],
   },
   {
@@ -257,8 +254,8 @@ export const KNOWLEDGE_BASE = [
       'herramienta',
     ],
     responses: [
-      'Esta herramienta del Mictlán calcula mezclas arteriales para preservar cuerpos. Estima proporciones de fluido y agua según volumen, índice y preservación. También forja certificados en PDF.',
-      'Es una calculadora de mezclas arteriales. Ingresas los datos del cuerpo y obtienes las proporciones exactas. Incluye la forja de certificados.',
+      'Esta aplicación es una herramienta profesional para calcular formulaciones de mezcla arterial en tanatopraxia. Permite determinar proporciones precisas de fluido y agua, calcular la fuerza final de la solución y generar certificados de embalsamamiento en formato PDF.',
+      'Es una calculadora de mezclas arteriales. Ingresas los datos del caso y obtienes las proporciones exactas de fluido y agua. Incluye la generación de certificados en PDF.',
     ],
   },
   {
@@ -277,7 +274,34 @@ export const KNOWLEDGE_BASE = [
       'fluido para embalsamar',
     ],
     responses: [
-      'El índice del fluido es su poder. Más alto da más firmeza, como la roca del inframundo. Más bajo es más moderado. Elige según el cuerpo y el resultado que buscas.',
+      'Los fluidos arteriales se clasifican según su índice de formaldehído. Los fluidos de índice alto (28-36) proporcionan mayor fijación y firmeza, ideales para edema o tejido laxo. Los de índice bajo (12-20) ofrecen preservación moderada, adecuados para tejido delicado o casos infantiles. La selección depende de la evaluación profesional.',
+      'El índice del fluido arterial determina su capacidad de fijación. Índices altos brindan mayor firmeza tisular; índices bajos ofrecen un resultado más suave y natural. La elección debe basarse en el tipo de tejido, condición del cuerpo y resultado estético deseado.',
+    ],
+  },
+  {
+    id: 'composicion-quimica',
+    title: 'Composicion quimica de fluidos arteriales',
+    keywords: [
+      'composicion quimica',
+      'componentes',
+      'formaldehido',
+      'fenol',
+      'metanol',
+      'alcohol',
+      'glicerol',
+      'glicerina',
+      'quimicos',
+      'sustancias',
+      'ingredientes',
+      'de que esta hecho',
+      'formula quimica',
+      'biocida',
+      'preservante',
+    ],
+    responses: [
+      'Los fluidos arteriales contienen formaldehído como principal agente preservante, disuelto en alcohol metílico (metanol). Incluyen también fenol como desinfectante y germicida, glicerol como humectante, y diversos aditivos como surfactantes, anticoagulantes y colorantes. La formulación exacta varía según el fabricante y el tipo de fluido.',
+      'El formaldehído es el componente activo principal, actuando a nivel molecular sobre las proteínas tisulares para producir la fijación. El metanol actúa como disolvente y antipolimerizante. Otros componentes comunes incluyen etanol, glicol de etileno, glutaraldehído, EDTA y agentes tensoactivos que mejoran la penetración y distribución.',
+      'La composición típica incluye: formaldehído (16-36%), metanol (8-15%), fenol (1-5%), glicerol (2-8%), surfactantes (<1%), anticoagulantes (<1%) y agua purificada como vehículo. Las proporciones varían según el índice y las propiedades específicas del fluido.',
     ],
   },
   {
@@ -300,7 +324,8 @@ export const KNOWLEDGE_BASE = [
       'indice alto',
     ],
     responses: [
-      'El índice es la concentración del fluido preservante. Alto gobierna con la firmeza del Mictlán. Bajo actúa con mesura. Elige según el tejido y el destino del cuerpo.',
+      'El índice arterial es la concentración de formaldehído en el fluido preservante, expresada como porcentaje de formaldehído gaseoso disuelto en alcohol metílico. Un índice más alto proporciona mayor capacidad de fijación proteica y firmeza tisular. La selección depende del tejido, la condición del cuerpo y el resultado estético buscado.',
+      'El índice representa la concentración de formaldehído en el fluido arterial. A mayor índice, mayor poder de fijación y firmeza. El formaldehído actúa interaccionando con las proteínas tisulares, produciendo un efecto conservante y biocida. La elección debe considerar el tipo de caso y el resultado deseado.',
     ],
   },
   {
@@ -318,7 +343,8 @@ export const KNOWLEDGE_BASE = [
       'control de tejido',
     ],
     responses: [
-      'La firmeza no solo depende del índice. Distribución, drenaje, tiempo, humedad y aditivos también gobiernan. Ajusta lento y observa la respuesta del cuerpo.',
+      'La firmeza tisular no depende únicamente del índice del fluido. Factores como la distribución de la solución, la eficacia del drenaje, el tiempo de exposición, la humedad del tejido y el uso de aditivos modifican significativamente el resultado. Se recomienda ajustar progresivamente y evaluar la respuesta del tejido.',
+      'El nivel de preservación se controla mediante la proporción de fluido arterial en la mezcla. A mayor proporción de fluido, mayor será la fuerza final y la firmeza del tejido. La aplicación permite ajustar este parámetro de forma precisa según los requerimientos del caso.',
     ],
   },
   {
@@ -338,7 +364,8 @@ export const KNOWLEDGE_BASE = [
       'potencia de la mezcla',
     ],
     responses: [
-      'La fuerza final es la concentración real tras diluir el fluido. Más fluido o índice da más poder, como la voluntad del Mictlán. Más agua lo disuelve. La app lo calcula sin error.',
+      'La fuerza final es la concentración real de formaldehído en la solución después de diluir el fluido arterial con agua. Se calcula como: (Volumen de fluido x Índice del fluido) / Volumen total de solución. La aplicación realiza este cálculo automáticamente.',
+      'La fuerza final de la solución se obtiene multiplicando el volumen de fluido arterial por su índice y dividiendo entre el volumen total de la mezcla. Este valor representa la concentración efectiva de formaldehído que actuará sobre los tejidos.',
     ],
   },
   {
@@ -359,7 +386,8 @@ export const KNOWLEDGE_BASE = [
       'cambiar unidad',
     ],
     responses: [
-      'Usa una sola unidad antes de calcular. La app normaliza litros, mililitros, galones y onzas para que no yerres en la conversión.',
+      'Es fundamental trabajar con una sola unidad de volumen para evitar errores. La aplicación normaliza automáticamente litros, mililitros, galones y onzas. Verifica que todos los valores estén en la misma unidad antes de realizar el cálculo.',
+      'La aplicación convierte entre litros, mililitros, galones y onzas de forma automática. Asegúrate de seleccionar la unidad correcta antes de ingresar los valores para garantizar la precisión del cálculo.',
     ],
   },
   {
@@ -382,7 +410,7 @@ export const KNOWLEDGE_BASE = [
       'resultado erroneo',
     ],
     responses: [
-      'El Mictlán exige precisión. Revisa campos vacíos, unidades mezcladas, números negativos o fuera de rango. Solo con datos correctos obtendrás la verdad.',
+      'La calculadora requiere valores numéricos válidos en todos los campos. Verifica que no haya campos vacíos, números negativos, unidades mezcladas o valores fuera del rango permitido. Solo con datos correctos se obtendrá un resultado preciso.',
     ],
   },
   {
@@ -401,7 +429,8 @@ export const KNOWLEDGE_BASE = [
       'antes de la mezcla',
     ],
     responses: [
-      'La preinyección abre los caminos del cuerpo, como se abren las puertas del Mictlán. Prepara la red vascular para que la solución arterial fluya sin resistencia.',
+        'La preinyección consiste en la infusión inicial de una solución para preparar el sistema vascular. Su objetivo es limpiar los vasos, romper coágulos y facilitar la distribución uniforme de la solución arterial. Se recomienda en casos con resistencia vascular o mala circulación.',
+        'La solución de preinyección contiene agentes descoagulantes y dilatantes que facilitan el flujo a través del sistema circulatorio. Permite remover coágulos y mejorar el drenaje sin requerir presiones elevadas durante la inyección arterial principal.',
     ],
   },
   {
@@ -421,7 +450,7 @@ export const KNOWLEDGE_BASE = [
       'aditivo para firmeza',
     ],
     responses: [
-      'Los aditivos son herramientas del inframundo. Mejoran distribución, humedad, firmeza, pH o color. Úsalos según el caso, no por costumbre.',
+      'Los aditivos son compuestos auxiliares que modifican propiedades específicas de la solución arterial. Pueden mejorar la distribución (surfactantes), la humectación (humectantes), la fijación (boosters), el pH o la coloración. Su uso debe basarse en las necesidades del caso, no por rutina.',
     ],
   },
   {
@@ -441,7 +470,8 @@ export const KNOWLEDGE_BASE = [
       'tratar agua',
     ],
     responses: [
-      'El agua impura corrompe la mezcla. Un acondicionador purifica cuando hay dureza, minerales o pH adverso. Si la mezcla no responde, el agua puede ser la causa.',
+      'La calidad del agua afecta directamente la efectividad de la solución arterial. El agua dura, con alto contenido mineral o pH adverso, puede interferir con la acción preservante. Un acondicionador de agua neutraliza estos factores y optimiza la mezcla.',
+      'El agua utilizada en la mezcla debe ser de calidad adecuada. La presencia de sales minerales, pH desbalanceado o contaminantes puede afectar la acción del formaldehído sobre los tejidos. Se recomienda usar agua tratada o acondicionada para resultados óptimos.',
     ],
   },
   {
@@ -461,7 +491,8 @@ export const KNOWLEDGE_BASE = [
       'hidratar',
     ],
     responses: [
-      'Los humectantes devuelven la flexibilidad a los tejidos resecos. Úsalos cuando la preservación necesite equilibrio con la humedad.',
+      'Los humectantes (como lanolina, glicerina o propilenglicol) se utilizan para mantener la flexibilidad y humedad de los tejidos. Son especialmente útiles en casos con deshidratación, tejidos resecos o cuando se requiere equilibrar la acción preservante con la hidratación.',
+      'Los humectantes y rehidratantes devuelven la textura natural a la piel. Su uso está indicado en cuerpos deshidratados, ancianos o con pérdida de masa muscular. Se aplican como aditivos en la solución arterial o como tratamiento tópico.',
     ],
   },
   {
@@ -479,7 +510,8 @@ export const KNOWLEDGE_BASE = [
       'liquido en tejido',
     ],
     responses: [
-      'El edema es exceso de agua en el cuerpo, como los ríos del inframundo. Busca mayor control de humedad y una mezcla que equilibre la preservación.',
+      'El edema es la acumulación anormal de líquido en los tejidos. En estos casos se recomienda: utilizar fluido de índice más alto para compensar la dilución, aplicar drenaje postmortem para eliminar el exceso de líquido, y considerar el uso de aditivos para controlar la humedad residual.',
+      'En casos de edema, el exceso de líquido intersticial diluye la solución arterial. Se recomienda usar fluido de mayor índice, incrementar la presión de inyección de forma controlada y aplicar drenaje venoso efectivo. En edemas localizados, puede ser necesario tratamiento directo.',
     ],
   },
   {
@@ -498,7 +530,8 @@ export const KNOWLEDGE_BASE = [
       'caso seco',
     ],
     responses: [
-      'En cuerpos secos, la agresión es vana. Usa mezcla balanceada y humectantes para restaurar lo que el tiempo secó.',
+      'En cuerpos deshidratados o emaciados, se recomienda utilizar una mezcla balanceada con humectantes para restaurar la flexibilidad tisular. Evita concentraciones agresivas de formaldehído que puedan acentuar la resequedad. La hidratación gradual mejora la apariencia final.',
+      'La deshidratación tisular requiere un enfoque cuidadoso. Usa fluidos de índice moderado con aditivos humectantes. Considera la aplicación de agentes rehidratantes tópicos en áreas especialmente secas. La mezcla debe priorizar la restauración de la flexibilidad natural del tejido.',
     ],
   },
   {
@@ -516,7 +549,8 @@ export const KNOWLEDGE_BASE = [
       'icterico',
     ],
     responses: [
-      'La piel amarilla cuenta historias del hígado. No juzgues solo por firmeza: considera el color, el fluido y el pH para evitar cambios oscuros.',
+      'En casos de ictericia, la bilirrubina tiñe los tejidos de amarillo. Es importante considerar que el formaldehído puede oscurecer estos tejidos. Se recomienda usar fluidos de índice moderado, controlar el pH de la solución y evaluar la necesidad de colorantes cosméticos para neutralizar la coloración.',
+      'La ictericia presenta un desafío por la presencia de bilirrubina en los tejidos. Existen fluidos arteriales especiales con agentes surfactantes que ayudan a remover la coloración amarilla y modificadores que evitan reacciones adversas con el formaldehído. El control del pH es fundamental.',
     ],
   },
   {
@@ -537,7 +571,8 @@ export const KNOWLEDGE_BASE = [
       'en descomposicion',
     ],
     responses: [
-      'La descomposición acelera el viaje al Mictlán. Requiere acción preservante fuerte y distribución cuidadosa para no dañar lo que ya se degrada.',
+      'La descomposición avanzada requiere una intervención cuidadosa. Se recomienda utilizar fluido de alto índice, aplicar la solución con presión controlada para evitar dañar tejidos frágiles, y considerar tratamiento local en áreas afectadas. La distribución puede ser irregular debido a la degradación vascular.',
+      'En casos de descomposición, la integridad vascular está comprometida. Usa fluido de alto índice con agentes desodorizantes y desinfectantes. La presión debe ser controlada para evitar la ruptura de vasos frágiles. El tratamiento de cavidad es especialmente importante en estos casos.',
     ],
   },
   {
@@ -557,7 +592,8 @@ export const KNOWLEDGE_BASE = [
       'politraumatismo',
     ],
     responses: [
-      'Las heridas alteran el camino del fluido. La distribución se vuelve incierta. La app da proporciones, pero el tratamiento local puede ser necesario.',
+      'Los casos con trauma o autopsia presentan vías de escape de la solución arterial. Se requiere un enfoque meticuloso: identificar y cerrar fugas cuando sea posible, ajustar la presión de inyección, y considerar el tratamiento local de áreas afectadas. La distribución puede ser impredecible.',
+      'En cuerpos autopsiados o con trauma, la solución arterial puede escapar por las incisiones o heridas. Se recomienda suturar las aberturas principales, usar presión controlada y aplicar tratamiento local con gel o fluido concentrado en áreas de difícil acceso.',
     ],
   },
   {
@@ -577,7 +613,8 @@ export const KNOWLEDGE_BASE = [
       'no entra fluido',
     ],
     responses: [
-      'Los coágulos cierran caminos como rocas en las cavernas del Mictlán. No fuerces con más poder. Revisa drenaje, presión, posición y preparación previa.',
+      'Los coágulos y la resistencia vascular obstruyen el flujo de la solución. No se recomienda aumentar la presión de forma agresiva. En su lugar, verifica el drenaje venoso, ajusta la posición del cuerpo, considera la preinyección con solución anticoagulante y aplica presión intermitente para facilitar la distribución.',
+      'La resistencia vascular puede deberse a coágulos, arteriosclerosis o mala posición del cuerpo. La preinyección con solvente sanguíneo ayuda a despejar los vasos. Masajea las áreas de resistencia y considera el uso de presión intermitente para facilitar la distribución.',
     ],
   },
   {
@@ -597,7 +634,33 @@ export const KNOWLEDGE_BASE = [
       'distribucion del fluido',
     ],
     responses: [
-      'El fluido busca su camino como las almas en el Mictlán. Depende del flujo, presión, drenaje y condición vascular. La app guía, tú decides.',
+      'La distribución de la solución arterial depende del flujo, la presión de inyección, la eficacia del drenaje venoso y la condición vascular del cuerpo. Se recomienda monitorear la respuesta tisular y ajustar los parámetros según sea necesario.',
+      'Para una distribución efectiva, selecciona vasos adecuados como carótida, femoral o axilar para la inyección, y yugular o femoral para el drenaje. La elevación de la extremidad opuesta y los masajes ayudan a dirigir el flujo hacia áreas de difícil acceso.',
+    ],
+  },
+  {
+    id: 'vasos-acceso',
+    title: 'Seleccion de vasos para inyeccion y drenaje',
+    keywords: [
+      'vasos',
+      'arteria',
+      'vena',
+      'carotida',
+      'femoral',
+      'axilar',
+      'yugular',
+      'canulacion',
+      'canula',
+      'incision',
+      'acceso vascular',
+      'punto de acceso',
+      'donde inyectar',
+      'que arteria',
+    ],
+    responses: [
+      'Los vasos más utilizados para la inyección arterial son la arteria carótida común, la arteria femoral y la arteria axilar. Para el drenaje venoso se emplean la vena yugular y la vena femoral. La selección depende de la accesibilidad, condición del cuerpo y consideraciones estéticas.',
+      'La carótida común es el vaso de elección en la mayoría de los casos por su fácil acceso y proximidad al corazón. La femoral es alternativa cuando el cuello no está disponible. La axilar se utiliza en casos especiales. Evalúa siempre la integridad de los vasos antes de la canulación.',
+      'Para la canulación arterial: realiza una incisión de 3-4 cm, diseca el tejido subcutáneo, aísla la arteria con ganchos de aneurisma, realiza una pequeña incisión en la pared arterial e introduce la cánula en dirección al corazón. Asegura la cánula con ligaduras proximal y distal.',
     ],
   },
   {
@@ -618,7 +681,8 @@ export const KNOWLEDGE_BASE = [
       'a que presion',
     ],
     responses: [
-      'Presión y flujo no son uno. La presión vence resistencia; el flujo mueve el volumen. Cambios bruscos alteran la distribución. Observa el cuerpo, él responde.',
+      'La presión y el flujo son parámetros relacionados pero distintos. La presión vence la resistencia vascular; el flujo determina el volumen de solución distribuido por unidad de tiempo. Cambios bruscos pueden alterar la distribución. Se recomienda mantener parámetros estables y monitorear la respuesta del tejido.',
+      'Una presión alta con flujo mal controlado puede causar edema o ruptura vascular. El flujo debe ser suficiente para lograr llenado capilar y drenaje venoso efectivo. Ajusta ambos parámetros gradualmente y observa la respuesta del cuerpo.',
     ],
   },
   {
@@ -638,7 +702,8 @@ export const KNOWLEDGE_BASE = [
       'drenaje venoso',
     ],
     responses: [
-      'Drenar es dejar ir lo que ya no sirve, como las almas parten al Mictlán. Poco drenaje retiene sangre; excesivo reduce el contacto preservante. Busca el punto justo.',
+      'El drenaje venoso permite la salida de sangre y fluidos corporales reemplazados por la solución arterial. Un drenaje insuficiente retiene sangre en el tejido; un drenaje excesivo reduce el tiempo de contacto de la solución preservante. El equilibrio es fundamental para una preservación efectiva.',
+      'El drenaje se realiza a través de las venas yugular o femoral. Puede ser intermitente (abrir y cerrar periódicamente) o continuo. El drenaje intermitente permite que la solución permanezca más tiempo en contacto con los tejidos, mejorando la fijación.',
     ],
   },
   {
@@ -658,7 +723,8 @@ export const KNOWLEDGE_BASE = [
       'organos',
     ],
     responses: [
-      'Las cavidades guardan restos que la sangre no alcanza. Trátalas como cámaras del Mictlán: aspira, trata con fluido y no confíes solo en la vía arterial.',
+      'El tratamiento de cavidad complementa la inyección arterial. Incluye aspiración de contenidos abdominales y torácicos, aplicación de fluido de cavidad y sellado. No debe confiarse únicamente en la vía arterial para la preservación completa.',
+      'La aspiración de cavidades se realiza mediante un trocar insertado en la región abdominal. Se extraen gases y fluidos, se inyecta fluido de cavidad concentrado y se sella la punción. Este procedimiento es esencial para prevenir la descomposición de órganos internos.',
     ],
   },
   {
@@ -680,7 +746,33 @@ export const KNOWLEDGE_BASE = [
       'restaurar color',
     ],
     responses: [
-      'La apariencia final depende de preservación, distribución y colorantes. El tinte ayuda, pero no oculta una distribución pobre. El Mictlán juzga el trabajo completo.',
+      'La apariencia final del cuerpo depende de la preservación, la distribución de la solución y el uso de colorantes cosméticos. Los tintes pueden mejorar la coloración, pero no compensan una distribución deficiente. Se recomienda lograr una buena preservación como base antes de aplicar cosméticos.',
+      'La restauración estética incluye maquillaje profesional, peinado, tratamiento de uñas y corrección de decoloraciones. En casos con traumatismos faciales, pueden requerirse técnicas de reconstrucción con ceras y modelado de tejidos.',
+    ],
+  },
+  {
+    id: 'restauracion-avanzada',
+    title: 'Restauracion y reconstruccion de tejidos',
+    keywords: [
+      'reconstruccion',
+      'restauracion',
+      'tejidos blandos',
+      'reparacion',
+      'fractura',
+      'cera',
+      'modelado',
+      'traumatismo facial',
+      'lesion',
+      'herida abierta',
+      'quemadura',
+      'sutura cosmetica',
+      'restaurar tejido',
+      'reconstruir',
+    ],
+    responses: [
+      'La reconstrucción de tejidos blandos incluye técnicas de sutura intradérmica, uso de ceras para modelar contornos faciales, parches de silicona para áreas extensas y adhesivos tisulares para pequeños defectos. El objetivo es restaurar la apariencia natural respetando la anatomía del fallecido.',
+      'Para fracturas faciales, se utilizan alambres de sutura ósea, placas de soporte y modelado con ceras duras y blandas. Las heridas abiertas se limpian, desbridan y rellenan con materiales restauradores antes del maquillaje final.',
+      'En casos de quemaduras o abrasiones extensas, se aplican técnicas de escarificación, hidratación intensiva con geles y cobertura con cosméticos correctores de alta cobertura. La paciencia y el trabajo por capas son fundamentales para obtener un resultado natural.',
     ],
   },
   {
@@ -701,7 +793,30 @@ export const KNOWLEDGE_BASE = [
       'fresco',
     ],
     responses: [
-      'El tiempo todo lo corrompe, hasta en el Mictlán. Más horas desde la partida exigen más atención a distribución, olor y respuesta del tejido. La refrigeración retrasa lo inevitable.',
+      'El tiempo postmortem es un factor crítico en la preservación. A mayor tiempo transcurrido, mayor deterioro tisular y menor respuesta a la solución preservante. La refrigeración retrasa la descomposición pero no la detiene. Ajusta la formulación según el tiempo transcurrido y las condiciones de conservación.',
+    ],
+  },
+  {
+    id: 'rigor-mortis',
+    title: 'Rigor mortis y su manejo',
+    keywords: [
+      'rigor mortis',
+      'rigor',
+      'rigidez',
+      'rigidez cadavérica',
+      'musculo rigido',
+      'cuerpo rigido',
+      'endurecimiento',
+      'articulaciones',
+      'deshacer rigor',
+      'masaje',
+      'movilizar',
+      'flexion',
+    ],
+    responses: [
+      'El rigor mortis es la rigidez muscular que aparece 2-4 horas postmortem, se generaliza a las 6-12 horas y desaparece tras 24-48 horas. Para facilitar la distribución de la solución arterial, debe deshacerse mediante masajes y flexión y extensión suave de las articulaciones, especialmente extremidades, cuello y mandíbula.',
+      'El rigor mortis puede dificultar la inyección arterial y la distribución del fluido. Se recomienda movilizar pasivamente todas las articulaciones antes de comenzar el procedimiento. En casos de rigor avanzado, la manipulación debe ser gradual para evitar desgarros musculares.',
+      'La presencia de rigor mortis no impide el embalsamamiento, pero requiere preparación. Aplica masaje progresivo en los grupos musculares rígidos, comenzando por las extremidades y avanzando hacia el tronco. La flexión y extensión repetitiva ayuda a romper las uniones actina-miosina.',
     ],
   },
   {
@@ -719,7 +834,7 @@ export const KNOWLEDGE_BASE = [
       'caso obeso',
     ],
     responses: [
-      'El exceso de cuerpo exige más fluido y paciencia. La grasa resiste el paso de la solución. Considera masa, vascularidad y zonas de difícil acceso.',
+      'En cuerpos con obesidad, el tejido adiposo ofrece resistencia al flujo de la solución arterial. Se requiere mayor volumen de solución, considerar la distribución en áreas de difícil acceso y posible uso de aditivos para mejorar la penetración. La evaluación de la vascularidad es importante.',
     ],
   },
   {
@@ -738,7 +853,7 @@ export const KNOWLEDGE_BASE = [
       'niño',
     ],
     responses: [
-      'Los pequeños cuerpos son los más frágiles. Volúmenes mínimos, tejido delicado, ajustes conservadores. No apliques criterios de adulto sin adaptar.',
+      'Los cuerpos infantiles requieren un enfoque conservador. Volúmenes reducidos, índice de fluido moderado, tejido delicado y ajustes precisos. No apliques criterios de adultos sin adaptar las proporciones y la técnica.',
     ],
   },
   {
@@ -760,7 +875,8 @@ export const KNOWLEDGE_BASE = [
       'equipo de proteccion',
     ],
     responses: [
-      'Ni el señor del Mictlán está libre de los químicos. Usa guantes, mascarilla y ventilación. Si hay derrame o irritación, actúa con protocolo. Hasta los dioses toman precauciones.',
+      'La manipulación de fluidos de embalsamamiento requiere equipo de protección personal: guantes resistentes a químicos, mascarilla con filtro para vapores orgánicos, protección ocular y ventilación adecuada. En caso de derrame o irritación, sigue el protocolo de seguridad establecido.',
+      'El formaldehído es un agente químico clasificado como carcinógeno. Debe manipularse en áreas ventiladas con sistemas de extracción. Los tanatopractores deben recibir capacitación periódica en manejo seguro de químicos y conocer las hojas de datos de seguridad de cada producto.',
     ],
   },
   {
@@ -779,7 +895,8 @@ export const KNOWLEDGE_BASE = [
       'registrar caso',
     ],
     responses: [
-      'Registra volúmenes, índices, aditivos y resultados. La memoria se pierde, los escritos perduran. La bitácora técnica es tu legado.',
+      'La documentación técnica de cada caso debe incluir: volúmenes de fluido y agua utilizados, índice del fluido, aditivos empleados, fuerza final de la solución, observaciones del procedimiento y resultado final. El registro sistemático permite trazabilidad y mejora continua.',
+      'El registro profesional debe contener: datos del fallecido, fecha y hora del procedimiento, formulación detallada de la mezcla, parámetros de inyección, incidencias durante el proceso y evaluación final. Este documento tiene valor legal y técnico.',
     ],
   },
   {
@@ -797,12 +914,13 @@ export const KNOWLEDGE_BASE = [
       'certificado pdf',
     ],
     responses: [
-      'El certificado es el pergamino que acredita tu paso por el Mictlán. Captura datos y firma para forjar un PDF desde el navegador.',
+      'El módulo de certificado permite generar un documento PDF con los datos del caso, la formulación utilizada y los resultados del procedimiento. Puedes incluir una firma y descargar el certificado directamente desde el navegador.',
+      'El certificado de embalsamamiento incluye datos del fallecido, formulación de la mezcla arterial, parámetros del procedimiento y firma del profesional. Se genera automáticamente en formato PDF listo para imprimir o archivar.',
     ],
   },
   {
     id: 'uso-chatbot',
-    title: 'Uso de Mictlan AI',
+    title: 'Uso del asistente',
     keywords: [
       'como pregunto',
       'que puedes responder',
@@ -816,7 +934,8 @@ export const KNOWLEDGE_BASE = [
       'que preguntas puedo hacer',
     ],
     responses: [
-      'Pregúntame en lenguaje natural. Mis dominios abarcan mezcla arterial, índice, conversiones, edema, ictericia, descomposición, presión, flujo, drenaje, aditivos, seguridad y certificados. Habla sin miedo, mortal.',
+      'Puedes preguntarme en lenguaje natural sobre cualquier tema relacionado con formulación arterial. Mis áreas de conocimiento incluyen: mezcla arterial, índice de fluido, preservación, conversiones, aditivos, casos especiales (edema, ictericia, descomposición, trauma, obesidad, pediátricos), seguridad química y certificados.',
+      'Para obtener la mejor respuesta, formula preguntas claras y específicas. Por ejemplo: "¿Cómo calculo la mezcla para un caso con edema?" o "¿Qué índice de fluido recomiendas para un cuerpo deshidratado?". También puedes usar las preguntas sugeridas al iniciar el chat.',
     ],
   },
   {
@@ -839,7 +958,8 @@ export const KNOWLEDGE_BASE = [
       'donde van mis datos',
     ],
     responses: [
-      'Todo ocurre en tu mundo, ningún eco llega al Mictlán. No envío datos, no guardo historial, no necesito internet. Tus secretos mueren contigo, como debe ser.',
+      'Todas las operaciones se realizan localmente en tu dispositivo. No se envían datos a ningún servidor, no se requiere conexión a internet y no se almacena historial de conversaciones. La privacidad de tus datos está garantizada.',
+      'Este asistente funciona completamente sin conexión a internet. No se realizan llamadas a APIs externas ni se almacenan tus consultas en servidores. La información que compartes permanece en tu dispositivo, garantizando la confidencialidad.',
     ],
   },
   {
@@ -858,7 +978,60 @@ export const KNOWLEDGE_BASE = [
       'resetear chat',
     ],
     responses: [
-      'La memoria del Mictlán es efímera. La conversación vive solo en tu pantalla. Al reiniciar o recargar, se desvanece como las almas.',
+      'La conversación actual se mantiene mientras la ventana del chat esté abierta. Al cerrar o recargar la página, el historial se pierde. Puedes reiniciar la conversación en cualquier momento usando el botón de reinicio.',
+      'El chat no guarda historial entre sesiones. Cada vez que inicias el asistente, comienza una conversación nueva. Si necesitas conservar información, utiliza el módulo de certificado o documenta los datos externamente.',
+    ],
+  },
+  {
+    id: 'fases-procedimiento',
+    title: 'Fases del procedimiento de embalsamamiento',
+    keywords: [
+      'fases',
+      'pasos',
+      'procedimiento',
+      'proceso',
+      'etapas',
+      'lavado',
+      'higienizacion',
+      'cerrado de ojos',
+      'cerrado de boca',
+      'canulacion',
+      'inyeccion',
+      'sutura',
+      'vestido',
+      'presentacion',
+      'tanatopraxia paso a paso',
+    ],
+    responses: [
+      'Las fases principales del embalsamamiento son: 1) Lavado e higienización del cuerpo, 2) Cerrado de ojos y boca, 3) Selección de vasos y puntos de incisión, 4) Canulación arterial y venosa, 5) Inyección de la solución arterial con monitoreo de distribución, 6) Sutura de incisiones, 7) Tratamiento de cavidad, 8) Aplicación de técnicas post-embalsamado, 9) Cosmética y peluquería, 10) Vestido y presentación final.',
+      'El procedimiento comienza con la higienización del cuerpo y el cerrado de ojos y boca. Luego se seleccionan los vasos apropiados (generalmente carótida y yugular), se canulan y se procede a la inyección de la solución arterial mientras se monitorea la distribución. Finalmente se suturan las incisiones, se trata la cavidad y se aplican técnicas cosméticas para la presentación.',
+      'La secuencia profesional incluye: preparación del cuerpo, acceso vascular, inyección arterial con control de presión y flujo, drenaje venoso, tratamiento de cavidad con trocar, sutura de incisiones, lavado final del cuerpo, y aplicación de cosméticos. Cada fase requiere atención al detalle y evaluación constante.',
+    ],
+  },
+  {
+    id: 'instrumental-basico',
+    title: 'Instrumental de tanatopraxia',
+    keywords: [
+      'instrumental',
+      'herramientas',
+      'equipo',
+      'material',
+      'canula',
+      'trocar',
+      'bomba',
+      'maquina de embalsamar',
+      'gancho aneurisma',
+      'separador',
+      'jeringa',
+      'aguja',
+      'sutura',
+      'instrumentos',
+      'utensilios',
+    ],
+    responses: [
+      'El instrumental básico incluye: cánulas arteriales y venosas de distintos calibres, ganchos de aneurisma para aislar vasos, separadores, pinzas de disección, trocar para tratamiento de cavidad, bomba de inyección con control de presión y flujo, jeringas para aditivos, y material de sutura (hilo, agujas, portaagujas).',
+      'La máquina de embalsamar moderna permite regular presión y flujo de forma independiente. Incluye manómetro, regulador de flujo, mangueras de conexión y depósito para la solución. El trocar se utiliza para la aspiración de cavidades y tiene una punta roma y orificios laterales para evitar dañar órganos.',
+      'Para la preparación del cuerpo se necesitan: tijeras de disección, bisturí, pinzas, separadores, ganchos vasculares, cánulas de distintos diámetros, jeringas para inyección local, material de sutura, trocar, bomba peristáltica o de pistón, y equipo de protección personal.',
     ],
   },
 ] satisfies readonly KnowledgeEntry[];

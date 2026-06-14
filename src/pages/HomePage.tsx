@@ -109,7 +109,7 @@ export function HomePage() {
               className={`chatbot-toggle${isChatOpen ? ' chatbot-toggle--open' : ''}`}
               type="button"
               onClick={toggleChat}
-              aria-label={isChatOpen ? 'Cerrar Mictlan' : 'Abrir Mictlan'}
+              aria-label={isChatOpen ? 'Cerrar asistente' : 'Abrir asistente'}
               aria-expanded={isChatOpen}
             >
               <span className="chatbot-toggle__icon" aria-hidden="true">🤖</span>
