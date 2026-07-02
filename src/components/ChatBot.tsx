@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import '../styles/components/ChatBot.css';
 import { useChatBot } from '../hooks/useChatBot';
@@ -12,24 +12,33 @@ interface ChatBotProps {
 }
 
 export const ChatBot = memo(function ChatBot({ isOpen, onToggle }: ChatBotProps) {
-  const { messages, isTyping, sendMessage, resetChat } = useChatBot();
+  const {
+    messages,
+    isTyping,
+    sendMessage,
+    resetChat,
+    feedback,
+    sendFeedback,
+    lastActions,
+  } = useChatBot();
+
   const [inputValue, setInputValue] = useState('');
   const hasUserMessage = messages.some((m) => m.role === 'user');
   const latestMessageRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
+    if (!isOpen) return;
 
-    latestMessageRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    // Scroll suave al último mensaje.
+    const scrollContainer = latestMessageRef.current?.closest('.chatbot__messages');
+    if (scrollContainer) {
+      scrollContainer.scrollTop = scrollContainer.scrollHeight;
+    }
   }, [isOpen, isTyping, messages]);
 
   useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
+    if (!isOpen) return;
 
     const focusTimer = window.setTimeout(() => {
       inputRef.current?.focus();
@@ -38,22 +47,39 @@ export const ChatBot = memo(function ChatBot({ isOpen, onToggle }: ChatBotProps)
     return () => window.clearTimeout(focusTimer);
   }, [isOpen]);
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const message = inputValue.trim();
-
-    if (!message || isTyping) {
-      return;
+  // Reiniciar input al cerrar el chat.
+  useEffect(() => {
+    if (!isOpen) {
+      setInputValue('');
     }
+  }, [isOpen]);
 
-    sendMessage(message);
-    setInputValue('');
-  };
+  const handleInputChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  }, []);
+
+  const handleSubmit = useCallback(
+    (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+
+      const message = inputValue.trim();
+
+      if (!message || isTyping) {
+        return;
+      }
+
+      sendMessage(message);
+      setInputValue('');
+    },
+    [inputValue, isTyping, sendMessage],
+  );
+
+  const handleAction = useCallback(
+    (actionValue: string) => {
+      sendMessage(actionValue);
+    },
+    [sendMessage],
+  );
 
   return (
     <aside className={`chatbot${isOpen ? ' chatbot--open' : ''}`} aria-label="Asistente virtual">
@@ -86,6 +112,7 @@ export const ChatBot = memo(function ChatBot({ isOpen, onToggle }: ChatBotProps)
                 className="chatbot__icon-button"
                 type="button"
                 aria-label="Reiniciar conversacion"
+                title="Reiniciar conversación"
                 onClick={resetChat}
               >
                 <span aria-hidden="true">↺</span>
@@ -94,6 +121,7 @@ export const ChatBot = memo(function ChatBot({ isOpen, onToggle }: ChatBotProps)
                 className="chatbot__icon-button"
                 type="button"
                 aria-label="Cerrar asistente"
+                title="Cerrar asistente"
                 onClick={onToggle}
               >
                 <span aria-hidden="true">×</span>
@@ -102,16 +130,37 @@ export const ChatBot = memo(function ChatBot({ isOpen, onToggle }: ChatBotProps)
           </header>
 
           <p className="chatbot__scope" id="mictlan-chatbot-scope">
-            Asistente técnico especializado en formulación arterial. Mi conocimiento abarca mezclas arteriales, índice, preservación, conversiones, aditivos, casos especiales (edema, ictericia, descomposición), seguridad y certificados.
+            Asistente técnico especializado en formulación arterial. Pregunta en lenguaje natural sobre mezclas, índices, aditivos, casos especiales y más.
           </p>
 
           <div className="chatbot__messages" aria-live="polite">
             {messages.map((message) => (
-              <ChatMessage key={message.id} message={message} />
+              <ChatMessage
+                key={message.id}
+                message={message}
+                feedback={feedback}
+                onFeedback={sendFeedback}
+              />
             ))}
 
             {!hasUserMessage && (
               <SuggestedQuestions onSelect={sendMessage} />
+            )}
+
+            {/* Acciones contextuales sugeridas para el último mensaje del bot. */}
+            {hasUserMessage && lastActions.length > 0 && !isTyping && (
+              <div className="chatbot__actions-contextual">
+                {lastActions.map((action) => (
+                  <button
+                    key={action.value}
+                    type="button"
+                    className="suggested-questions__chip chatbot__action-chip"
+                    onClick={() => handleAction(action.value)}
+                  >
+                    {action.label}
+                  </button>
+                ))}
+              </div>
             )}
 
             {isTyping && (

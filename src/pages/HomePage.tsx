@@ -1,18 +1,25 @@
 /**
  * Página principal.
  * Mantiene la estructura visual de página única del proyecto original.
+ *
+ * Mejora: el ChatBot se carga de forma diferida (lazy loading)
+ * mediante React.lazy y Suspense para no afectar el rendimiento inicial.
  */
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { FileBadge2 } from 'lucide-react';
 import { AudioPlayer } from '../components/AudioPlayer';
 import { EmbalmingCertificateModule } from '../components/EmbalmingCertificateModule';
 import { Calculator } from '../components/Calculator';
-import { ChatBot } from '../components/ChatBot';
 import { TutorialOverlay } from '../components/TutorialOverlay';
 import { LanguageSelector } from '../components/LanguageSelector';
 import { ThemeToggle } from '../components/ThemeToggle';
 import { assetUrl } from '../utils/paths';
+
+// Lazy loading del ChatBot: solo se carga cuando el usuario lo abre por primera vez.
+const ChatBot = lazy(() =>
+  import('../components/ChatBot').then((mod) => ({ default: mod.ChatBot })),
+);
 
 export function HomePage() {
   const [isCertificateModeOpen, setIsCertificateModeOpen] = useState(false);
@@ -130,7 +137,10 @@ export function HomePage() {
         isOpen={isTutorialOpen}
         onClose={() => setIsTutorialOpen(false)}
       />
-      <ChatBot isOpen={isChatOpen} onToggle={toggleChat} />
+      {/* Suspense con un fallback vacío mientras se carga el ChatBot. */}
+      <Suspense fallback={null}>
+        <ChatBot isOpen={isChatOpen} onToggle={toggleChat} />
+      </Suspense>
     </>
   );
 }

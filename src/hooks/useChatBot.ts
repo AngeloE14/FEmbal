@@ -1,16 +1,23 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { getLocalBotResponse } from '../utils/intentMatcher';
-import type { ChatMessage, ChatRole } from '../types/chat';
+import { getLocalBotResponse, getActionsForMessage } from '../utils/intentMatcher';
+import type { ChatMessage, ChatRole, KnowledgeAction } from '../types/chat';
 
-const LEGACY_CHAT_STORAGE_KEY = 'mictlan-ai.messages';
 const WELCOME_MESSAGE =
   'Soy Mictlan, asistente técnico especializado en formulación arterial. Mi conocimiento abarca mezclas arteriales, índice, preservación, aditivos, casos especiales y más. ¿En qué puedo ayudarte?';
+
+export interface FeedbackEntry {
+  readonly messageId: string;
+  readonly value: boolean;
+}
 
 interface UseChatBotResult {
   readonly messages: readonly ChatMessage[];
   readonly isTyping: boolean;
   readonly sendMessage: (content: string) => void;
   readonly resetChat: () => void;
+  readonly feedback: readonly FeedbackEntry[];
+  readonly sendFeedback: (messageId: string, useful: boolean) => void;
+  readonly lastActions: readonly KnowledgeAction[];
 }
 
 const createChatId = (): string =>
@@ -25,21 +32,11 @@ const createMessage = (role: ChatRole, content: string): ChatMessage => ({
 
 const createInitialMessages = (): ChatMessage[] => [createMessage('bot', WELCOME_MESSAGE)];
 
-const clearLegacyStoredMessages = (): void => {
-  if (typeof window === 'undefined') {
-    return;
-  }
-
-  try {
-    window.localStorage.removeItem(LEGACY_CHAT_STORAGE_KEY);
-  } catch {
-    // localStorage puede no estar disponible en modo privado o entornos restringidos.
-  }
-};
-
 export function useChatBot(): UseChatBotResult {
   const [messages, setMessages] = useState<ChatMessage[]>(createInitialMessages);
   const [isTyping, setIsTyping] = useState(false);
+  const [feedback, setFeedback] = useState<FeedbackEntry[]>([]);
+  const [lastActions, setLastActions] = useState<readonly KnowledgeAction[]>([]);
   const responseTimeoutRef = useRef<number | null>(null);
 
   const clearPendingResponse = useCallback(() => {
@@ -58,14 +55,22 @@ export function useChatBot(): UseChatBotResult {
       }
 
       const userMessage = createMessage('user', text);
-      const responseDelay = Math.min(600, Math.max(150, text.length * 12));
+
+      // Reducimos el delay de escritura: más rápido que antes.
+      const responseDelay = Math.min(250, Math.max(60, text.length * 4));
 
       clearPendingResponse();
       setMessages((currentMessages) => [...currentMessages, userMessage]);
       setIsTyping(true);
 
       responseTimeoutRef.current = window.setTimeout(() => {
-        const botMessage = createMessage('bot', getLocalBotResponse(text));
+        const responseText = getLocalBotResponse(text);
+        const botMessage = createMessage('bot', responseText);
+
+        // Obtener acciones contextuales para este mensaje.
+        const actions = getActionsForMessage(text) ?? [];
+        setLastActions(actions);
+
         setMessages((currentMessages) => [...currentMessages, botMessage]);
         setIsTyping(false);
         responseTimeoutRef.current = null;
@@ -76,13 +81,17 @@ export function useChatBot(): UseChatBotResult {
 
   const resetChat = useCallback(() => {
     clearPendingResponse();
-    clearLegacyStoredMessages();
     setIsTyping(false);
     setMessages(createInitialMessages());
+    setFeedback([]);
+    setLastActions([]);
   }, [clearPendingResponse]);
 
-  useEffect(() => {
-    clearLegacyStoredMessages();
+  const sendFeedback = useCallback((messageId: string, useful: boolean) => {
+    setFeedback((prev) => {
+      const filtered = prev.filter((f) => f.messageId !== messageId);
+      return [...filtered, { messageId, value: useful }];
+    });
   }, []);
 
   useEffect(() => clearPendingResponse, [clearPendingResponse]);
@@ -92,5 +101,8 @@ export function useChatBot(): UseChatBotResult {
     isTyping,
     sendMessage,
     resetChat,
+    feedback,
+    sendFeedback,
+    lastActions,
   };
 }
