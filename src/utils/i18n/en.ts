@@ -1,8 +1,6 @@
 const translations: Record<string, string> = {
   'hero.title': 'Arterial Solution Calculator',
   'hero.subtitle': 'Set the parameters and get the result.',
-  'development.notice.label': 'Site in development',
-  'development.notice.text': 'Features and frequent changes are being added.',
   'form.concentrado.label': 'Bottle chemical concentration (%)',
   'form.concentrado.placeholder': 'e.g. 30',
   'form.select.label': 'Select an arterial chemical',

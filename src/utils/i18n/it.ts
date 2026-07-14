@@ -1,8 +1,6 @@
 const translations: Record<string, string> = {
   'hero.title': 'Calcolatrice Soluzione Arteriosa',
   'hero.subtitle': 'Imposta i parametri e ottieni il risultato.',
-  'development.notice.label': 'Sito in sviluppo',
-  'development.notice.text': 'Stiamo aggiungendo funzioni e modifiche frequenti.',
   'form.concentrado.label': 'Concentrazione chimica in bottiglia (%)',
   'form.concentrado.placeholder': 'es. 30',
   'form.select.label': 'Seleziona un chimico arterioso',

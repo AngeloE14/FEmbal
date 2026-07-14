@@ -5,7 +5,6 @@
 
 import { memo } from 'react';
 import '../styles/components/Calculator.css';
-import { DevelopmentNotice } from './DevelopmentNotice';
 import { Footer } from './Footer';
 import { FormSection } from './FormSection';
 import { Header } from './Header';
@@ -15,7 +14,6 @@ export const Calculator = memo(function Calculator() {
   return (
     <>
       <Header />
-      <DevelopmentNotice />
       <section className="layout">
         <FormSection />
         <ResultsSection />

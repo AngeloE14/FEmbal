@@ -85,13 +85,6 @@ export function HomePage() {
             </>
           )}
         </button>
-        <span className="wc-badge" aria-hidden="true">
-          <span className="wc-badge__icon wc-badge__icon--cup">🏆</span>
-          <span className="wc-badge__icon wc-badge__icon--ball">⚽</span>
-          <span className="wc-badge__year wc-badge__year--2">2</span>
-          <span className="wc-badge__year wc-badge__year--0">0</span>
-          <span className="wc-badge__year wc-badge__year--26">26</span>
-        </span>
         {isToolsOpen && (
           <div className="floating-tools__items">
             <LanguageSelector onClose={closeTools} />
