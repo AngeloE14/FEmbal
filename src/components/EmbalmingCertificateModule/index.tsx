@@ -1,0 +1,173 @@
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { useI18n } from '../../hooks/useI18n';
+import { CertificateForm } from './CertificateForm';
+import { CertificatePreview } from './CertificatePreview';
+import './EmbalmingCertificateModule.css';
+import { PdfActions } from './PdfActions';
+import { useCertificateData } from './hooks/useCertificateData';
+import { useCertificateSync } from './hooks/useCertificateSync';
+
+const EmbalmingCertificateModule = memo(function EmbalmingCertificateModule({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) {
+  const { t } = useI18n();
+  const { certificateData: manualCertificateData, resetCertificate, updateField } = useCertificateData();
+  const certificateData = useCertificateSync(manualCertificateData);
+  const previewRef = useRef<HTMLDivElement | null>(null);
+  const [isDataConfirmed, setIsDataConfirmed] = useState(false);
+
+  useEffect(() => {
+    setIsDataConfirmed(false);
+  }, [certificateData]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const formPanel = document.querySelector<HTMLElement>('.certificate-module__form-panel');
+    if (!formPanel) return;
+
+    const isMobile = () => window.innerWidth < 980;
+
+    const handleFocusIn = (event: FocusEvent) => {
+      if (!isMobile()) return;
+      const target = event.target as HTMLElement;
+      const isFormField = target.matches('input, textarea, select');
+      if (!isFormField) return;
+
+      setTimeout(() => {
+        const panelRect = formPanel.getBoundingClientRect();
+        const fieldRect = target.getBoundingClientRect();
+        const isBelowViewport = fieldRect.bottom > panelRect.bottom;
+        const isAboveViewport = fieldRect.top < panelRect.top;
+
+        if (isBelowViewport || isAboveViewport) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          formPanel.scrollTop -= 20;
+        }
+      }, 350);
+    };
+
+    formPanel.addEventListener('focusin', handleFocusIn);
+    return () => formPanel.removeEventListener('focusin', handleFocusIn);
+  }, [isOpen]);
+
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    },
+    [onClose],
+  );
+
+  const handleConfirmData = useCallback(() => {
+    setIsDataConfirmed(true);
+  }, []);
+
+  const handleBackToForm = useCallback(() => {
+    setIsDataConfirmed(false);
+  }, []);
+
+  const handleReset = useCallback(() => {
+    setIsDataConfirmed(false);
+    resetCertificate();
+  }, [resetCertificate]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      return undefined;
+    }
+
+    const mobileQuery = window.matchMedia('(max-width: 980px)');
+    const previousOverflow = document.body.style.overflow;
+    if (!mobileQuery.matches) {
+      document.body.style.overflow = 'hidden';
+    }
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleKeyDown, isOpen]);
+
+  if (!isOpen) {
+    return null;
+  }
+
+  return createPortal(
+    <>
+      <div className="certificate-module" role="dialog" aria-modal="true" aria-labelledby="certificate-module-title">
+        <div className="certificate-module__topbar">
+          <div>
+            <span>{t('certificate.mode')}</span>
+            <h1 id="certificate-module-title">{t('certificate.title')}</h1>
+          </div>
+          <div className="certificate-topbar-actions">
+            <button className="certificate-reset-action" type="button" onClick={handleReset}>
+              {t('certificate.reset')}
+            </button>
+            <button className="certificate-close-action" type="button" onClick={onClose}>
+              ✕
+            </button>
+          </div>
+        </div>
+
+        <div className="certificate-module__workspace">
+          <aside className="certificate-module__form-panel">
+            <CertificateForm
+              data={certificateData}
+              onUpdate={updateField}
+            />
+            {!isDataConfirmed && (
+              <div className="certificate-preview-empty" aria-live="polite">
+                <strong>{t('certificate.confirm.title')}</strong>
+                <span>{t('certificate.confirm.desc')}</span>
+                <button className="certificate-primary-action" type="button" onClick={handleConfirmData}>
+                  {t('certificate.confirm.btn')}
+                </button>
+              </div>
+            )}
+          </aside>
+
+          <section className="certificate-module__preview-panel" aria-label="Vista previa del documento">
+          </section>
+        </div>
+      </div>
+
+      {isDataConfirmed && (
+        <div className="certificate-confirm-modal" role="dialog" aria-modal="true">
+          <div className="certificate-confirm-modal__panel">
+            <div className="certificate-confirm-modal__head">
+              <div>
+                <span>{t('certificate.preview')}</span>
+                <h2>{t('certificate.preview.title')}</h2>
+              </div>
+              <button
+                aria-label={t('certificate.back')}
+                className="certificate-secondary-action"
+                type="button"
+                onClick={handleBackToForm}
+              >
+                {t('certificate.back')}
+              </button>
+            </div>
+            <div className="certificate-confirm-modal__preview">
+              <CertificatePreview ref={previewRef} data={certificateData} />
+            </div>
+            <div className="certificate-confirm-modal__actions">
+              <PdfActions certificateData={certificateData} previewRef={previewRef} />
+            </div>
+          </div>
+        </div>
+      )}
+    </>,
+    document.body,
+  );
+});
+
+export { EmbalmingCertificateModule };

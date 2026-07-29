@@ -1,0 +1,302 @@
+.logo-head {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 1.4rem 0.62rem;
+}
+
+.logo-season {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+}
+
+.logo-season::before,
+.logo-season::after {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.logo-season--summer::before {
+  inset: -6px;
+  background: conic-gradient(
+    from 0deg,
+    rgba(212, 175, 55, 0.06) 0deg,
+    rgba(212, 175, 55, 0.06) 50deg,
+    rgba(255, 215, 0, 0.20) 68deg,
+    rgba(255, 215, 0, 0.50) 80deg,
+    rgba(255, 255, 240, 0.80) 88deg,
+    rgba(255, 215, 0, 0.60) 94deg,
+    rgba(255, 215, 0, 0.25) 102deg,
+    rgba(212, 175, 55, 0.10) 120deg,
+    rgba(212, 175, 55, 0.06) 150deg,
+    rgba(212, 175, 55, 0.06) 360deg
+  );
+  box-shadow: none;
+}
+
+.logo-season--summer::after {
+  inset: -6px;
+  border: 2px solid rgba(212, 175, 55, 0.50);
+  box-shadow:
+    0 0 0 4px rgba(212, 175, 55, 0.08),
+    0 0 20px rgba(212, 175, 55, 0.16);
+  will-change: transform;
+}
+
+/* ============================================
+   1. Sparkles (12 partículas)
+   - Cada sparkle es un span circular con posición absoluta.
+   - Se personalizan vía custom properties:
+     --dx1 / --dx2 : deriva horizontal en S (curva en dos fases)
+     --sp-color    : tono dorado variable (12 colores distintos)
+     --sparkle-delay / --sparkle-duration : escalonamiento
+   - @keyframes summer-sparkle-drift:
+     0%   → aparece en centro con scale(0.3)
+     6%   → opacidad 1, scale(1)
+     20%  → primera deriva (--dx1), baja opacidad (twinkle)
+     38%  → segunda deriva (--dx2), recupera opacidad
+     55%  → sigue en --dx2, baja opacidad
+     75%  → regresa a centro (0px), sube opacidad
+     100% → desaparece al llegar abajo
+   - El box-shadow se adapta al color con color-mix().
+   - will-change: transform, opacity para GPU.
+   ============================================ */
+.summer-sparkles {
+  position: absolute;
+  inset: -4px;
+  pointer-events: none;
+  z-index: 2;
+  contain: layout paint;
+}
+
+.summer-sparkle {
+  --sparkle-size: 8px;
+  --sparkle-delay: 0s;
+  --sparkle-duration: 5s;
+  --sparkle-drop-y: 100px;
+  --dx1: 16px;
+  --dx2: -10px;
+  --sp-color: rgba(255, 225, 130, 0.95);
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  width: var(--sparkle-size);
+  height: var(--sparkle-size);
+  border-radius: 50%;
+  background: var(--sp-color);
+  box-shadow: 0 0 6px 2px color-mix(in srgb, var(--sp-color) 50%, transparent);
+  opacity: 0;
+  transform: translate3d(0, -4px, 0);
+}
+
+@supports not (color-mix(in srgb, red, transparent)) {
+  .summer-sparkle {
+    box-shadow: 0 0 6px 2px rgba(255, 200, 80, 0.35);
+  }
+}
+
+.summer-sparkle {
+  animation: summer-sparkle-drift var(--sparkle-duration) ease-in-out infinite;
+  animation-delay: var(--sparkle-delay);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .summer-sparkle {
+    will-change: transform, opacity;
+  }
+}
+
+.summer-sparkle--1 {
+  left: 6%;
+  --sparkle-delay: 0s;
+  --sparkle-duration: 5.2s;
+  --sparkle-size: 7px;
+  --dx1: -14px;
+  --dx2: 8px;
+  --sp-color: rgba(255, 225, 130, 0.95);
+}
+
+.summer-sparkle--2 {
+  left: 16%;
+  --sparkle-delay: 1.4s;
+  --sparkle-duration: 4.5s;
+  --sparkle-size: 6px;
+  --dx1: 12px;
+  --dx2: -6px;
+  --sp-color: rgba(255, 200, 80, 0.95);
+}
+
+.summer-sparkle--3 {
+  left: 26%;
+  --sparkle-delay: 0.7s;
+  --sparkle-duration: 5.8s;
+  --sparkle-size: 8px;
+  --dx1: -18px;
+  --dx2: 10px;
+  --sp-color: rgba(255, 240, 180, 0.95);
+}
+
+.summer-sparkle--4 {
+  left: 36%;
+  --sparkle-delay: 2.2s;
+  --sparkle-duration: 4.8s;
+  --sparkle-size: 5px;
+  --dx1: 14px;
+  --dx2: -12px;
+  --sp-color: rgba(255, 180, 60, 0.95);
+}
+
+.summer-sparkle--5 {
+  left: 46%;
+  --sparkle-delay: 1.1s;
+  --sparkle-duration: 5.5s;
+  --sparkle-size: 9px;
+  --dx1: -10px;
+  --dx2: 14px;
+  --sp-color: rgba(255, 215, 150, 0.95);
+}
+
+.summer-sparkle--6 {
+  left: 56%;
+  --sparkle-delay: 2.8s;
+  --sparkle-duration: 5s;
+  --sparkle-size: 6px;
+  --dx1: 16px;
+  --dx2: -8px;
+  --sp-color: rgba(255, 235, 100, 0.95);
+}
+
+.summer-sparkle--7 {
+  left: 66%;
+  --sparkle-delay: 0.5s;
+  --sparkle-duration: 4.2s;
+  --sparkle-size: 7px;
+  --dx1: -12px;
+  --dx2: 6px;
+  --sp-color: rgba(255, 220, 140, 0.95);
+}
+
+.summer-sparkle--8 {
+  left: 76%;
+  --sparkle-delay: 1.8s;
+  --sparkle-duration: 5.3s;
+  --sparkle-size: 5px;
+  --dx1: 10px;
+  --dx2: -14px;
+  --sp-color: rgba(255, 195, 85, 0.95);
+}
+
+.summer-sparkle--9 {
+  left: 86%;
+  --sparkle-delay: 0.3s;
+  --sparkle-duration: 4.7s;
+  --sparkle-size: 8px;
+  --dx1: -16px;
+  --dx2: 12px;
+  --sp-color: rgba(255, 245, 200, 0.95);
+}
+
+.summer-sparkle--10 {
+  left: 94%;
+  --sparkle-delay: 2.5s;
+  --sparkle-duration: 5.6s;
+  --sparkle-size: 6px;
+  --dx1: 8px;
+  --dx2: -10px;
+  --sp-color: rgba(255, 210, 70, 0.95);
+}
+
+.summer-sparkle--11 {
+  left: 10%;
+  --sparkle-delay: 1.6s;
+  --sparkle-duration: 4.3s;
+  --sparkle-size: 7px;
+  --dx1: -20px;
+  --dx2: 16px;
+  --sp-color: rgba(255, 230, 160, 0.95);
+}
+
+.summer-sparkle--12 {
+  left: 40%;
+  --sparkle-delay: 3.2s;
+  --sparkle-duration: 5.9s;
+  --sparkle-size: 5px;
+  --dx1: 18px;
+  --dx2: -8px;
+  --sp-color: rgba(255, 185, 75, 0.95);
+}
+
+@keyframes summer-sparkle-drift {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -6px, 0) scale(0.3);
+  }
+  6% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  20% {
+    opacity: 0.6;
+    transform: translate3d(var(--dx1), calc(var(--sparkle-drop-y) * 0.15), 0) scale(0.85);
+  }
+  38% {
+    opacity: 0.9;
+    transform: translate3d(var(--dx2), calc(var(--sparkle-drop-y) * 0.35), 0) scale(0.75);
+  }
+  55% {
+    opacity: 0.4;
+    transform: translate3d(var(--dx2), calc(var(--sparkle-drop-y) * 0.55), 0) scale(0.6);
+  }
+  75% {
+    opacity: 0.8;
+    transform: translate3d(0px, calc(var(--sparkle-drop-y) * 0.78), 0) scale(0.7);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0px, var(--sparkle-drop-y), 0) scale(0.15);
+  }
+}
+
+.logo-head img {
+  position: relative;
+  z-index: 1;
+  width: min(220px, 56vw);
+  aspect-ratio: 1 / 1;
+  height: auto;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+}
+
+.logo-season--summer::before {
+  animation: orbit-spin 6s linear infinite;
+}
+/* shimmer del anillo */
+.logo-season--summer::after {
+  animation: ring-shimmer 4s ease-in-out infinite;
+}
+@keyframes ring-shimmer {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow:
+      0 0 0 4px rgba(212, 175, 55, 0.08),
+      0 0 20px rgba(212, 175, 55, 0.16);
+  }
+  50% {
+    transform: scale(1.035);
+    box-shadow:
+      0 0 0 6px rgba(212, 175, 55, 0.16),
+      0 0 32px rgba(212, 175, 55, 0.32);
+  }
+}
+
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

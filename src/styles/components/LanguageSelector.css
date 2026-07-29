@@ -1,0 +1,515 @@
+.floating-tools {
+  position: fixed;
+  top: calc(0.75rem + env(safe-area-inset-top));
+  right: calc(0.75rem + env(safe-area-inset-right));
+  z-index: 100;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0 0.45rem 0 0;
+  border-radius: 999px;
+  border: 1px solid var(--toggle-float-border);
+  background: color-mix(in srgb, var(--toggle-float-bg) 94%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  /* contain layout style (sin paint: no recortar dropdowns absolutos) */
+  contain: layout style;
+  isolation: isolate;
+}
+
+.floating-tools__toggle {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 2px solid var(--toggle-glow);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--toggle-float-text);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  flex-shrink: 0;
+  box-shadow:
+    0 0 22px var(--toggle-glow),
+    0 2px 8px rgba(0, 0, 0, 0.15);
+  animation: toggle-pulse 2.8s ease-in-out infinite;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  /* contain: limita el área de pintado del botón para GPU */
+  contain: layout style paint;
+}
+
+.floating-tools__toggle:hover,
+.floating-tools__toggle:focus-visible,
+.floating-tools__toggle:active {
+  outline: none;
+  transform: scale(1.1);
+  border-color: var(--toggle-glow);
+  box-shadow:
+    0 0 36px var(--toggle-glow),
+    0 2px 12px rgba(0, 0, 0, 0.2);
+  animation: none;
+}
+
+.floating-tools__logo {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+@keyframes toggle-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 14px var(--toggle-glow),
+      0 2px 8px rgba(0, 0, 0, 0.12);
+  }
+  50% {
+    box-shadow:
+      0 0 32px var(--toggle-glow),
+      0 2px 10px rgba(0, 0, 0, 0.18);
+  }
+}
+
+
+
+
+
+.floating-tools__items {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.6rem;
+  animation: tools-items-in 0.15s ease both;
+  transform-origin: right center;
+}
+
+.floating-tools__items > button,
+.floating-tools__items .language-selector__toggle {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: none;
+  color: var(--toggle-float-text);
+  cursor: pointer;
+  touch-action: manipulation;
+  opacity: 0.55;
+  transition: opacity 0.12s ease, background-color 0.12s ease;
+  line-height: 1;
+}
+
+.floating-tools__items > button:hover,
+.floating-tools__items > button:focus-visible,
+.floating-tools__items .language-selector__toggle:hover,
+.floating-tools__items .language-selector__toggle:focus-visible {
+  opacity: 0.95;
+  outline: none;
+  background: color-mix(in srgb, var(--toggle-float-text) 7%, transparent);
+}
+
+.floating-tools__items > .language-selector {
+  display: flex;
+  align-items: center;
+}
+
+.floating-tools__items .language-selector__flag {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.floating-tools__items .theme-toggle__icon {
+  width: 1.3rem;
+  height: 1.3rem;
+  font-size: 0.85rem;
+}
+
+.floating-tools__items .certificate-mode-toggle__icon svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.floating-tools__items .theme-toggle__text {
+  display: none;
+}
+
+.floating-tools__tutorial-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--toggle-float-text);
+  cursor: pointer;
+  touch-action: manipulation;
+  opacity: 0.45;
+  font-size: 1.15rem;
+  line-height: 1;
+  transition: opacity 0.18s ease, background-color 0.18s ease;
+}
+
+.floating-tools__tutorial-btn:hover,
+.floating-tools__tutorial-btn:focus-visible {
+  outline: none;
+  opacity: 0.85;
+  background: color-mix(in srgb, var(--toggle-float-text) 8%, transparent);
+}
+
+.floating-tools__tutorial-btn:active {
+  opacity: 1;
+}
+
+.chatbot-toggle {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--toggle-float-text) 10%, transparent);
+  color: var(--toggle-float-text);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background-color 0.12s ease, transform 0.12s ease;
+  animation: chatbot-toggle-breathe 3s ease-in-out infinite;
+}
+
+.chatbot-toggle__icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.chatbot-toggle:hover,
+.chatbot-toggle:focus-visible {
+  outline: none;
+  background: color-mix(in srgb, var(--toggle-float-text) 20%, transparent);
+  transform: scale(1.1);
+  animation: none;
+}
+
+.chatbot-toggle--open {
+  background: color-mix(in srgb, var(--toggle-float-text) 25%, transparent);
+  animation: none;
+}
+
+@keyframes chatbot-toggle-breathe {
+  0%, 100% {
+    background: color-mix(in srgb, var(--toggle-float-text) 10%, transparent);
+  }
+  50% {
+    background: color-mix(in srgb, var(--toggle-float-text) 18%, transparent);
+  }
+}
+
+@keyframes tools-items-in {
+  from {
+    /* scaleX(0) desde la derecha: revela items sin clip-path (no corta dropdowns) */
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+.language-selector {
+  position: relative;
+}
+
+.language-selector__toggle {
+  display: block;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+  line-height: 1;
+  transition: transform 0.15s ease;
+}
+
+.language-selector__toggle:hover,
+.language-selector__toggle:focus-visible {
+  transform: scale(1.15);
+  outline: none;
+}
+
+.language-selector__flag {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.language-selector__code {
+  font-size: 0.6rem;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0.6;
+}
+
+.language-selector__arrow {
+  display: none;
+}
+
+.floating-tools__items .language-selector__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  width: auto;
+  min-width: 2rem;
+  padding: 0 0.3rem;
+}
+
+.language-selector__menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 170px;
+  background: var(--toggle-float-bg);
+  border: 1px solid var(--toggle-float-border);
+  border-radius: 12px;
+  padding: 0.35rem;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+  z-index: 101;
+}
+
+.language-selector__option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--toggle-float-text);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background-color 0.12s ease;
+}
+
+.language-selector__option:hover,
+.language-selector__option:focus-visible {
+  background: var(--toggle-float-hover);
+  outline: none;
+}
+
+.language-selector__option--active {
+  font-weight: 700;
+  background: color-mix(in srgb, var(--toggle-float-text) 10%, transparent);
+}
+
+.language-selector__option-flag {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.language-selector__option-code {
+  font-size: 0.7rem;
+  font-weight: 600;
+  opacity: 0.5;
+  min-width: 1.8rem;
+}
+
+@media (max-width: 680px) {
+  .floating-tools {
+    top: calc(0.35rem + env(safe-area-inset-top));
+    right: calc(0.35rem + env(safe-area-inset-right));
+  }
+
+  .floating-tools__toggle {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .floating-tools__logo {
+    width: 1.7rem;
+    height: 1.7rem;
+  }
+
+  .floating-tools__items > button,
+  .floating-tools__items .language-selector__toggle,
+  .floating-tools__tutorial-btn,
+  .chatbot-toggle {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .floating-tools__items .language-selector__toggle {
+    min-width: 2.25rem;
+  }
+
+  .chatbot-toggle__icon {
+    font-size: 1.2rem;
+  }
+
+  .floating-tools__tutorial-btn {
+    font-size: 1.25rem;
+  }
+
+  .floating-tools__items .certificate-mode-toggle__icon svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+@media (max-width: 520px) {
+  .language-selector__flag {
+    font-size: 1.3rem;
+  }
+
+  .floating-tools__items {
+    padding: 0.35rem 0.4rem;
+    gap: 0.35rem;
+  }
+
+  .floating-tools__items > button,
+  .floating-tools__items .language-selector__toggle,
+  .floating-tools__tutorial-btn,
+  .chatbot-toggle {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .floating-tools__items .language-selector__toggle {
+    min-width: 2rem;
+  }
+
+  .chatbot-toggle__icon {
+    font-size: 1.1rem;
+  }
+
+  .floating-tools__tutorial-btn {
+    font-size: 1.15rem;
+  }
+
+  .floating-tools__items .certificate-mode-toggle__icon svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .floating-tools__items > button:hover,
+  .floating-tools__items .language-selector__toggle:hover,
+  .floating-tools__tutorial-btn:hover,
+  .chatbot-toggle:hover {
+    opacity: inherit;
+    background: none;
+  }
+
+  .floating-tools__tutorial-btn:hover {
+    opacity: inherit;
+    background: transparent;
+  }
+
+  .chatbot-toggle {
+    animation: none;
+  }
+
+  .chatbot-toggle:hover {
+    background: color-mix(in srgb, var(--toggle-float-text) 10%, transparent);
+    transform: none;
+  }
+
+  .chatbot-toggle--open {
+    background: color-mix(in srgb, var(--toggle-float-text) 25%, transparent);
+  }
+}
+
+/* Logo + mano alternan: logo 1-40% → cross-fade → hand 50-90% → cross-fade
+   animation-delay -3s: inicia en mitad del ciclo (hand visible inmediatamente). */
+.floating-tools__logo {
+  opacity: 0;
+  animation: logo-cycle 6s ease-in-out infinite;
+  animation-delay: -3s;
+  animation-fill-mode: backwards;
+}
+
+.floating-tools__hand-box {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 1;
+  animation: hand-cycle 6s ease-in-out infinite;
+  animation-delay: -3s;
+  animation-fill-mode: backwards;
+}
+
+/* badge de mano wave sobre el logo del botón menú */
+.floating-tools__hand {
+  font-size: 1.3rem;
+  line-height: 1;
+  animation: wave-hand 2.4s ease-in-out infinite;
+  transform-origin: 70% 80%;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.5));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .floating-tools__logo {
+    will-change: transform, opacity;
+  }
+  .floating-tools__hand-box,
+  .floating-tools__hand {
+    will-change: transform, opacity;
+  }
+  .chatbot-toggle {
+    will-change: background-color;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chatbot-toggle {
+    animation: none;
+  }
+}
+
+@keyframes logo-cycle {
+  /* logo visible 0-2.5s → fade out 2.5-3.5s → oculto 3.5-5.5s → fade in 5.5-6s */
+  0%, 40%  { opacity: 1; transform: scale(1); }
+  50%, 90% { opacity: 0; transform: scale(0.6); }
+  100%     { opacity: 1; transform: scale(1); }
+}
+
+@keyframes hand-cycle {
+  /* mano oculta 0-2.5s → fade in 2.5-3.5s → visible 3.5-5.5s → fade out 5.5-6s */
+  0%, 40%  { opacity: 0; transform: scale(0.6); }
+  50%, 90% { opacity: 1; transform: scale(1); }
+  100%     { opacity: 0; transform: scale(0.6); }
+}
+
+@keyframes wave-hand {
+  /* onda natural de muñeca: rota desde el origen 70% 80% (base de la palma) */
+  0%, 100% { transform: rotate(0deg); }
+  15%      { transform: rotate(16deg); }
+  30%      { transform: rotate(-6deg); }
+  45%      { transform: rotate(10deg); }
+  60%      { transform: rotate(-2deg); }
+  75%      { transform: rotate(4deg); }
+}

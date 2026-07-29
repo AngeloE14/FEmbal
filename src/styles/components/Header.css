@@ -1,0 +1,4 @@
+.header-cover {
+  background: linear-gradient(120deg, var(--hero-bg-a), var(--hero-bg-b));
+  contain: layout paint style;
+}

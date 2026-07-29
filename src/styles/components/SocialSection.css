@@ -1,0 +1,208 @@
+.redes-sociales {
+  margin: 0.25rem 1.2rem 1.2rem;
+  padding: 0.5rem 0;
+  position: relative;
+}
+
+.redes-sociales > * {
+  position: relative;
+  z-index: 1;
+}
+
+.redes-sociales__titulo {
+  margin: 0 0 0.8rem;
+  font-size: 0.78rem;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--notes-strong);
+  opacity: 0.5;
+}
+
+.redes-sociales__lista {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.4rem;
+}
+
+.redes-sociales__enlace {
+  --social-accent: #247f68;
+  --social-accent-soft: rgba(36, 127, 104, 0.22);
+  width: 100%;
+  min-height: 3.2rem;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.6rem 0.7rem;
+  border-radius: 10px;
+  color: var(--input-text);
+  text-decoration: none;
+  touch-action: manipulation;
+  transform: translate3d(0, 0, 0);
+  transition:
+    transform 0.18s ease,
+    background-color 0.16s ease,
+    color 0.16s ease;
+}
+
+:root[data-theme="dark"] .redes-sociales__enlace {
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .redes-sociales__enlace {
+  }
+}
+
+.redes-sociales__enlace--instagram {
+  --social-accent: #d62976;
+  --social-accent-soft: rgba(214, 41, 118, 0.22);
+}
+
+.redes-sociales__enlace--tiktok {
+  --social-accent: #37eaff;
+  --social-accent-soft: rgba(55, 234, 255, 0.24);
+}
+
+.redes-sociales__enlace--youtube {
+  --social-accent: #ff0033;
+  --social-accent-soft: rgba(255, 0, 51, 0.24);
+}
+
+.redes-sociales__enlace--correo {
+  --social-accent: #1c9879;
+  --social-accent-soft: rgba(28, 152, 121, 0.24);
+}
+
+.redes-sociales__icono {
+  inline-size: 1.8rem;
+  block-size: 1.8rem;
+  display: grid;
+  place-items: center;
+}
+
+.redes-sociales__enlace img,
+.redes-sociales__enlace svg {
+  inline-size: 18px;
+  block-size: 18px;
+  display: block;
+  flex-shrink: 0;
+}
+
+.redes-sociales__enlace img {
+  object-fit: contain;
+}
+
+.redes-sociales__enlace svg {
+  fill: currentColor;
+  color: var(--social-accent);
+}
+
+.redes-sociales__texto {
+  min-width: 0;
+  display: grid;
+  gap: 0.14rem;
+}
+
+.redes-sociales__nombre {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.15px;
+  line-height: 1.15;
+}
+
+.redes-sociales__meta {
+  font-size: 0.74rem;
+  line-height: 1.18;
+  color: var(--notes);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.redes-sociales__cta {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--social-accent);
+  opacity: 0.78;
+  transition: transform 0.16s ease, opacity 0.16s ease;
+}
+
+.redes-sociales__enlace:focus-visible {
+  outline: none;
+  background: color-mix(in srgb, var(--card) 80%, var(--social-accent) 20%);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .redes-sociales__enlace:hover {
+    background: color-mix(in srgb, var(--card) 70%, var(--social-accent) 30%);
+  }
+
+  .redes-sociales__enlace:hover .redes-sociales__cta,
+  .redes-sociales__enlace:focus-visible .redes-sociales__cta {
+    transform: translate3d(2px, 0, 0);
+    opacity: 1;
+  }
+}
+
+.redes-sociales__enlace:active {
+  transform: scale(0.99);
+}
+
+@media (max-width: 1000px) {
+  .redes-sociales__lista {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .redes-sociales {
+    margin: 0.25rem 0.75rem 0.75rem;
+    padding: 0.25rem 0;
+  }
+
+  .redes-sociales__titulo {
+    display: none;
+  }
+
+  .redes-sociales__lista {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.3rem;
+  }
+
+  .redes-sociales__enlace {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.4rem 0.3rem;
+    min-height: unset;
+  }
+
+  .redes-sociales__icono {
+    inline-size: 1.4rem;
+    block-size: 1.4rem;
+  }
+
+  .redes-sociales__enlace img,
+  .redes-sociales__enlace svg {
+    inline-size: 16px;
+    block-size: 16px;
+  }
+
+  .redes-sociales__texto {
+    gap: 0;
+  }
+
+  .redes-sociales__nombre {
+    font-size: 0.62rem;
+    text-align: center;
+    line-height: 1.1;
+  }
+
+  .redes-sociales__meta,
+  .redes-sociales__cta {
+    display: none;
+  }
+}
