@@ -8,7 +8,7 @@ import '../styles/components/ResultsSection.css';
 import { useCalculatorResults } from '../hooks/useCalculator';
 import { useI18n } from '../hooks/useI18n';
 import { formatMlAndOz, formatNumber } from '../utils/formatters';
-import { MixProgress } from './MixProgress';
+import { MixChart } from './MixChart';
 import { ShareActions } from './ShareActions';
 
 const FORMULA_TOKEN_REGEX = /(C1·V1|C2·V2|C1|C2|V1|V2|->|=|\bx\b|\d+(?:[.,]\d+)?\s?(?:kg|gal|ml|L|fl oz|psi|%))/g;
@@ -108,20 +108,16 @@ export const ResultsSection = memo(function ResultsSection() {
       </div>
 
       {hasResult ? (
-        <MixProgress arterialMl={arterialMl} waterMl={waterMl} totalSolutionMl={totalSolutionMl} />
+        <MixChart arterialMl={arterialMl} waterMl={waterMl} totalSolutionMl={totalSolutionMl} />
       ) : (
-        <div className="mix-progress bloque-mezcla" aria-live="polite">
-          <div className="mix-progress__head">
-            <span id="mixChemicalPct">{t('results.arterial.empty')}</span>
-            <span id="mixWaterPct">{t('results.water.empty')}</span>
-          </div>
-          <div className="mix-progress__track" role="img" aria-label={t('mix.aria')}>
-            <div className="mix-progress__bar mix-progress__bar--chemical" id="mixChemicalBar"></div>
-            <div className="mix-progress__bar mix-progress__bar--water" id="mixWaterBar"></div>
-          </div>
-          <p className="mix-progress__explain" id="mixExplain">
-            {t('results.empty.explain')}
-          </p>
+        <div className="mix-chart mix-chart--empty" aria-live="polite">
+          <figure className="mix-chart__figure">
+            <svg width={140} height={140} viewBox="0 0 140 140" className="mix-chart__svg" role="img" aria-label={t('mix.aria')}>
+              <circle className="mix-chart__track" cx={70} cy={70} r={59} fill="none" strokeWidth={22} />
+              <text className="mix-chart__value" x={70} y={70} textAnchor="middle" dominantBaseline="central">—</text>
+            </svg>
+          </figure>
+          <p className="mix-chart__description">{t('results.empty.explain')}</p>
         </div>
       )}
 
