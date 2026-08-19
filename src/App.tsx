@@ -10,6 +10,7 @@ import { I18nProvider } from './hooks/useI18n';
 import { HomePage } from './pages/HomePage';
 import { InstallPrompt } from './components/InstallPrompt';
 import { UpdateToast } from './components/UpdateToast';
+import { WhatsNewToast } from './components/WhatsNewToast';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <HomePage />
         <InstallPrompt />
         <UpdateToast />
+        <WhatsNewToast />
       </CalculatorProvider>
     </I18nProvider>
   );
