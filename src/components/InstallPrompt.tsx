@@ -53,6 +53,7 @@ export function InstallPrompt() {
         <div className="install-banner__text">
           <strong>Instalar ESAMS</strong>
           <span>Agrega la app a tu pantalla de inicio</span>
+          <span className="install-banner__hint">Te avisaremos cuando haya funciones nuevas</span>
         </div>
         <button
           className="install-banner__btn"
