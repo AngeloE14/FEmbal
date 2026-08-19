@@ -8,12 +8,16 @@
 import { CalculatorProvider } from './hooks/useCalculatorContext';
 import { I18nProvider } from './hooks/useI18n';
 import { HomePage } from './pages/HomePage';
+import { InstallPrompt } from './components/InstallPrompt';
+import { UpdateToast } from './components/UpdateToast';
 
 function App() {
   return (
     <I18nProvider>
       <CalculatorProvider>
         <HomePage />
+        <InstallPrompt />
+        <UpdateToast />
       </CalculatorProvider>
     </I18nProvider>
   );

@@ -2,6 +2,7 @@
   "name": "ESAMS | Formulador Arterial",
   "short_name": "ESAMS",
   "description": "Calculadora profesional de solución arterial para embalsamamiento",
+  "version": "2.1.0",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#0f1720",
