@@ -1067,7 +1067,7 @@ input,
 /* ── Install Banner ─────────────────────────────────────── */
 .install-banner {
   position: fixed;
-  bottom: 0;
+  bottom: 140px;
   left: 0;
   right: 0;
   z-index: 1000;
@@ -1160,7 +1160,7 @@ input,
 /* ── Update Toast ───────────────────────────────────────── */
 .update-toast {
   position: fixed;
-  bottom: 0;
+  bottom: 70px;
   left: 0;
   right: 0;
   z-index: 1001;
