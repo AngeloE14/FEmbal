@@ -8,7 +8,7 @@ const SHELL_ASSETS = [
   "./index.html",
   "./assets/css/style.css",
   "./assets/js/script.js",
-  "./assets/images/logo-circular.png",
+  "./assets/images/logo-circular.webp",
   "./assets/images/favicon.ico?v=2",
   "./assets/images/favicon.png?v=2",
 ];

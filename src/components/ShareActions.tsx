@@ -83,7 +83,7 @@ export const ShareActions = memo(function ShareActions({ shareFeedback, hasResul
         aria-live="polite"
         style={{ display: shareFeedback ? 'flex' : 'none' }}
       >
-        <img src={assetUrl('/assets/images/logo-circular.png')} alt="Logo ESAMS" width={24} height={24} loading="lazy" decoding="async" />
+        <img src={assetUrl('/assets/images/logo-circular.webp')} alt="Logo ESAMS" width={24} height={24} loading="lazy" decoding="async" />
         <span id="shareFeedbackText">{shareFeedback}</span>
       </p>
     </div>

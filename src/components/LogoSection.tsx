@@ -4,7 +4,7 @@ import { useI18n } from '../hooks/useI18n';
 
 export const LogoSection = memo(function LogoSection() {
   const { t } = useI18n();
-  const logoSrc = 'assets/images/logo-circular.png';
+  const logoSrc = 'assets/images/logo-circular.webp';
 
   return (
     <section className="logo-head">

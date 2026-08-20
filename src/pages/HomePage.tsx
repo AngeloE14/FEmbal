@@ -76,7 +76,7 @@ export function HomePage() {
             <>
               <img
                 className="floating-tools__logo"
-                src={assetUrl('assets/images/logo-circular.png')}
+                src={assetUrl('assets/images/logo-circular.webp')}
                 alt="ESAMS"
               />
               <span className="floating-tools__hand-box">
