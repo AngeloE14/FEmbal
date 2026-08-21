@@ -1,12 +1,9 @@
 /**
  * Página principal.
  * Mantiene la estructura visual de página única del proyecto original.
- *
- * Mejora: el ChatBot se carga de forma diferida (lazy loading)
- * mediante React.lazy y Suspense para no afectar el rendimiento inicial.
  */
 
-import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { FileBadge2 } from 'lucide-react';
 import { AudioPlayer } from '../components/AudioPlayer';
 import { EmbalmingCertificateModule } from '../components/EmbalmingCertificateModule';
@@ -16,16 +13,10 @@ import { LanguageSelector } from '../components/LanguageSelector';
 import { ThemeToggle } from '../components/ThemeToggle';
 import { assetUrl } from '../utils/paths';
 
-// Lazy loading del ChatBot: solo se carga cuando el usuario lo abre por primera vez.
-const ChatBot = lazy(() =>
-  import('../components/ChatBot').then((mod) => ({ default: mod.ChatBot })),
-);
-
 export function HomePage() {
   const [isCertificateModeOpen, setIsCertificateModeOpen] = useState(false);
   const [isTutorialOpen, setIsTutorialOpen] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
-  const [isChatOpen, setIsChatOpen] = useState(false);
   const toolsRef = useRef<HTMLDivElement | null>(null);
 
   const openCertificateMode = useCallback(() => {
@@ -41,11 +32,6 @@ export function HomePage() {
   }, []);
 
   const closeTools = useCallback(() => {
-    setIsToolsOpen(false);
-  }, []);
-
-  const toggleChat = useCallback(() => {
-    setIsChatOpen((v) => !v);
     setIsToolsOpen(false);
   }, []);
 
@@ -105,15 +91,6 @@ export function HomePage() {
             >
               <span aria-hidden="true">🎓</span>
             </button>
-            <button
-              className={`chatbot-toggle${isChatOpen ? ' chatbot-toggle--open' : ''}`}
-              type="button"
-              onClick={toggleChat}
-              aria-label={isChatOpen ? 'Cerrar asistente' : 'Abrir asistente'}
-              aria-expanded={isChatOpen}
-            >
-              <span className="chatbot-toggle__icon" aria-hidden="true">🤖</span>
-            </button>
             <ThemeToggle />
           </div>
         )}
@@ -130,10 +107,6 @@ export function HomePage() {
         isOpen={isTutorialOpen}
         onClose={() => setIsTutorialOpen(false)}
       />
-      {/* Suspense con un fallback vacío mientras se carga el ChatBot. */}
-      <Suspense fallback={null}>
-        <ChatBot isOpen={isChatOpen} onToggle={toggleChat} />
-      </Suspense>
     </>
   );
 }
