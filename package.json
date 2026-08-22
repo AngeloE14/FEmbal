@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "dev:lan": "vite --host --port 4173",
+    "api": "node --env-file=.env scripts/dev-api.mjs",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -13,6 +14,7 @@
     "lan:ip": "hostname -I | awk '{print $1}'"
   },
   "dependencies": {
+    "@google/genai": "^2.18.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^4.2.1",
     "lucide-react": "^1.17.0",

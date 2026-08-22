@@ -15,10 +15,23 @@ export default defineConfig(({ command }) => ({
   server: {
     host: true,
     port: 4173,
+    proxy: {
+      // Dev: el frontend llama a /api/chat y Vite lo redirige al mini-servidor local.
+      '/api': {
+        target: 'http://localhost:8787',
+        changeOrigin: true,
+      },
+    },
   },
   preview: {
     host: true,
     port: 4174,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8787',
+        changeOrigin: true,
+      },
+    },
   },
   build: {
     minify: 'esbuild',
