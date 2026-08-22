@@ -371,7 +371,15 @@ body::after {
     radial-gradient(30% 28% at 62% 12%, var(--bg-glow-c), transparent 72%);
   filter: blur(48px);
   animation: aurora-drift 46s ease-in-out infinite alternate;
-  will-change: transform;
+}
+
+/* La promoción a capa GPU solo donde la animación está activa
+   (escritorio): en táctil/móvil la capa estática y enorme con
+   will-change consumía memoria y arrastraba el scroll. */
+@media (hover: hover) and (pointer: fine) and (min-width: 721px) and (prefers-reduced-motion: no-preference) {
+  body::after {
+    will-change: transform;
+  }
 }
 
 @keyframes aurora-drift {
