@@ -13,9 +13,11 @@
 .share-button {
   width: 100%;
   border: 1px solid rgba(43, 152, 124, 0.46);
-  background: linear-gradient(135deg, #1f9d7d, #157c63);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 42%),
+    linear-gradient(135deg, #1f9d7d, #146c55);
   color: #f6fff9;
-  border-radius: 12px;
+  border-radius: 13px;
   font: inherit;
   font-size: 0.9rem;
   font-weight: 800;
@@ -23,10 +25,13 @@
   padding: 0.75rem 0.85rem;
   min-height: 2.9rem;
   cursor: pointer;
-  box-shadow: 0 10px 22px -16px rgba(24, 119, 95, 0.85);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 12px 24px -16px rgba(24, 119, 95, 0.85);
   transition:
     transform 0.24s ease,
     box-shadow 0.24s ease,
+    filter 0.24s ease,
     opacity 0.2s ease;
 }
 
@@ -42,7 +47,10 @@
 .share-button:focus-visible {
   outline: none;
   transform: translateY(-1px);
-  box-shadow: 0 14px 24px -18px rgba(19, 102, 82, 0.95);
+  filter: brightness(1.05);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 16px 28px -18px rgba(19, 102, 82, 0.95);
 }
 
 .share-button:disabled {

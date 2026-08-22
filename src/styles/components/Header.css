@@ -1,4 +1,21 @@
 .header-cover {
-  background: linear-gradient(120deg, var(--hero-bg-a), var(--hero-bg-b));
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  background:
+    radial-gradient(52% 82% at 50% -12%, rgba(212, 175, 55, 0.14), transparent 62%),
+    radial-gradient(38% 55% at 88% 108%, rgba(46, 177, 139, 0.1), transparent 66%),
+    linear-gradient(120deg, var(--hero-bg-a), var(--hero-bg-b));
   contain: layout paint style;
+}
+
+/* Cabecera editorial: logo a la izquierda, texto a la derecha.
+   En móvil se apila (logo arriba, título debajo). */
+@media (min-width: 901px) {
+  .header-cover {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 0.5rem 1.75rem;
+    padding: 1.15rem 2.25rem;
+  }
 }

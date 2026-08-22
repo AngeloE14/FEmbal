@@ -103,7 +103,7 @@ export function ChatBot({ isOpen, onToggle }: ChatBotProps) {
           <span className="chatbot-panel__avatar" aria-hidden="true">🤖</span>
           <div>
             <strong>Asistente ESAMS</strong>
-            <span className="chatbot-panel__status">Impulsado por el modelo Gemini 3.5 Flash Lite</span>
+            <span className="chatbot-panel__status">Gemini 3.5 Flash Lite</span>
           </div>
         </div>
         <button

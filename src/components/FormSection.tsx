@@ -33,7 +33,6 @@ export const FormSection = memo(function FormSection() {
   const selectRootRef = useRef<HTMLDivElement | null>(null);
   const formRef = useRef<HTMLDivElement | null>(null);
   const chemicalListId = 'comboConcentradoList';
-  const selectedChemicalLabel = selectedChemical?.label ?? t('form.select.default');
   const objectiveValue = useMemo(() => parseInputNumber(inputs.objetivoManual), [inputs.objetivoManual]);
 
   // Cierra el combo cuando se pulsa fuera, para mantener UX táctil clara.
@@ -88,35 +87,41 @@ export const FormSection = memo(function FormSection() {
 
   return (
     <article className="box tarjeta-interactiva" ref={formRef} onKeyDown={handleFormKeyDown}>
-      <div className="field">
-        <label htmlFor="concentrado">{t('form.concentrado.label')}</label>
-        <input
-          id="concentrado"
-          type="number"
-          min="0.1"
-          step="0.1"
-          placeholder={t('form.concentrado.placeholder')}
-          autoComplete="off"
-          inputMode="decimal"
-          value={inputs.concentrado}
-          readOnly={isConcentradoLocked}
-          onChange={(event) => updateInput('concentrado', event.target.value)}
-          onFocus={() => {
-            if (isConcentradoLocked) {
-              clearChemicalSelection();
-            }
-          }}
-          onPointerDown={() => {
-            if (isConcentradoLocked) {
-              clearChemicalSelection();
-            }
-          }}
-        />
+      {/* Grupo: concentración arterial en botella */}
+      <section className="form-group">
+        <div className="field field--flush">
+          <label htmlFor="concentrado">{t('form.concentrado.label')}</label>
+          <div className="control">
+            <input
+              id="concentrado"
+              type="number"
+              min="0.1"
+              step="0.1"
+              placeholder={t('form.concentrado.placeholder')}
+              autoComplete="off"
+              inputMode="decimal"
+              value={inputs.concentrado}
+              readOnly={isConcentradoLocked}
+              onChange={(event) => updateInput('concentrado', event.target.value)}
+              onFocus={() => {
+                if (isConcentradoLocked) {
+                  clearChemicalSelection();
+                }
+              }}
+              onPointerDown={() => {
+                if (isConcentradoLocked) {
+                  clearChemicalSelection();
+                }
+              }}
+            />
+            <span className="control__unit" aria-hidden="true">%</span>
+          </div>
+        </div>
+      </section>
 
-        <label htmlFor="comboConcentrado" className="combo-label">
-          {t('form.select.label')}
-        </label>
-
+      {/* Grupo: químico arterial */}
+      <section className="form-group">
+        <p className="form-group__title">{t('form.select.label')}</p>
         <div
           className="custom-select"
           id="comboConcentrado"
@@ -130,7 +135,13 @@ export const FormSection = memo(function FormSection() {
             aria-controls={chemicalListId}
             onClick={() => setIsSelectOpen((previous) => !previous)}
           >
-            {selectedChemicalLabel}
+            {selectedChemical ? (
+              <span className="select-selected__label">
+                {t('chemical.index')} {selectedChemical.value}
+              </span>
+            ) : (
+              <span className="select-selected__placeholder">{t('form.select.default')}</span>
+            )}
           </button>
           <div className={`select-items ${isSelectOpen ? '' : 'select-hide'}`} id={chemicalListId} role="listbox">
             {CHEMICAL_OPTIONS.map((option) => (
@@ -146,77 +157,89 @@ export const FormSection = memo(function FormSection() {
                   setIsSelectOpen(false);
                 }}
               >
-                <span>{t(`chemical.option.${option.value}`)}</span>
+                {t(`chemical.option.${option.value}`)}
               </button>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
+      {/* Grupo: parámetros de preparación */}
+      <section className="form-group">
         <div className="form-grid">
-        <div className="field">
-          <label htmlFor="peso">{t('form.peso.label')}</label>
-          <input
-            id="peso"
-            type="number"
-            min="1"
-            step="1"
-            placeholder={t('form.peso.placeholder')}
-            autoComplete="off"
-            inputMode="decimal"
-            value={inputs.peso}
-            onChange={(event) => updateInput('peso', event.target.value)}
-          />
+          <div className="field">
+            <label htmlFor="peso">{t('form.peso.label')}</label>
+            <div className="control">
+              <input
+                id="peso"
+                type="number"
+                min="1"
+                step="1"
+                placeholder={t('form.peso.placeholder')}
+                autoComplete="off"
+                inputMode="decimal"
+                value={inputs.peso}
+                onChange={(event) => updateInput('peso', event.target.value)}
+              />
+              <span className="control__unit" aria-hidden="true">kg</span>
+            </div>
+          </div>
+
+          <div className="field">
+            <label htmlFor="volumenPreparar">{t('form.volumen.label')}</label>
+            <div className="control">
+              <input
+                id="volumenPreparar"
+                type="number"
+                min="0.1"
+                step="0.1"
+                placeholder={t('form.volumen.placeholder')}
+                autoComplete="off"
+                inputMode="decimal"
+                value={inputs.volumenPrepararLitros}
+                onChange={(event) => updateInput('volumenPrepararLitros', event.target.value)}
+              />
+              <span className="control__unit" aria-hidden="true">L</span>
+            </div>
+          </div>
         </div>
 
         <div className="field">
-          <label htmlFor="volumenPreparar">{t('form.volumen.label')}</label>
-          <input
-            id="volumenPreparar"
-            type="number"
-            min="0.1"
-            step="0.1"
-            placeholder={t('form.volumen.placeholder')}
-            autoComplete="off"
-            inputMode="decimal"
-            value={inputs.volumenPrepararLitros}
-            onChange={(event) => updateInput('volumenPrepararLitros', event.target.value)}
-          />
+          <label htmlFor="objetivo">{t('form.objetivo.label')}</label>
+          <div className="control">
+            <input
+              id="objetivo"
+              type="number"
+              min="0.1"
+              step="0.1"
+              placeholder={t('form.objetivo.placeholder')}
+              autoComplete="off"
+              inputMode="decimal"
+              value={inputs.objetivoManual}
+              onChange={(event) => updateInput('objetivoManual', event.target.value)}
+            />
+            <span className="control__unit" aria-hidden="true">%</span>
+          </div>
         </div>
-      </div>
 
-      <div className="field">
-        <label htmlFor="objetivo">{t('form.objetivo.label')}</label>
-        <input
-          id="objetivo"
-          type="number"
-          min="0.1"
-          step="0.1"
-          placeholder={t('form.objetivo.placeholder')}
-          autoComplete="off"
-          inputMode="decimal"
-          value={inputs.objetivoManual}
-          onChange={(event) => updateInput('objetivoManual', event.target.value)}
-        />
-      </div>
-
-      <div className="presets" aria-label={t('form.presets.aria')}>
-        {PRESET_BUTTONS.map((preset) => (
-          <button
-            key={preset.key}
-            className={`chip ${isPresetButtonActive(preset.min, preset.max) ? 'chip--active' : ''}`}
-            type="button"
-            data-preset={preset.key}
-            data-min={preset.min}
-            data-max={preset.max}
-            data-set={preset.set}
-            aria-pressed={isPresetButtonActive(preset.min, preset.max)}
-            onClick={() => applyPreset(preset.set)}
-          >
-            {t(`form.preset.${preset.key}`)}
-          </button>
-        ))}
-      </div>
+        <div className="presets" aria-label={t('form.presets.aria')}>
+          {PRESET_BUTTONS.map((preset) => (
+            <button
+              key={preset.key}
+              className={`chip ${isPresetButtonActive(preset.min, preset.max) ? 'chip--active' : ''}`}
+              type="button"
+              data-preset={preset.key}
+              data-min={preset.min}
+              data-max={preset.max}
+              data-set={preset.set}
+              aria-pressed={isPresetButtonActive(preset.min, preset.max)}
+              onClick={() => applyPreset(preset.set)}
+            >
+              {t(`form.preset.${preset.key}`)}
+            </button>
+          ))}
+        </div>
+      </section>
 
       <p className="auto-hint" role="status">
         {t('form.realtime')}

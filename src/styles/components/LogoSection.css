@@ -300,3 +300,23 @@
     transform: rotate(360deg);
   }
 }
+
+/* Cabecera editorial en escritorio: logo compacto a la izquierda. */
+@media (min-width: 901px) {
+  .logo-head {
+    padding: 0;
+  }
+
+  .logo-head img {
+    width: clamp(118px, 11vw, 152px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .summer-sparkle {
+    --sparkle-drop-y: 64px;
+  }
+
+  .summer-sparkles {
+    inset: -2px;
+  }
+}

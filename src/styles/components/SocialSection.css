@@ -1,7 +1,8 @@
 .redes-sociales {
   margin: 0.25rem 1.2rem 1.2rem;
-  padding: 0.5rem 0;
+  padding: 1rem 0 0.5rem;
   position: relative;
+  border-top: 1px solid var(--box-border);
 }
 
 .redes-sociales > * {
@@ -159,7 +160,7 @@
 @media (max-width: 680px) {
   .redes-sociales {
     margin: 0.25rem 0.75rem 0.75rem;
-    padding: 0.25rem 0;
+    padding: 0.8rem 0 0.25rem;
   }
 
   .redes-sociales__titulo {

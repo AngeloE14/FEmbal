@@ -7,16 +7,18 @@
   --font-sans: "Manrope", sans-serif;
   --font-serif: "Cormorant Garamond", serif;
 
-  --bg-a: #edf2f8;
-  --bg-b: #d8e2ee;
-  --bg-glow-a: rgba(214, 156, 89, 0.2);
-  --bg-glow-b: rgba(34, 115, 136, 0.2);
+  --bg-a: #f2f1ec;
+  --bg-b: #e2e7e9;
+  --bg-glow-a: rgba(191, 116, 63, 0.18);
+  --bg-glow-b: rgba(36, 125, 138, 0.16);
+  --bg-glow-c: rgba(124, 112, 192, 0.1);
 
-  --panel-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 249, 251, 0.98));
-  --panel-border: rgba(16, 29, 39, 0.12);
-  --card: rgba(255, 255, 255, 0.94);
+  --panel-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(248, 250, 250, 0.86));
+  --panel-border: rgba(20, 32, 42, 0.1);
+  --panel-inset: rgba(255, 255, 255, 0.65);
+  --card: rgba(255, 255, 255, 0.66);
   --box-border: rgba(21, 37, 49, 0.1);
-  --shadow: 0 25px 45px rgba(14, 26, 36, 0.2);
+  --shadow: 0 32px 64px -32px rgba(15, 26, 36, 0.35);
 
   --hero-bg-a: #14202c;
   --hero-bg-b: #2b3b48;
@@ -28,6 +30,8 @@
   --muted: #5d5d5d;
 
   --field-line: rgba(23, 35, 48, 0.25);
+  --field-bg: rgba(23, 35, 48, 0.045);
+  --field-bg-focus: #ffffff;
   --field-focus: rgba(182, 84, 42, 0.9);
   --field-muted: rgba(227, 235, 241, 0.85);
   --input-text: #14212b;
@@ -62,6 +66,9 @@
   --tile-result-border: rgba(42, 132, 107, 0.3);
   --tile-result-strong: #1e6b58;
   --tile-result-value: #0f5d4b;
+  --tile-accent-water: #2f87be;
+  --tile-accent-concentration: #c37d1f;
+  --tile-accent-volume: #7460c6;
   --results-ring: rgba(34, 150, 118, 0.24);
   --results-badge-bg: #18755d;
   --results-badge-text: #f1fff8;
@@ -108,12 +115,14 @@
   --bg-b: #152635;
   --bg-glow-a: rgba(190, 107, 72, 0.24);
   --bg-glow-b: rgba(42, 132, 154, 0.26);
+  --bg-glow-c: rgba(124, 112, 192, 0.16);
 
-  --panel-bg: linear-gradient(180deg, rgba(16, 26, 36, 0.96), rgba(10, 17, 25, 0.98));
-  --panel-border: rgba(152, 178, 196, 0.22);
-  --card: rgba(14, 24, 34, 0.88);
-  --box-border: rgba(149, 176, 194, 0.2);
-  --shadow: 0 28px 55px rgba(0, 0, 0, 0.45);
+  --panel-bg: linear-gradient(180deg, rgba(16, 26, 36, 0.82), rgba(10, 17, 25, 0.9));
+  --panel-border: rgba(152, 178, 196, 0.2);
+  --panel-inset: rgba(255, 255, 255, 0.06);
+  --card: rgba(14, 24, 34, 0.62);
+  --box-border: rgba(149, 176, 194, 0.18);
+  --shadow: 0 32px 64px -28px rgba(0, 0, 0, 0.55);
 
   --hero-bg-a: #060a0f;
   --hero-bg-b: #101b26;
@@ -125,6 +134,8 @@
   --muted: #b9c4ce;
 
   --field-line: rgba(170, 194, 211, 0.35);
+  --field-bg: rgba(255, 255, 255, 0.055);
+  --field-bg-focus: rgba(255, 255, 255, 0.09);
   --field-focus: rgba(240, 164, 125, 0.95);
   --field-muted: rgba(255, 255, 255, 0.08);
   --input-text: #e7eef5;
@@ -159,6 +170,9 @@
   --tile-result-border: rgba(101, 203, 174, 0.32);
   --tile-result-strong: #96e8d0;
   --tile-result-value: #c7fff0;
+  --tile-accent-water: #4fb5eb;
+  --tile-accent-concentration: #f0ac52;
+  --tile-accent-volume: #a88dff;
   --results-ring: rgba(77, 236, 189, 0.26);
   --results-badge-bg: #2eb18b;
   --results-badge-text: #08271f;
@@ -204,12 +218,14 @@
     --bg-b: #152635;
     --bg-glow-a: rgba(190, 107, 72, 0.24);
     --bg-glow-b: rgba(42, 132, 154, 0.26);
+    --bg-glow-c: rgba(124, 112, 192, 0.16);
 
-    --panel-bg: linear-gradient(180deg, rgba(16, 26, 36, 0.96), rgba(10, 17, 25, 0.98));
-    --panel-border: rgba(152, 178, 196, 0.22);
-    --card: rgba(14, 24, 34, 0.88);
-    --box-border: rgba(149, 176, 194, 0.2);
-    --shadow: 0 28px 55px rgba(0, 0, 0, 0.45);
+    --panel-bg: linear-gradient(180deg, rgba(16, 26, 36, 0.82), rgba(10, 17, 25, 0.9));
+    --panel-border: rgba(152, 178, 196, 0.2);
+    --panel-inset: rgba(255, 255, 255, 0.06);
+    --card: rgba(14, 24, 34, 0.62);
+    --box-border: rgba(149, 176, 194, 0.18);
+    --shadow: 0 32px 64px -28px rgba(0, 0, 0, 0.55);
 
     --hero-bg-a: rgba(6, 10, 15, 0.96);
     --hero-bg-b: rgba(16, 27, 38, 0.94);
@@ -221,6 +237,8 @@
     --muted: #b9c4ce;
 
     --field-line: rgba(170, 194, 211, 0.35);
+    --field-bg: rgba(255, 255, 255, 0.055);
+    --field-bg-focus: rgba(255, 255, 255, 0.09);
     --field-focus: rgba(240, 164, 125, 0.95);
     --field-muted: rgba(255, 255, 255, 0.08);
     --input-text: #e7eef5;
@@ -255,6 +273,9 @@
     --tile-result-border: rgba(101, 203, 174, 0.32);
     --tile-result-strong: #96e8d0;
     --tile-result-value: #c7fff0;
+    --tile-accent-water: #4fb5eb;
+    --tile-accent-concentration: #f0ac52;
+    --tile-accent-volume: #a88dff;
     --results-ring: rgba(77, 236, 189, 0.26);
     --results-badge-bg: #2eb18b;
     --results-badge-text: #08271f;
@@ -316,8 +337,6 @@ body {
   font-family: var(--font-sans);
   color: var(--ink);
   background:
-    radial-gradient(circle at 15% 15%, var(--bg-glow-a), transparent 35%),
-    radial-gradient(circle at 85% 75%, var(--bg-glow-b), transparent 38%),
     linear-gradient(135deg, var(--bg-a), var(--bg-b));
   display: flex;
   justify-content: center;
@@ -334,6 +353,48 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+/* ── Aurora ambiental ─────────────────────────────────────
+   Capa fija de brillos difusos que deriva muy lento detrás
+   del panel. Solo transforms → GPU, sin relayout.
+   Se desactiva con prefers-reduced-motion. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -22%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(38% 34% at 20% 22%, var(--bg-glow-a), transparent 68%),
+    radial-gradient(44% 40% at 80% 74%, var(--bg-glow-b), transparent 70%),
+    radial-gradient(30% 28% at 62% 12%, var(--bg-glow-c), transparent 72%);
+  filter: blur(48px);
+  animation: aurora-drift 46s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes aurora-drift {
+  from {
+    transform: translate3d(-2%, -1.5%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(2.5%, 2%, 0) scale(1.07);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::after {
+    animation: none;
+  }
+}
+
+/* En táctil la dejamos estática: el blur del panel no se
+   recalcula cada frame y ahorramos batería. */
+@media (pointer: coarse), (max-width: 720px) {
+  body::after {
+    animation: none;
+  }
 }
 
 body::before {
@@ -378,17 +439,30 @@ html.theme-switching body::before {
   z-index: 1;
   width: 100%;
   background: var(--panel-bg);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  backdrop-filter: blur(22px) saturate(150%);
   border: 1px solid var(--panel-border);
-  box-shadow: var(--shadow);
-  border-radius: 20px;
+  box-shadow:
+    var(--shadow),
+    inset 0 1px 0 var(--panel-inset);
+  border-radius: 24px;
   overflow: hidden;
   margin-inline: auto;
   isolation: isolate;
 }
 
+/* Vidrio aligerado en pantallas pequeñas: mismo look, mucho
+   menos coste de GPU por frame en móviles de gama baja */
+@media (max-width: 720px) {
+  .panel {
+    -webkit-backdrop-filter: blur(13px) saturate(140%);
+    backdrop-filter: blur(13px) saturate(140%);
+  }
+}
+
 .box {
   background: var(--card);
-  border-radius: 14px;
+  border-radius: 18px;
   border: 1px solid var(--box-border);
   padding: 1rem;
   contain: layout paint style;
@@ -472,92 +546,93 @@ h2 {
 }
 
 .field {
-  margin-bottom: 0.9rem;
+  margin-bottom: 0.95rem;
   position: relative;
-  padding-bottom: 0.2rem;
-}
-
-.field::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--field-focus), transparent);
-  transform: scaleX(0.25);
-  opacity: 0;
-  transition: transform 0.15s ease, opacity 0.15s ease;
-  pointer-events: none;
-}
-
-.field:focus-within::after {
-  transform: scaleX(1);
-  opacity: 0.7;
 }
 
 label {
   display: block;
-  margin-bottom: 0.2rem;
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.15px;
+  margin-bottom: 0.32rem;
+  font-size: 0.8rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
   color: var(--label);
-  transition: color 0.12s ease;
+  transition: color 0.15s ease;
 }
 
 .field:focus-within label {
-  color: var(--label-focus);
-  transform: translateX(1px);
+  color: color-mix(in srgb, var(--field-focus) 55%, var(--label));
 }
 
+/* ── Campos "soft fill" ───────────────────────────────────
+   Sin borde en reposo: el relleno tenue define el área
+   táctil. El foco aporta anillo cobre; menos cajas, menos
+   ruido. Unidades como sufijo dentro del control (.control). */
 input,
 select {
   width: 100%;
-  border: 0;
-  border-bottom: 1.5px solid var(--field-line);
-  border-radius: 0;
-  padding: 0.6rem 0.12rem 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 0.66rem 0.8rem;
   font: inherit;
-  font-size: 0.96rem;
-  font-weight: 500;
-  background: transparent;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+  background: var(--field-bg);
   color: var(--input-text);
   transition:
-    border-color 0.18s ease,
+    background-color 0.18s ease,
     box-shadow 0.18s ease,
-    transform 0.15s ease;
+    border-color 0.18s ease;
+}
+
+/* Sin flechitas de stepper: el teclado numérico ya lo hace */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 input::placeholder,
 select::placeholder {
   color: var(--input-placeholder);
+  font-weight: 500;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  input:hover:not(:focus):not([readonly]),
+  .select-selected:hover:not(:focus) {
+    background: var(--field-bg-focus);
+  }
 }
 
 input:focus,
 select:focus {
   outline: none;
-  border-bottom-color: var(--field-focus);
-  box-shadow:
-    0 0 0 1px rgba(255, 198, 165, 0.38),
-    0 12px 22px -18px var(--field-focus),
-    0 0 14px -10px var(--field-focus);
-  transform: translateY(-1px) scale(1.01);
+  background: var(--field-bg-focus);
+  border-color: var(--field-focus);
+  box-shadow: 0 0 0 3.5px color-mix(in srgb, var(--field-focus) 22%, transparent);
 }
 
 select {
   appearance: none;
   color-scheme: light;
-  background-color: var(--select-bg);
+  background-color: var(--field-bg);
   background-image:
     linear-gradient(45deg, transparent 50%, var(--select-arrow) 50%),
     linear-gradient(135deg, var(--select-arrow) 50%, transparent 50%);
   background-position:
-    calc(100% - 14px) calc(50% - 2px),
-    calc(100% - 9px) calc(50% - 2px);
+    calc(100% - 17px) calc(50% + 0px),
+    calc(100% - 12px) calc(50% + 0px);
   background-size: 5px 5px, 5px 5px;
   background-repeat: no-repeat;
-  padding-right: 1.8rem;
+  padding-right: 2.2rem;
 }
 
 select option {
@@ -576,38 +651,34 @@ select option:hover {
 }
 
 .select-selected {
-  border: 0;
-  border-bottom: 1.5px solid var(--field-line);
-  border-radius: 0;
-  padding: 0.6rem 0.12rem 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 0.66rem 2.2rem 0.66rem 0.8rem;
   font: inherit;
-  font-size: 0.96rem;
-  font-weight: 500;
-  background: var(--select-bg);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  background: var(--field-bg);
   color: var(--input-text);
   cursor: pointer;
   touch-action: manipulation;
   transition:
     border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    transform 0.15s ease,
-    background-color 0.18s ease;
+    background-color 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
 .select-selected:focus {
   outline: none;
-  border-bottom-color: var(--field-focus);
-  box-shadow:
-    0 0 0 1px rgba(255, 198, 165, 0.38),
-    0 12px 22px -18px var(--field-focus),
-    0 0 14px -10px var(--field-focus);
-  transform: translateY(-1px) scale(1.01);
+  background: var(--field-bg-focus);
+  border-color: var(--field-focus);
+  box-shadow: 0 0 0 3.5px color-mix(in srgb, var(--field-focus) 22%, transparent);
 }
 
 .select-selected::after {
   content: '';
   position: absolute;
-  right: 13px;
+  right: 15px;
   top: 50%;
   width: 0;
   height: 0;
@@ -619,61 +690,69 @@ select option:hover {
 
 .select-items {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 6px);
   left: 0;
   right: 0;
   background: var(--select-menu-bg);
-  border: 1px solid var(--field-line);
-  border-top: none;
-  border-radius: 0 0 8px 8px;
+  border: 1px solid var(--box-border);
+  border-radius: 14px;
   z-index: 10;
-  max-height: 200px;
+  max-height: 220px;
   overflow-y: auto;
   overscroll-behavior: contain;
   contain: content;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 24px 48px -20px rgba(8, 18, 26, 0.45),
+    inset 0 1px 0 var(--panel-inset);
+  animation: select-pop 0.16s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+@keyframes select-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .select-items {
+    animation: none;
+  }
+}
+
+/* Ítems del menú: filas planas sin separadores; el detalle
+   (badge de valor, nombre) lo define FormSection.css */
 .select-item {
-  padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.6rem, 2vw, 0.75rem);
   cursor: pointer;
   color: var(--select-menu-text);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  /* splitter ultra fino: box-shadow 0.5px (más fino que border, sub-pixel real) */
-  box-shadow: 0 0.5px 0 rgba(128, 128, 128, 0.05);
   border: 0;
   transition: background-color 0.15s ease;
   width: 100%;
-  min-height: 2.8rem;
   text-align: left;
   font: inherit;
   background: transparent;
   appearance: none;
 }
 
-.select-item span {
-  font-size: clamp(0.85rem, 2vw, 0.96rem);
-  flex: 1;
-}
-
-.select-items .select-item:last-child {
-  box-shadow: none;
-}
-
-/* en móviles/touch el splitter sobra: la separación visual natural basta */
-@media (pointer: coarse), (max-width: 720px) {
-  .select-item {
-    box-shadow: none;
-  }
-}
-
 .select-item:hover,
 .select-item:focus-visible {
   background: var(--select-menu-hover);
-  translate: 4px;
   outline: none;
+}
+
+.select-item[aria-selected="true"] {
+  font-weight: 700;
+}
+
+.select-item[aria-selected="true"]::after {
+  content: "✓";
+  margin-left: auto;
+  color: var(--field-focus);
+  font-weight: 800;
 }
 
 .select-hide {
@@ -690,22 +769,17 @@ select option:hover {
   }
 }
 
-.combo-label {
-  margin-top: 0.55rem;
-}
-
 input[readonly] {
-  border-radius: 9px;
-  border: 1px solid var(--readonly-border);
+  border-style: dashed;
+  border-color: var(--readonly-border);
   background: var(--field-muted);
   color: var(--readonly-text);
-  padding-inline: 0.65rem;
   cursor: not-allowed;
 }
 
 input[readonly]:focus {
   box-shadow: none;
-  transform: none;
+  background: var(--field-muted);
 }
 
 .notes {
@@ -734,12 +808,6 @@ input[readonly]:focus {
   .tarjeta-informativa,
   .boton-principal {
     transition-duration: 0.24s;
-  }
-
-  input:focus,
-  select:focus,
-  .select-selected:focus {
-    transform: translateY(-1px) scale(1.005);
   }
 }
 
@@ -881,7 +949,7 @@ input,
   }
 
   .box-results {
-    box-shadow: 0 12px 24px -18px rgba(23, 93, 76, 0.28), 0 0 0 1px var(--results-ring);
+    box-shadow: 0 12px 24px -18px rgba(23, 93, 76, 0.28);
   }
 
   .box-results::after {
@@ -972,14 +1040,8 @@ input,
     font-size: 16px;
   }
 
-  .chip {
-    font-size: 0.76rem;
-    padding: 0.32rem 0.66rem;
-    min-height: 2.75rem;
-  }
-
   .notes {
-    font-size: 0.77rem;
+    font-size: 0.72rem;
   }
 
   .theme-toggle-hero {
@@ -1000,12 +1062,16 @@ input,
   .chip:hover,
   .chip:focus-visible,
   .theme-toggle:hover,
-  .theme-toggle:focus-visible,
+  .theme-toggle:focus-visible {
+    transform: none;
+  }
+
+  /* El anillo de foco se conserva en móvil: es la señal
+     principal del campo activo. Solo se afina el grosor. */
   input:focus,
   select:focus,
   .select-selected:focus {
-    transform: none;
-    box-shadow: none;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--field-focus) 22%, transparent);
   }
 }
 
