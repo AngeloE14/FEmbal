@@ -61,7 +61,7 @@ export function HomePage() {
 
   return (
     <>
-      <div className="floating-tools" ref={toolsRef}>
+      <div className={`floating-tools${isToolsOpen ? ' floating-tools--open' : ''}`} ref={toolsRef}>
         <button
           className="floating-tools__toggle"
           type="button"
@@ -78,8 +78,8 @@ export function HomePage() {
                 src={assetUrl('assets/images/logo-circular.webp')}
                 alt="ESAMS"
               />
-              <span className="floating-tools__hand-box">
-                <span className="floating-tools__hand" aria-hidden="true">👋</span>
+              <span className="floating-tools__chemical-box">
+                <span className="floating-tools__chemical" aria-hidden="true">🧪</span>
               </span>
             </>
           )}

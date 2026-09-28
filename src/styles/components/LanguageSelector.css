@@ -6,17 +6,25 @@
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0 0.45rem 0 0;
+  gap: 0.2rem;
+  padding: 0;
   border-radius: 999px;
-  border: 1px solid var(--toggle-float-border);
-  background: color-mix(in srgb, var(--toggle-float-bg) 94%, transparent);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  border: none;
+  background: transparent;
+  box-shadow: none;
   /* contain layout style (sin paint: no recortar dropdowns absolutos) */
   contain: layout style;
   isolation: isolate;
+}
+
+/* El fondo aparece sólo cuando el menú está desplegado; cerrado, el acceso
+   queda reducido al logo y no compite con el contenido de la página. */
+.floating-tools--open {
+  padding: 0.2rem 0.25rem 0.2rem 0.2rem;
+  background: color-mix(in srgb, var(--toggle-float-bg) 78%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 .floating-tools__toggle {
@@ -26,9 +34,9 @@
   width: 2.5rem;
   height: 2.5rem;
   padding: 0;
-  border: 2px solid var(--toggle-glow);
-  border-radius: 999px;
-  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--field-focus) 46%, var(--toggle-float-text));
+  border-radius: 0.82rem 0.82rem 0.32rem 0.82rem;
+  background: color-mix(in srgb, var(--toggle-float-bg) 62%, transparent);
   color: var(--toggle-float-text);
   font-size: 1.1rem;
   line-height: 1;
@@ -37,24 +45,33 @@
   -webkit-tap-highlight-color: transparent;
   flex-shrink: 0;
   box-shadow:
-    0 0 22px var(--toggle-glow),
-    0 2px 8px rgba(0, 0, 0, 0.15);
-  animation: toggle-pulse 2.8s ease-in-out infinite;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-  /* contain: limita el área de pintado del botón para GPU */
-  contain: layout style paint;
+    inset 0 0 0 1px color-mix(in srgb, #ffffff 18%, transparent),
+    0 3px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.15s ease, border-color 0.15s ease, background-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .floating-tools__toggle:hover,
-.floating-tools__toggle:focus-visible,
 .floating-tools__toggle:active {
   outline: none;
   transform: scale(1.1);
-  border-color: var(--toggle-glow);
+  border-color: color-mix(in srgb, var(--field-focus) 76%, var(--toggle-float-text));
+  background: color-mix(in srgb, var(--toggle-float-bg) 78%, transparent);
   box-shadow:
-    0 0 36px var(--toggle-glow),
-    0 2px 12px rgba(0, 0, 0, 0.2);
-  animation: none;
+    inset 0 0 0 1px color-mix(in srgb, #ffffff 24%, transparent),
+    0 5px 16px rgba(0, 0, 0, 0.16);
+}
+
+.floating-tools--open .floating-tools__toggle {
+  border-color: color-mix(in srgb, var(--field-focus) 62%, var(--toggle-float-text));
+  background: color-mix(in srgb, var(--toggle-float-bg) 74%, transparent);
+}
+
+.floating-tools__toggle:focus-visible {
+  outline: none;
+  border-color: color-mix(in srgb, var(--field-focus) 82%, var(--toggle-float-text));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--toggle-float-text) 22%, transparent),
+    0 3px 12px rgba(0, 0, 0, 0.1);
 }
 
 .floating-tools__logo {
@@ -65,18 +82,6 @@
   object-fit: cover;
 }
 
-@keyframes toggle-pulse {
-  0%, 100% {
-    box-shadow:
-      0 0 14px var(--toggle-glow),
-      0 2px 8px rgba(0, 0, 0, 0.12);
-  }
-  50% {
-    box-shadow:
-      0 0 32px var(--toggle-glow),
-      0 2px 10px rgba(0, 0, 0, 0.18);
-  }
-}
 
 
 
@@ -298,8 +303,8 @@
   }
 
   .floating-tools__toggle {
-    width: 2.75rem;
-    height: 2.75rem;
+    width: 3.2rem;
+    height: 2.45rem;
   }
 
   .floating-tools__logo {
@@ -382,7 +387,7 @@
   animation-fill-mode: backwards;
 }
 
-.floating-tools__hand-box {
+.floating-tools__chemical-box {
   position: absolute;
   inset: 0;
   display: grid;
@@ -390,17 +395,18 @@
   z-index: 5;
   pointer-events: none;
   opacity: 1;
-  animation: hand-cycle 6s ease-in-out infinite;
+  animation: chemical-cycle 6s ease-in-out infinite;
   animation-delay: -3s;
   animation-fill-mode: backwards;
 }
 
-/* badge de mano wave sobre el logo del botón menú */
-.floating-tools__hand {
+/* El matraz sustituye a la mano y tiene un movimiento leve, más acorde con
+   la identidad de la calculadora química. */
+.floating-tools__chemical {
   font-size: 1.3rem;
   line-height: 1;
-  animation: wave-hand 2.4s ease-in-out infinite;
-  transform-origin: 70% 80%;
+  animation: chemical-float 2.8s ease-in-out infinite;
+  transform-origin: center;
   filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.5));
 }
 
@@ -408,8 +414,8 @@
   .floating-tools__logo {
     will-change: transform, opacity;
   }
-  .floating-tools__hand-box,
-  .floating-tools__hand {
+  .floating-tools__chemical-box,
+  .floating-tools__chemical {
     will-change: transform, opacity;
   }
 }
@@ -421,19 +427,59 @@
   100%     { opacity: 1; transform: scale(1); }
 }
 
-@keyframes hand-cycle {
-  /* mano oculta 0-2.5s → fade in 2.5-3.5s → visible 3.5-5.5s → fade out 5.5-6s */
+@keyframes chemical-cycle {
+  /* matraz oculto 0-2.5s → aparece 2.5-3.5s → visible 3.5-5.5s → se oculta */
   0%, 40%  { opacity: 0; transform: scale(0.6); }
   50%, 90% { opacity: 1; transform: scale(1); }
   100%     { opacity: 0; transform: scale(0.6); }
 }
 
-@keyframes wave-hand {
-  /* onda natural de muñeca: rota desde el origen 70% 80% (base de la palma) */
-  0%, 100% { transform: rotate(0deg); }
-  15%      { transform: rotate(16deg); }
-  30%      { transform: rotate(-6deg); }
-  45%      { transform: rotate(10deg); }
-  60%      { transform: rotate(-2deg); }
-  75%      { transform: rotate(4deg); }
+@keyframes chemical-float {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50%      { transform: translateY(-2px) rotate(4deg); }
+}
+
+/* En escritorio el acceso adopta una pestaña flotante: conserva el logo
+   animado, pero su silueta lo diferencia de un botón circular convencional. */
+@media (min-width: 681px) {
+  .floating-tools__toggle {
+    width: 3.55rem;
+    height: 2.35rem;
+    justify-content: flex-start;
+    padding: 0 0.55rem;
+    border-radius: 0.82rem 0.82rem 0.32rem 0.82rem;
+  }
+
+  .floating-tools__logo {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .floating-tools__toggle::after {
+    content: '•••';
+    position: absolute;
+    right: 0.42rem;
+    top: 50%;
+    color: var(--toggle-float-text);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    opacity: 0.62;
+    transform: translateY(-50%);
+    transition: opacity 0.15s ease;
+  }
+
+  .floating-tools__toggle:hover::after,
+  .floating-tools__toggle:focus-visible::after,
+  .floating-tools--open .floating-tools__toggle::after {
+    opacity: 0;
+  }
+
+  .floating-tools--open .floating-tools__toggle {
+    width: 2.35rem;
+    padding: 0;
+    justify-content: center;
+    border-radius: 0.82rem;
+  }
 }
