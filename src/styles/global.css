@@ -100,7 +100,6 @@
   --toggle-float-border: rgba(29, 43, 55, 0.18);
   --toggle-float-text: #203241;
   --toggle-float-hover: #f2f6fa;
-  --toggle-glow: rgba(212, 175, 55, 0.85);
 
   --theme-switch-duration: 50ms;                           /* duración más rápida para sensación instantánea */
   --theme-switch-ease: cubic-bezier(0.4, 0, 0.2, 1);
@@ -204,7 +203,6 @@
   --toggle-float-border: rgba(170, 200, 220, 0.3);
   --toggle-float-text: #e8f1f7;
   --toggle-float-hover: rgba(30, 45, 57, 0.95);
-  --toggle-glow: rgba(255, 215, 0, 0.9);
 
   --theme-overlay: rgba(2, 10, 16, 0.36);                  /* ligeramente más opaco → transición más tersa */
 }
@@ -307,7 +305,6 @@
     --toggle-float-border: rgba(170, 200, 220, 0.3);
     --toggle-float-text: #e8f1f7;
     --toggle-float-hover: rgba(30, 45, 57, 0.95);
-    --toggle-glow: rgba(255, 215, 0, 0.9);
 
     --theme-overlay: rgba(2, 10, 16, 0.28);
   }

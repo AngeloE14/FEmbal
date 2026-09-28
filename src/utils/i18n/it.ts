@@ -47,6 +47,7 @@ const translations: Record<string, string> = {
   'locale.es-MX': 'Español (MX)',
   'locale.en': 'English',
   'locale.it': 'Italiano',
+  'footer.legal': '© {0} Scuola di Arti Funebri del Sudest',
   'social.title': 'Social media',
   'social.instagram': 'Instagram',
   'social.instagram.handle': '@esc.artes.mortuorias',

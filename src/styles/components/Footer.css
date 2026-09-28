@@ -1,0 +1,28 @@
+/* ── Pie de página ─────────────────────────────────────────
+   El margen lateral vive aquí; la sección de redes sólo se
+   ocupa de sus tarjetas. */
+.site-footer {
+  margin: 0.25rem 1.2rem 1.15rem;
+}
+
+.site-footer__legal {
+  margin: 0.9rem 0 0;
+  text-align: center;
+  font-size: 0.68rem;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  color: var(--notes);
+  opacity: 0.8;
+  text-wrap: balance;
+}
+
+@media (max-width: 680px) {
+  .site-footer {
+    margin: 0.25rem 0.75rem 0.8rem;
+  }
+
+  .site-footer__legal {
+    margin-top: 0.7rem;
+    font-size: 0.64rem;
+  }
+}
