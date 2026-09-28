@@ -15,6 +15,7 @@ import { TutorialOverlay } from '../components/TutorialOverlay';
 import { LanguageSelector } from '../components/LanguageSelector';
 import { ThemeToggle } from '../components/ThemeToggle';
 import { assetUrl } from '../utils/paths';
+import geminiIcon from '../../assets/images/gemini_icon.webp';
 
 const ChatBot = lazy(() =>
   import('../components/ChatBot').then((mod) => ({ default: mod.ChatBot })),
@@ -111,7 +112,12 @@ export function HomePage() {
               aria-label={isChatOpen ? 'Cerrar asistente' : 'Abrir asistente'}
               aria-expanded={isChatOpen}
             >
-              <span aria-hidden="true">🤖</span>
+              <img
+                className="chatbot-toggle__icon"
+                src={geminiIcon}
+                alt=""
+                aria-hidden="true"
+              />
             </button>
             <ThemeToggle />
           </div>

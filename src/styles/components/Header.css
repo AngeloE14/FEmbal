@@ -17,5 +17,9 @@
     align-items: center;
     gap: 0.5rem 1.75rem;
     padding: 1.15rem 2.25rem;
+    /* Permite que las hojas animadas del logo se pinten fuera de su caja
+       compacta sin ser recortadas por la contención del encabezado. */
+    contain: layout style;
+    overflow: visible;
   }
 }

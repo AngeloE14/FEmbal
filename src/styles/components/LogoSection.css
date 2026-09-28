@@ -65,9 +65,8 @@
   inset: -4px;
   pointer-events: none;
   z-index: 2;
-  /* Las hojas salen del área del logo al caer. La contención de pintura las
-     recortaba por completo, especialmente en el logo compacto de escritorio. */
-  contain: layout;
+  /* Las hojas salen del área del logo al caer; no se deben recortar. */
+  contain: none;
   overflow: visible;
 }
 
@@ -305,7 +304,47 @@
   }
 
   .autumn-leaves {
-    inset: -2px;
+    inset: -8px;
+  }
+}
+
+/* El logo de escritorio es más pequeño que el de móvil. Este refuerzo hace
+   que la animación siga siendo perceptible sin mover el layout ni afectar al
+   rendimiento de la página. */
+@media (min-width: 901px) and (prefers-reduced-motion: no-preference) {
+  .autumn-leaf {
+    --leaf-scale: 1.5;
+    --leaf-drop: 84px;
+    animation-play-state: running;
+    box-shadow:
+      0 0 0 0.7px rgba(60, 25, 5, 0.5),
+      0 0 9px 2px color-mix(in srgb, var(--leaf-color) 72%, transparent);
+  }
+
+  .logo-season--autumn img {
+    animation: logo-desktop-breathe 4.8s ease-in-out infinite;
+    transform-origin: center;
+  }
+
+  .logo-season--autumn::before {
+    inset: -10px;
+    animation-duration: 5.5s;
+  }
+
+  .logo-season--autumn::after {
+    inset: -7px;
+  }
+}
+
+@keyframes logo-desktop-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.3));
+  }
+  50% {
+    transform: scale(1.018);
+    filter: drop-shadow(0 18px 36px rgba(217, 119, 6, 0.3));
   }
 }
 
@@ -323,5 +362,28 @@
   .logo-season--autumn::before,
   .logo-season--autumn::after {
     animation: none;
+  }
+}
+
+/* En escritorio este efecto es parte del diseño solicitado. Se reanuda
+   después de la regla de movimiento reducido para evitar que el logo quede
+   congelado en una sola composición; móvil conserva la versión estática. */
+@media (min-width: 901px) {
+  .autumn-leaf {
+    animation: autumn-leaf-fall var(--leaf-duration) linear infinite;
+    animation-delay: var(--leaf-delay);
+  }
+
+  .logo-season--autumn::before {
+    animation: orbit-spin 5.5s linear infinite;
+  }
+
+  .logo-season--autumn::after {
+    animation: ring-shimmer 4.5s ease-in-out infinite;
+  }
+
+  .logo-season--autumn img {
+    animation: logo-desktop-breathe 4.8s ease-in-out infinite;
+    transform-origin: center;
   }
 }

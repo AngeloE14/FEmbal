@@ -6,6 +6,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Send, X } from 'lucide-react';
+import geminiIcon from '../../assets/images/gemini_icon.webp';
 import '../styles/components/ChatBot.css';
 
 interface ChatMessage {
@@ -100,7 +101,9 @@ export function ChatBot({ isOpen, onToggle }: ChatBotProps) {
     >
       <header className="chatbot-panel__header">
         <div className="chatbot-panel__title">
-          <span className="chatbot-panel__avatar" aria-hidden="true">🤖</span>
+          <span className="chatbot-panel__avatar" aria-hidden="true">
+            <img src={geminiIcon} alt="" />
+          </span>
           <div>
             <strong>Asistente ESAMS</strong>
             <span className="chatbot-panel__status">Gemini 3.5 Flash Lite</span>
@@ -120,14 +123,18 @@ export function ChatBot({ isOpen, onToggle }: ChatBotProps) {
         {messages.map((msg, index) => (
           <div key={index} className={`chatbot-msg chatbot-msg--${msg.role}`}>
             {msg.role === 'assistant' && (
-              <span className="chatbot-msg__avatar" aria-hidden="true">🤖</span>
+              <span className="chatbot-msg__avatar" aria-hidden="true">
+                <img src={geminiIcon} alt="" />
+              </span>
             )}
             <p className="chatbot-msg__bubble">{msg.text}</p>
           </div>
         ))}
         {isSending && (
           <div className="chatbot-msg chatbot-msg--assistant">
-            <span className="chatbot-msg__avatar" aria-hidden="true">🤖</span>
+            <span className="chatbot-msg__avatar" aria-hidden="true">
+              <img src={geminiIcon} alt="" />
+            </span>
             <p className="chatbot-msg__bubble chatbot-typing" aria-label="El asistente está escribiendo">
               <span /><span /><span />
             </p>
