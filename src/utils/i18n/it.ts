@@ -27,7 +27,7 @@ const translations: Record<string, string> = {
   'results.volume.label': '📦 Volume totale',
   'results.formula.title': 'Formula dettagliata',
   'results.practice.note': 'Routine pratica: Carica prima l\'acqua, incorpora l\'arterioso concentrato, completa il volume e rivaluta drenaggio, distensione e necessità di rinforzo in ogni fase.',
-  'share.button': '📤 Condividi risultato',
+  'share.button': 'Condividi risultato',
   'share.result': '📤 Come risultato',
   'share.success': 'Condiviso',
   'share.copied': 'Risultato copiato',

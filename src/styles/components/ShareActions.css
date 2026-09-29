@@ -12,22 +12,26 @@
 
 .share-button {
   width: 100%;
-  border: 1px solid rgba(43, 152, 124, 0.46);
+  border: 1px solid rgba(255, 255, 255, 0.24);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 42%),
-    linear-gradient(135deg, #1f9d7d, #146c55);
-  color: #f6fff9;
-  border-radius: 13px;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 44%),
+    linear-gradient(135deg, var(--hero-bg-b), var(--hero-bg-a));
+  color: var(--hero-text);
+  border-radius: 14px;
   font: inherit;
   font-size: 0.9rem;
   font-weight: 800;
-  letter-spacing: 0.2px;
-  padding: 0.75rem 0.85rem;
-  min-height: 2.9rem;
+  letter-spacing: 0.15px;
+  padding: 0.78rem 0.85rem;
+  min-height: 3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.42rem;
   cursor: pointer;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.22),
-    0 12px 24px -16px rgba(24, 119, 95, 0.85);
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 12px 24px -16px rgba(15, 26, 36, 0.9);
   transition:
     transform 0.24s ease,
     box-shadow 0.24s ease,
@@ -38,25 +42,41 @@
 .share-button::after {
   content: "▾";
   display: inline-block;
-  margin-left: 0.4rem;
+  margin-left: 0.05rem;
   font-size: 0.7rem;
   opacity: 0.7;
+  transition: transform 0.2s ease;
+}
+
+.share-button[aria-expanded="true"]::after {
+  transform: rotate(180deg);
+}
+
+.share-button__icon {
+  display: inline-block;
+  font-size: 1rem;
+  line-height: 1;
 }
 
 .share-button:hover,
 .share-button:focus-visible {
   outline: none;
   transform: translateY(-1px);
-  filter: brightness(1.05);
+  filter: brightness(1.08) saturate(1.04);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.22),
-    0 16px 28px -18px rgba(19, 102, 82, 0.95);
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 16px 28px -18px rgba(15, 26, 36, 0.95),
+    0 0 0 3px rgba(255, 255, 255, 0.12);
 }
 
 .share-button:disabled {
   cursor: not-allowed;
   opacity: 0.55;
   transform: none;
+}
+
+.share-button:active:not(:disabled) {
+  transform: translateY(0) scale(0.985);
 }
 
 .share-menu {

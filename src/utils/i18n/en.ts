@@ -27,7 +27,7 @@ const translations: Record<string, string> = {
   'results.volume.label': '📦 Total volume',
   'results.formula.title': 'Detailed formula',
   'results.practice.note': 'Practical routine: Load water first, add concentrated arterial, complete volume and reassess drainage, distension and need for reinforcement at each stage.',
-  'share.button': '📤 Share result',
+  'share.button': 'Share result',
   'share.result': '📤 As result',
   'share.success': 'Shared',
   'share.copied': 'Result copied',

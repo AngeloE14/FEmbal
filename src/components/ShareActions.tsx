@@ -50,8 +50,11 @@ export const ShareActions = memo(function ShareActions({ shareFeedback, hasResul
           type="button"
           disabled={!hasResult}
           onClick={handleToggle}
+          aria-haspopup="menu"
+          aria-expanded={isOpen}
         >
-          {t('share.button')}
+          <span className="share-button__icon" aria-hidden="true">🔗</span>
+          <span>{t('share.button')}</span>
         </button>
 
         {isOpen && (
