@@ -198,6 +198,40 @@
   scrollbar-width: thin;
 }
 
+.chatbot-panel__quick-prompts {
+  display: flex;
+  gap: 0.35rem;
+  overflow-x: auto;
+  padding: 0 0.85rem 0.65rem;
+  scrollbar-width: thin;
+}
+
+.chatbot-panel__quick-prompts button {
+  flex: 0 0 auto;
+  max-width: 230px;
+  padding: 0.38rem 0.58rem;
+  border: 1px solid var(--box-border);
+  border-radius: 999px;
+  background: var(--field-bg);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.68rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.chatbot-panel__quick-prompts button:hover:not(:disabled),
+.chatbot-panel__quick-prompts button:focus-visible:not(:disabled) {
+  outline: none;
+  border-color: var(--field-focus);
+  background: var(--field-bg-focus);
+}
+
+.chatbot-panel__quick-prompts button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
 .chatbot-msg {
   display: flex;
   align-items: flex-end;

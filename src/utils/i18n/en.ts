@@ -104,7 +104,7 @@ const translations: Record<string, string> = {
   'certificate.type.legal': 'Legal Case',
   'certificate.type.transfer': 'Transfer',
   'certificate.doc.title': 'EMBALMING CERTIFICATE',
-  'certificate.doc.generated': 'Document generated through the system',
+  'certificate.doc.generated': 'Document generated through ESAMS',
   'certificate.doc.signature': 'Embalmer signature',
   'certificate.chem.sync.empty': 'Calculate an arterial solution to sync this field.',
   'certificate.chem.fa': 'Formaldehyde concentration',

@@ -6,6 +6,7 @@
  */
 
 import { CalculatorProvider } from './hooks/useCalculatorContext';
+import { BrandProvider } from './hooks/useBrandConfig';
 import { I18nProvider } from './hooks/useI18n';
 import { HomePage } from './pages/HomePage';
 import { InstallPrompt } from './components/InstallPrompt';
@@ -13,10 +14,12 @@ import { InstallPrompt } from './components/InstallPrompt';
 function App() {
   return (
     <I18nProvider>
-      <CalculatorProvider>
-        <HomePage />
-        <InstallPrompt />
-      </CalculatorProvider>
+      <BrandProvider>
+        <CalculatorProvider>
+          <HomePage />
+          <InstallPrompt />
+        </CalculatorProvider>
+      </BrandProvider>
     </I18nProvider>
   );
 }

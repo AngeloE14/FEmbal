@@ -4,10 +4,12 @@
  * que consulta a Gemini en el servidor manteniendo la API key privada.
  */
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Send, X } from 'lucide-react';
 import geminiIcon from '../../assets/images/gemini_icon.webp';
 import '../styles/components/ChatBot.css';
+import { useCalculatorForm, useCalculatorResults } from '../hooks/useCalculator';
+import { formatNumber } from '../utils/formatters';
 
 interface ChatMessage {
   role: 'user' | 'assistant';
@@ -30,13 +32,59 @@ interface ChatBotProps {
   onToggle: () => void;
 }
 
+type ChatCalculationContext = {
+  selectedChemical: string | null;
+  inputs: {
+    concentrationInBottle: string;
+    estimatedWeightKg: string;
+    finalVolumeLiters: string;
+    targetConcentration: string;
+  };
+  result: {
+    valid: boolean;
+    concentrationInBottle?: number;
+    baseObjective?: number;
+    finalTarget?: number;
+    totalSolutionMl?: number;
+    arterialMl?: number;
+    waterMl?: number;
+  };
+};
+
 export function ChatBot({ isOpen, onToggle }: ChatBotProps) {
+  const { inputs, selectedChemical } = useCalculatorForm();
+  const { currentRecommendation } = useCalculatorResults();
   const [messages, setMessages] = useState<ChatMessage[]>([GREETING]);
   const [input, setInput] = useState('');
   const [isSending, setIsSending] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const listRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const calculationContext = useMemo<ChatCalculationContext>(() => {
+    const result = currentRecommendation?.ok
+      ? {
+          valid: true,
+          concentrationInBottle: currentRecommendation.concentrado,
+          baseObjective: currentRecommendation.baseObjective,
+          finalTarget: currentRecommendation.finalTarget,
+          totalSolutionMl: currentRecommendation.totalSolutionMl,
+          arterialMl: currentRecommendation.arterialMl,
+          waterMl: currentRecommendation.waterMl,
+        }
+      : { valid: false };
+
+    return {
+      selectedChemical: selectedChemical?.label ?? null,
+      inputs: {
+        concentrationInBottle: inputs.concentrado,
+        estimatedWeightKg: inputs.peso,
+        finalVolumeLiters: inputs.volumenPrepararLitros,
+        targetConcentration: inputs.objetivoManual,
+      },
+      result,
+    };
+  }, [currentRecommendation, inputs, selectedChemical]);
 
   useEffect(() => {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: 'smooth' });
@@ -47,8 +95,8 @@ export function ChatBot({ isOpen, onToggle }: ChatBotProps) {
     inputRef.current?.focus();
   }, [isOpen]);
 
-  const sendMessage = useCallback(async () => {
-    const text = input.trim();
+  const sendMessage = useCallback(async (messageOverride?: string) => {
+    const text = (messageOverride ?? input).trim();
     if (!text || isSending) return;
 
     const history = messages.map((m) => ({
@@ -65,7 +113,7 @@ export function ChatBot({ isOpen, onToggle }: ChatBotProps) {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text, history }),
+        body: JSON.stringify({ message: text, history, context: calculationContext }),
       });
       let data: { reply?: unknown; error?: string; message?: string } = {};
       try {
@@ -86,12 +134,27 @@ export function ChatBot({ isOpen, onToggle }: ChatBotProps) {
     } finally {
       setIsSending(false);
     }
-  }, [input, isSending, messages]);
+  }, [calculationContext, input, isSending, messages]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     void sendMessage();
   };
+
+  const quickPrompts = useMemo(() => {
+    if (!calculationContext.result.valid) {
+      return ['¿Cómo uso la calculadora?', 'Explícame C1·V1 = C2·V2'];
+    }
+
+    const finalVolume = calculationContext.result.totalSolutionMl
+      ? formatNumber(calculationContext.result.totalSolutionMl / 1000, 2)
+      : 'otro';
+    return [
+      'Explícame este cálculo paso a paso',
+      `¿Qué cambia si preparo ${finalVolume} L?`,
+      'Genera una explicación breve para el certificado',
+    ];
+  }, [calculationContext]);
 
   return (
     <section
@@ -106,7 +169,7 @@ export function ChatBot({ isOpen, onToggle }: ChatBotProps) {
           </span>
           <div>
             <strong>Asistente ESAMS</strong>
-            <span className="chatbot-panel__status">Gemini 3.5 Flash Lite</span>
+            <span className="chatbot-panel__status">Contexto del cálculo activo</span>
           </div>
         </div>
         <button
@@ -140,6 +203,14 @@ export function ChatBot({ isOpen, onToggle }: ChatBotProps) {
             </p>
           </div>
         )}
+      </div>
+
+      <div className="chatbot-panel__quick-prompts" aria-label="Preguntas sugeridas">
+        {quickPrompts.map((prompt) => (
+          <button key={prompt} type="button" onClick={() => void sendMessage(prompt)} disabled={isSending}>
+            {prompt}
+          </button>
+        ))}
       </div>
 
       {errorMsg && (

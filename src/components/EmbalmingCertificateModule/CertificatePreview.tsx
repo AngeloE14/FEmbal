@@ -10,6 +10,7 @@ import { forwardRef, memo, useMemo } from 'react';
 import type { CertificateData } from './types';
 import { useI18n } from '../../hooks/useI18n';
 import { assetUrl } from '../../utils/paths';
+import { useBrandConfig } from '../../hooks/useBrandConfig';
 
 type CertificatePreviewProps = {
   data: CertificateData;
@@ -73,6 +74,7 @@ const CertificateDocumentBlock = memo(function CertificateDocumentBlock({
 const CertificatePreviewBase = forwardRef<HTMLDivElement, CertificatePreviewProps>(
   function CertificatePreview({ data }, ref) {
     const { t } = useI18n();
+    const { brand } = useBrandConfig();
 
     const sections = useMemo<PreviewBlock[]>(
       () => [
@@ -142,25 +144,28 @@ const CertificatePreviewBase = forwardRef<HTMLDivElement, CertificatePreviewProp
       ],
     );
 
+    const logoSrc = brand.logoDataUrl || assetUrl('/assets/images/logo-circular.webp');
+    const signatureSrc = data.signatureDataUrl;
+
     return (
       <article className="certificate-preview-document" ref={ref}>
         <header className="certificate-document-header">
           <img
             alt=""
             className="certificate-document-logo"
-            src={assetUrl('/assets/images/logo-circular.webp')}
+            src={logoSrc}
             loading="lazy"
             decoding="async"
           />
           <div>
-            <p>ESAMS</p>
+            <p>{brand.institutionName || 'ESAMS'}</p>
             <h1>{t('certificate.doc.title')}</h1>
           </div>
         </header>
 
         <div className="certificate-document-meta">
           <span className="certificate-document-meta-brand">
-            <img alt="" src={assetUrl('/assets/images/logo-circular.webp')} loading="lazy" decoding="async" />
+            <img alt="" src={logoSrc} loading="lazy" decoding="async" />
             {t('certificate.doc.generated')}
           </span>
         </div>
@@ -177,8 +182,8 @@ const CertificatePreviewBase = forwardRef<HTMLDivElement, CertificatePreviewProp
 
         <footer className="certificate-document-footer">
           <div className="certificate-signature-preview">
-            {data.signatureDataUrl ? (
-              <img alt={t('certificate.doc.signature')} src={data.signatureDataUrl} />
+            {signatureSrc ? (
+              <img alt={t('certificate.doc.signature')} src={signatureSrc} />
             ) : (
               <span>{emptyValue}</span>
             )}

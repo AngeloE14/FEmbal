@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { CHANGELOG } from '../config/changelog';
 import { X } from 'lucide-react';
 

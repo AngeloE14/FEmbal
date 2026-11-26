@@ -54,10 +54,11 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
 
   try {
     const body = await readJsonBody(req);
-    const data = (body ?? {}) as { message?: unknown; history?: unknown };
+    const data = (body ?? {}) as { message?: unknown; history?: unknown; context?: unknown };
     const result = await handleChatRequest({
       message: data.message,
       history: data.history,
+      context: data.context,
       clientIp: clientIpFrom(req),
     });
     res.statusCode = result.status;

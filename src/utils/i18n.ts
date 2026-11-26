@@ -27,7 +27,9 @@ export function getSystemLocale(): Locale {
   try {
     const stored = localStorage.getItem(LOCALE_STORAGE_KEY) as Locale | null;
     if (stored && (stored === 'es-MX' || stored === 'en' || stored === 'it')) return stored;
-  } catch {}
+  } catch {
+    // Se utiliza el idioma del navegador como respaldo.
+  }
   const navLang = navigator.language?.slice(0, 2);
   if (navLang === 'en') return 'en';
   if (navLang === 'it') return 'it';

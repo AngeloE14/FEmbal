@@ -61,7 +61,7 @@ const PdfActions = memo(function PdfActions({
         type: 'error',
       });
     }
-  }, [downloadPdf, showStatus, previewRef]);
+  }, [downloadPdf, showStatus, previewRef, t]);
 
   const handlePrint = useCallback(() => {
     const source = printPreviewRef.current;
@@ -207,7 +207,7 @@ const PdfActions = memo(function PdfActions({
               }
             }
           })();
-        <\/script>
+        </script>
       </body>
       </html>
     `;

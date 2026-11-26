@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useRef } from 'react';
 import type { ChangeEvent } from 'react';
 import { useI18n } from '../../hooks/useI18n';
 import {
@@ -9,6 +9,16 @@ import {
   type ManualCertificateField,
 } from './types';
 import { SignaturePad } from './SignaturePad';
+import { useBrandConfig } from '../../hooks/useBrandConfig';
+
+function readImageFile(file: File, onRead: (dataUrl: string) => void): void {
+  if (!file.type.startsWith('image/') || file.size > 2_000_000) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    if (typeof reader.result === 'string') onRead(reader.result);
+  };
+  reader.readAsDataURL(file);
+}
 
 type CertificateFormProps = {
   data: CertificateData;
@@ -31,6 +41,8 @@ export const CertificateForm = memo(function CertificateForm({
   onUpdate,
 }: CertificateFormProps) {
   const { t } = useI18n();
+  const { brand, updateBrand } = useBrandConfig();
+  const logoInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleInputChange = useCallback(
     (field: ManualCertificateField) =>
@@ -39,6 +51,12 @@ export const CertificateForm = memo(function CertificateForm({
       },
     [onUpdate],
   );
+
+  const handleLogoChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) readImageFile(file, (dataUrl) => updateBrand({ logoDataUrl: dataUrl }));
+    event.currentTarget.value = '';
+  }, [updateBrand]);
 
   const chemicalLabels: Record<keyof ChemicalSolutionData, string> = {
     arterial: t('certificate.chem.arterial'),
@@ -75,8 +93,55 @@ export const CertificateForm = memo(function CertificateForm({
   return (
     <form className="certificate-form" onSubmit={(event) => event.preventDefault()}>
       <div className="certificate-form-heading">
-        <strong>ESAMS</strong>
+        {brand.logoDataUrl && <img src={brand.logoDataUrl} alt="" />}
+        <strong>{brand.institutionName || 'ESAMS'}</strong>
       </div>
+
+      <fieldset className="certificate-form-section certificate-brand-identity">
+        <legend>Identidad del documento (opcional)</legend>
+        <label className="certificate-field">
+          <span>Nombre de la institución</span>
+          <input
+            type="text"
+            value={brand.institutionName}
+            placeholder="Opcional"
+            maxLength={80}
+            onChange={(event) => updateBrand({ institutionName: event.target.value })}
+          />
+        </label>
+        <div className="certificate-brand-identity__upload">
+          <div className="certificate-brand-identity__preview">
+            {brand.logoDataUrl ? <img src={brand.logoDataUrl} alt="Logo institucional" /> : <span>Sin logo</span>}
+          </div>
+          <div>
+            <strong>Logo institucional</strong>
+            <p>Opcional. PNG, JPG o WEBP de máximo 2 MB.</p>
+            <input
+              ref={logoInputRef}
+              className="certificate-brand-identity__input"
+              type="file"
+              accept="image/*"
+              onChange={handleLogoChange}
+            />
+            <button
+              className="certificate-secondary-action certificate-brand-identity__button"
+              type="button"
+              onClick={() => logoInputRef.current?.click()}
+            >
+              {brand.logoDataUrl ? 'Cambiar logo' : 'Agregar logo'}
+            </button>
+            {brand.logoDataUrl && (
+              <button
+                className="certificate-brand-identity__remove"
+                type="button"
+                onClick={() => updateBrand({ logoDataUrl: '' })}
+              >
+                Quitar
+              </button>
+            )}
+          </div>
+        </div>
+      </fieldset>
 
       <fieldset className="certificate-form-section">
         <legend>{t('certificate.form.section.procedure')}</legend>

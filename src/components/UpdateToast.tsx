@@ -7,8 +7,6 @@ export function UpdateToast() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    let timeout: ReturnType<typeof setTimeout>;
-
     const checkForUpdate = async () => {
       try {
         const res = await fetch('./manifest.json', { cache: 'no-store' });
@@ -27,7 +25,7 @@ export function UpdateToast() {
     };
 
     checkForUpdate();
-    timeout = setInterval(checkForUpdate, CHECK_INTERVAL);
+    const timeout = setInterval(checkForUpdate, CHECK_INTERVAL);
 
     return () => clearInterval(timeout);
   }, []);

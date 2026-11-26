@@ -21,23 +21,10 @@
 import type { CertificateData } from '../types';
 
 // Tamaño de una hoja carta en milímetros (215.9mm × 279.4mm).
-// En pulgadas sería 8.5in × 11in.
 const LETTER_WIDTH_MM = 215.9;
 const LETTER_HEIGHT_MM = 279.4;
 
-// Convierte un texto en un nombre de archivo seguro (sin acentos, espacios, etc.)
-// Ejemplo: "José Pérez" → "jose-perez"
-const normalizeFilenamePart = (value: string) =>
-  value
-    .trim()
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-
 export const buildCertificateFilename = (data: CertificateData) => {
-  const name = normalizeFilenamePart(data.deceasedName) || 'documento';
   const now = new Date();
   const today = [
     now.getFullYear(),
@@ -46,7 +33,7 @@ export const buildCertificateFilename = (data: CertificateData) => {
   ].join('-');
   const date = data.procedureDate || today;
 
-  return `documento-embalsamamiento-${name}-${date}.pdf`;
+  return `ESAMS-${date}.pdf`;
 };
 
 export type PdfOptions = {

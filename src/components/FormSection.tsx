@@ -239,6 +239,7 @@ export const FormSection = memo(function FormSection() {
             </button>
           ))}
         </div>
+
       </section>
 
       <p className="auto-hint" role="status">

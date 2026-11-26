@@ -104,7 +104,7 @@ const translations: Record<string, string> = {
   'certificate.type.legal': 'Caso Legal',
   'certificate.type.transfer': 'Traslado',
   'certificate.doc.title': 'CERTIFICADO DE EMBALSAMAMIENTO',
-  'certificate.doc.generated': 'Documento generado a través del sistema',
+  'certificate.doc.generated': 'Documento generado a través de ESAMS',
   'certificate.doc.signature': 'Firma del embalsamador',
   'certificate.chem.sync.empty': 'Calcula una solución arterial para sincronizar este campo.',
   'certificate.chem.fa': 'Concentración de formaldehído',

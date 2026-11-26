@@ -65,6 +65,7 @@ const server = http.createServer(async (req, res) => {
     const result = await handleChatRequest({
       message: data.message,
       history: data.history,
+      context: data.context,
       clientIp: req.socket.remoteAddress ?? 'unknown',
     });
     res.statusCode = result.status;

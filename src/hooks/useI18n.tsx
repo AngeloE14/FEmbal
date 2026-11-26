@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { createT, getSystemLocale, LOCALE_STORAGE_KEY, loadTranslations, type Locale, type TranslationFn } from '../utils/i18n';
 
@@ -12,7 +13,9 @@ const I18nContext = createContext<I18nContextValue | null>(null);
 function storeLocale(locale: Locale): void {
   try {
     localStorage.setItem(LOCALE_STORAGE_KEY, locale);
-  } catch {}
+  } catch {
+    // El idioma puede continuar en memoria aunque el navegador bloquee el almacenamiento.
+  }
 }
 
 export function I18nProvider({ children }: { children: ReactNode }) {

@@ -7,6 +7,7 @@ import './EmbalmingCertificateModule.css';
 import { PdfActions } from './PdfActions';
 import { useCertificateData } from './hooks/useCertificateData';
 import { useCertificateSync } from './hooks/useCertificateSync';
+import { useBrandConfig } from '../../hooks/useBrandConfig';
 
 const EmbalmingCertificateModule = memo(function EmbalmingCertificateModule({
   isOpen,
@@ -16,6 +17,7 @@ const EmbalmingCertificateModule = memo(function EmbalmingCertificateModule({
   onClose: () => void;
 }) {
   const { t } = useI18n();
+  const { brand } = useBrandConfig();
   const { certificateData: manualCertificateData, resetCertificate, updateField } = useCertificateData();
   const certificateData = useCertificateSync(manualCertificateData);
   const previewRef = useRef<HTMLDivElement | null>(null);
@@ -104,7 +106,7 @@ const EmbalmingCertificateModule = memo(function EmbalmingCertificateModule({
       <div className="certificate-module" role="dialog" aria-modal="true" aria-labelledby="certificate-module-title">
         <div className="certificate-module__topbar">
           <div>
-            <span>{t('certificate.mode')}</span>
+            <span>{brand.institutionName ? `${brand.institutionName} · ` : ''}{t('certificate.mode')}</span>
             <h1 id="certificate-module-title">{t('certificate.title')}</h1>
           </div>
           <div className="certificate-topbar-actions">
