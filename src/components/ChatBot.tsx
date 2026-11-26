@@ -40,6 +40,13 @@ type ChatCalculationContext = {
     finalVolumeLiters: string;
     targetConcentration: string;
   };
+  calculation: {
+    dilutionFormula: string;
+    volumeSource: string;
+    volumeFormula: string;
+    concentrationFormula: string;
+    finalFormula: string;
+  };
   result: {
     valid: boolean;
     concentrationInBottle?: number;
@@ -74,6 +81,12 @@ export function ChatBot({ isOpen, onToggle }: ChatBotProps) {
         }
       : { valid: false };
 
+    const volumeSource = inputs.volumenPrepararLitros.trim()
+      ? 'Volumen final indicado manualmente'
+      : inputs.peso.trim()
+        ? 'Volumen estimado por peso'
+        : 'Sin volumen definido';
+
     return {
       selectedChemical: selectedChemical?.label ?? null,
       inputs: {
@@ -81,6 +94,13 @@ export function ChatBot({ isOpen, onToggle }: ChatBotProps) {
         estimatedWeightKg: inputs.peso,
         finalVolumeLiters: inputs.volumenPrepararLitros,
         targetConcentration: inputs.objetivoManual,
+      },
+      calculation: {
+        dilutionFormula: 'C1·V1 = C2·V2',
+        volumeSource,
+        volumeFormula: currentRecommendation?.formulaVolume ?? '',
+        concentrationFormula: currentRecommendation?.formulaConcentration ?? '',
+        finalFormula: currentRecommendation?.formulaFinal ?? '',
       },
       result,
     };
@@ -143,17 +163,30 @@ export function ChatBot({ isOpen, onToggle }: ChatBotProps) {
 
   const quickPrompts = useMemo(() => {
     if (!calculationContext.result.valid) {
-      return ['¿Cómo uso la calculadora?', 'Explícame C1·V1 = C2·V2'];
+      return [
+        '¿Qué datos me faltan para calcular?',
+        '¿Cómo uso la calculadora?',
+        'Explícame C1·V1 = C2·V2',
+      ];
     }
 
-    const finalVolume = calculationContext.result.totalSolutionMl
-      ? formatNumber(calculationContext.result.totalSolutionMl / 1000, 2)
-      : 'otro';
     return [
-      'Explícame este cálculo paso a paso',
-      `¿Qué cambia si preparo ${finalVolume} L?`,
+      '¿Cuánto arterial y agua necesito?',
+      'Explícame mi cálculo actual',
+      'Verifica la fórmula aplicada',
+      '¿Qué pasa si preparo 4 L?',
       'Genera una explicación breve para el certificado',
     ];
+  }, [calculationContext]);
+
+  const currentResultSummary = useMemo(() => {
+    if (!calculationContext.result.valid) return '';
+
+    const arterial = formatNumber(calculationContext.result.arterialMl ?? 0, 1);
+    const water = formatNumber(calculationContext.result.waterMl ?? 0, 1);
+    const total = formatNumber((calculationContext.result.totalSolutionMl ?? 0) / 1000, 2);
+    const target = formatNumber(calculationContext.result.finalTarget ?? 0, 2);
+    return `${arterial} ml arterial · ${water} ml agua · ${total} L · objetivo ${target}%`;
   }, [calculationContext]);
 
   return (
@@ -204,6 +237,14 @@ export function ChatBot({ isOpen, onToggle }: ChatBotProps) {
           </div>
         )}
       </div>
+
+      {currentResultSummary && (
+        <div className="chatbot-panel__calculation" aria-live="polite">
+          <span className="chatbot-panel__calculation-label">Cálculo actual</span>
+          <strong>{currentResultSummary}</strong>
+          <small>{calculationContext.calculation.volumeSource}</small>
+        </div>
+      )}
 
       <div className="chatbot-panel__quick-prompts" aria-label="Preguntas sugeridas">
         {quickPrompts.map((prompt) => (

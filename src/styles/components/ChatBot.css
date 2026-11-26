@@ -206,6 +206,35 @@
   scrollbar-width: thin;
 }
 
+.chatbot-panel__calculation {
+  display: grid;
+  gap: 0.12rem;
+  margin: 0 0.85rem 0.65rem;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid color-mix(in srgb, var(--field-focus) 30%, var(--box-border));
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--field-focus) 8%, var(--card));
+  color: var(--ink);
+}
+
+.chatbot-panel__calculation-label {
+  color: var(--muted);
+  font-size: 0.63rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.chatbot-panel__calculation strong {
+  font-size: 0.74rem;
+  line-height: 1.3;
+}
+
+.chatbot-panel__calculation small {
+  color: var(--muted);
+  font-size: 0.64rem;
+}
+
 .chatbot-panel__quick-prompts button {
   flex: 0 0 auto;
   max-width: 230px;
